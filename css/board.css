@@ -1,0 +1,504 @@
+/* css/board.css */
+
+:root {
+  --cor-fundo-celula: #f2c879;
+  --cor-fundo-celula-alt: #f2c879;
+  --cor-fundo-chiqueiro: #e8b4a8;
+  --cor-fundo-chiqueiro-escuro: #8a5a2e;
+  --cor-borda-fina: #d9ad5c;
+  --cor-borda-grossa: #1a1a1a;
+  --cor-marca-x: #1a1a1a;
+  --cor-azul-selecao: #2f6fed;
+  --cor-verde-correto: #3aa76d;
+  --cor-vermelho-incorreto: #d9534f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #fafafa;
+  overflow-x: hidden;
+}
+
+.tela-jogo {
+  display: grid;
+  grid-template-columns: 180px minmax(480px, 1fr) 300px;
+  gap: 32px;
+  align-items: stretch;
+  width: min(1400px, 100%);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 0 32px 24px;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.barra-lateral {
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  height: auto;
+  padding: 0 0 24px;
+  border-right: 1px solid #cfcfcf;
+}
+
+.barra-lateral h2 {
+  margin: 12px 0 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #252525;
+}
+
+.coluna-tabuleiro h1 {
+  align-self: center;
+  width: 480px;
+  margin: 12px 0 36px;
+  font-size: 16px;
+  text-align: left;
+}
+
+.coluna-tabuleiro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  padding-right: 32px;
+  border-right: 1px solid #cfcfcf;
+}
+
+/* --- GRID DO TABULEIRO --- */
+
+.tabuleiro-grid {
+  --tamanho-grid: 5;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--tamanho-grid), 1fr);
+  grid-template-rows: repeat(var(--tamanho-grid), 1fr);
+  width: 480px;
+  height: 480px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 4px solid var(--cor-borda-grossa);
+}
+
+/* Camada com os nomes dos cômodos, centralizada sobre a área de cada um.
+   Fica por cima do grid (não dentro de uma célula), então nunca é cortada. */
+.camada-rotulos {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.camada-rotulos__item {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-align: center;
+  color: #fff;
+  text-shadow:
+    -1px -1px 0 rgba(0, 0, 0, 0.55),
+    1px -1px 0 rgba(0, 0, 0, 0.55),
+    -1px 1px 0 rgba(0, 0, 0, 0.55),
+    1px 1px 0 rgba(0, 0, 0, 0.55);
+  max-width: none;
+  white-space: nowrap;
+  line-height: 1.15;
+}
+
+@media (max-width: 1100px) {
+  .camada-rotulos__item {
+    font-size: 16px;
+  }
+}
+
+.celula {
+  position: relative;
+  background: var(--cor-fundo-celula);
+  border: 1px solid var(--cor-borda-fina);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  font-size: 28px;
+  transition: filter 0.15s ease;
+}
+
+.celula:hover {
+  filter: brightness(0.95);
+}
+
+.celula[data-tipo="porco"],
+.celula[data-tipo="lama"] {
+  background: var(--cor-fundo-celula);
+}
+
+/* bordas grossas delimitando divisas internas entre cômodos */
+.celula--borda-direita { border-right: 4px solid var(--cor-borda-grossa); }
+.celula--borda-baixo { border-bottom: 4px solid var(--cor-borda-grossa); }
+
+.celula__icone {
+  position: absolute;
+  opacity: 0.9;
+  pointer-events: none;
+  width: 52px;
+  height: 52px;
+}
+
+.celula__icone img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.celula__marca {
+  position: relative;
+  z-index: 1;
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--cor-marca-x);
+}
+
+.celula__marca--suspeito {
+  color: #1a1a1a;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.celula--correta {
+  outline: 3px solid var(--cor-verde-correto);
+  outline-offset: -3px;
+}
+
+.celula--incorreta {
+  outline: 3px solid var(--cor-vermelho-incorreto);
+  outline-offset: -3px;
+}
+
+/* --- FERRAMENTAS --- */
+
+.ferramentas {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.ferramentas button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  color: #777;
+  font-size: 20px;
+}
+
+.ferramentas button.ativo {
+  border-color: var(--cor-azul-selecao);
+  box-shadow: 0 0 0 2px var(--cor-azul-selecao);
+}
+
+/* --- PAINEL DE SUSPEITOS --- */
+
+.coluna-suspeitos h2 {
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.suspeitos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 320px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.suspeito-card {
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  padding: 0 0 8px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+}
+
+.suspeito-card:hover {
+  background: #f5f5f5;
+}
+
+.suspeito-card--selecionado {
+  border-color: var(--cor-azul-selecao);
+  background: #eaf1ff;
+}
+
+.suspeito-card--vitima {
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.suspeito-card--vitima:hover {
+  background: #f5f5f5;
+}
+
+.suspeito-card__avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 8px;
+  background: #ddd;
+}
+
+.suspeito-card__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.suspeito-card__info {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 70px;
+  margin: -14px auto 0;
+  padding: 7px 6px 8px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.suspeito-card__nome {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.suspeito-card__dica {
+  font-size: 12px;
+  color: #555;
+  margin-top: 2px;
+}
+
+/* --- BOTÕES DE AÇÃO --- */
+
+.acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 0;
+  width: 128px;
+  max-width: 128px;
+}
+
+.acoes button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 7px 10px;
+  border-radius: 18px;
+  border: 1px solid #ccc;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.acoes button:first-child {
+  border-color: #ccc;
+}
+
+.botao-como-jogar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 128px;
+  min-height: 34px;
+  margin-top: 10px;
+  padding: 7px 10px;
+  border: 1px solid #ccc;
+  border-radius: 18px;
+  background: #fff;
+  color: #333;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.acoes button:hover,
+.botao-como-jogar:hover,
+.ferramentas button:hover {
+  background: #f4f4f4;
+}
+
+.botao-enviar {
+  background: var(--cor-azul-selecao);
+  color: #fff;
+}
+
+.botao-secundario {
+  background: #fff;
+  color: #333;
+}
+
+@media (max-width: 1100px) {
+  .tela-jogo {
+    grid-template-columns: 160px minmax(360px, 1fr) 240px;
+    gap: 20px;
+    padding: 0 24px 20px;
+  }
+
+  .barra-lateral {
+    width: 160px;
+    height: auto;
+  }
+
+  .tabuleiro-grid {
+    width: 380px;
+    height: 380px;
+  }
+
+  .coluna-tabuleiro h1 {
+    width: 380px;
+  }
+
+  .suspeitos-grid {
+    width: 220px;
+    gap: 6px;
+  }
+
+  .suspeito-card {
+    padding: 0 0 4px;
+  }
+
+  .suspeito-card__avatar {
+    width: 68px;
+    height: 68px;
+    margin-bottom: 4px;
+  }
+
+  .suspeito-card__info {
+    min-height: 64px;
+    margin-top: -12px;
+    padding: 6px 4px 7px;
+    border-radius: 10px;
+  }
+
+  .celula__icone {
+    width: 48px;
+    height: 48px;
+  }
+
+  .suspeito-card__nome {
+    font-size: 13px;
+  }
+
+  .suspeito-card__dica {
+    font-size: 11px;
+    line-height: 1.15;
+    margin-top: 1px;
+  }
+}
+
+@media (max-width: 800px) {
+  .tela-jogo {
+    grid-template-columns: 110px minmax(260px, 1fr) 170px;
+    gap: 20px;
+    padding: 0 16px 16px;
+  }
+
+  .barra-lateral {
+    width: 110px;
+    height: auto;
+  }
+
+  .ferramentas {
+    gap: 4px;
+  }
+
+  .ferramentas button {
+    width: 30px;
+    height: 30px;
+    font-size: 17px;
+  }
+
+  .coluna-tabuleiro {
+    min-width: 0;
+  }
+
+  .tabuleiro-grid {
+    width: min(340px, calc(100vw - 340px));
+    height: min(340px, calc(100vw - 340px));
+  }
+
+  .coluna-tabuleiro h1 {
+    width: min(340px, calc(100vw - 340px));
+  }
+
+  .coluna-suspeitos {
+    grid-column: auto;
+  }
+
+  .suspeitos-grid {
+    width: 160px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}
+
+@media (max-width: 560px) {
+  .tela-jogo {
+    grid-template-columns: 112px minmax(0, 1fr);
+    align-items: start;
+    gap: 16px;
+    padding: 16px 10px;
+  }
+
+  .barra-lateral {
+    width: 112px;
+  }
+
+  .barra-lateral h2 {
+    font-size: 12px;
+  }
+
+  .acoes,
+  .botao-como-jogar {
+    width: 110px;
+  }
+
+  .acoes button,
+  .botao-como-jogar {
+    font-size: 11px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .acoes button span,
+  .botao-como-jogar span {
+    white-space: normal;
+  }
+
+  .tabuleiro-grid {
+    width: min(420px, calc(100vw - 138px));
+    height: min(420px, calc(100vw - 138px));
+  }
+
+  .coluna-suspeitos {
+    display: none;
+  }
+}

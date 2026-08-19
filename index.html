@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Murdoku — O Chiqueiro</title>
+  <link rel="stylesheet" href="css/board.css" />
+</head>
+<body>
+  <div class="tela-jogo">
+    <aside class="barra-lateral" aria-label="Ferramentas do jogo">
+      <h2>Ferramentas</h2>
+
+      <div class="ferramentas">
+        <button id="btn-x" title="Marcar X" aria-label="Marcar X">✕</button>
+        <button id="btn-apagar" title="Limpar marcação" aria-label="Limpar marcação">🧹</button>
+        <button id="btn-desfazer" title="Desfazer" aria-label="Desfazer">↩</button>
+      </div>
+
+      <div class="acoes">
+        <button id="btn-auto" class="botao-secundario">✣ <span>Auto resolução</span></button>
+        <button id="btn-enviar" class="botao-enviar">✓ <span>Enviar</span></button>
+      </div>
+
+      <button id="btn-como-jogar" class="botao-como-jogar">? <span>Como jogar</span></button>
+    </aside>
+
+    <div class="coluna-tabuleiro">
+      <h1 id="titulo-caso"></h1>
+
+      <div id="tabuleiro"></div>
+    </div>
+
+    <div class="coluna-suspeitos">
+      <h2>Suspeitos</h2>
+      <div id="suspeitos" class="suspeitos-grid"></div>
+    </div>
+  </div>
+
+  <script src="js/boards.js"></script>
+  <script src="js/board.js"></script>
+  <script>
+    const tabuleiroAtual = TABULEIROS[0];
+    document.getElementById("titulo-caso").textContent =
+      `${tabuleiroAtual.nome} (${tabuleiroAtual.tamanho}x${tabuleiroAtual.tamanho})`;
+
+    const jogo = criarJogoMurdoku(tabuleiroAtual, {
+      boardEl: document.getElementById("tabuleiro"),
+      suspeitosEl: document.getElementById("suspeitos"),
+    });
+
+    const btnX = document.getElementById("btn-x");
+    const btnApagar = document.getElementById("btn-apagar");
+
+    btnX.addEventListener("click", () => {
+      jogo.selecionarFerramenta("x");
+      btnX.classList.toggle("ativo");
+      btnApagar.classList.remove("ativo");
+    });
+
+    btnApagar.addEventListener("click", () => {
+      jogo.selecionarFerramenta("apagar");
+      btnApagar.classList.toggle("ativo");
+      btnX.classList.remove("ativo");
+    });
+
+    document.getElementById("btn-desfazer").addEventListener("click", () => jogo.desfazer());
+    document.getElementById("btn-auto").addEventListener("click", () => jogo.autoResolver());
+
+    document.getElementById("btn-enviar").addEventListener("click", () => {
+      const resultado = jogo.enviar();
+      alert(
+        resultado.resolvido
+          ? "Caso resolvido! 🎉"
+          : `Você acertou ${resultado.acertos} de ${resultado.total}.`
+      );
+    });
+
+      document.getElementById("btn-como-jogar").addEventListener("click", () => {
+        alert(
+          "Selecione um suspeito e clique em uma célula para marcá-lo. " +
+          "Use Marcar X para indicar uma célula vazia, Limpar marcação para apagar uma marca, " +
+          "Desfazer para voltar uma etapa e Enviar para conferir sua resposta."
+        );
+      });
+  </script>
+</body>
+</html>
