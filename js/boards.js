@@ -69,6 +69,90 @@ const TABULEIROS = [
       "1-2": "eduardo",
     },
   },
+  {
+    id: 2,
+    nome: "O Clube Do Livro",
+    tamanho: 6, // 6x6
+
+    // Layout inicial das células do grid.
+    // Tipos aceitos: "vazio", "estante", "planta", "tapete", "poltrona"
+    gridInicial: [
+      ["vazio", "estante", "planta", "vazio", "estante","estante"],
+      ["estante", "tapetePontaEsquerda", "continua", "continua", "continua","tapetePontaDireita"],
+      ["vazio", "poltrona", "vazio", "estante", "estante","vazio"],
+      ["poltrona", "vazio", "tapetePontaCima", "vazio", "vazio","vazio"],
+      ["poltrona", "tapetePontaEsquerda", "tapeteViraCima", "vazio", "tapetePontaEsquerda","mesaDeLado2"],
+      ["mesa", "vazio", "poltrona", "planta", "mesa","mesaDeLado"],
+    ],
+
+    // Cada tabuleiro define os próprios ícones. Tipos omitidos não exibem imagem.
+    icones: {
+      estante: "assets/icones/estante.png",
+      planta: "assets/icones/planta.png",
+      tapete: "assets/icones/tapete.png",
+      tapetePontaEsquerda: "assets/icones/tapete ponta esquerda.png",
+      tapetePontaDireita: "assets/icones/tapete ponta direita.png",
+      continua: "assets/icones/tepetemeio.png",
+      tapetePontaCima: "assets/icones/tapete ponta cima.png",
+      tapeteViraCima: "assets/icones/tapete vira cima.png",
+      poltrona: "assets/icones/poltrona.png",
+      mesa: "assets/icones/mesa.png",
+      mesaDeLado: "assets/icones/mesa de canto.png",
+      mesaDeLado2: "assets/icones/mesa de lado2.png",
+    },
+
+    // Delimitação dos cômodos para aplicar as bordas pretas grossas.
+    // As chaves de célula seguem o padrão "linha-coluna" (0-indexado).
+    comodos: [
+      {
+        nome: "Biblioteca",
+        cor: "#A3ABD2",
+        rotulo: { left: 48, top: 57 },
+        celulas: [
+          "0-0", "0-1", "0-2", "0-3", "0-4", "0-5",
+          "1-0", "1-1", "1-2", "1-3", "1-4","1-5",
+           "2-3", "2-4"
+          
+        ],
+      },
+      {
+        nome: "Circulo de Discussão",
+        cor: "#B1E2DE",
+        rotulo: { left: 35, top: 94 },
+        celulas: [
+          "2-0","2-1", "2-2",
+          "3-0", "3-1","3-2","3-3",
+          "4-0", "4-1", "4-2","4-3",
+          "5-0", "5-1", "5-2","5-3"
+        ],
+      },
+      {
+        nome: "Refresco",
+        cor: "#EFD8F3",
+        rotulo: { left: 82, top: 94 },
+        celulas: ["2-5","3-4", "3-5", "4-4", "4-5", "5-4","5-5"],
+      },
+    ],
+
+    suspeitos: [
+  { id: "ada", nome: "Ada", dica: "Ela estava ao lado de uma planta.", foto: "assets/suspeitos/carissa.png" },
+  { id: "brigitte", nome: "Brigitte", dica: "Ela estava ao sul de Cameron.", foto: "assets/suspeitos/dolores.png" },
+  { id: "cameron", nome: "Cameron", dica: "Ela estava sobre um tapete.", foto: "assets/suspeitos/man_avatar.png" },
+  { id: "darlene", nome: "Darlene", dica: "Ela era a única pessoa sentada numa cadeira.", foto: "assets/suspeitos/cameron.png" },
+  { id: "edison", nome: "Edison", dica: "Ele estava na biblioteca. Ele não estava ao lado de uma estante", foto: "assets/suspeitos/brent.png" },
+  { id: "vinita", nome: "Vinita", dica: "A vítima. Ela estava sozinha com o assassino.", foto: "assets/suspeitos/vinita.png", isVitima: true },
+],
+
+    // Resposta gabarito para a validação 
+    solucaoMock: {
+      "0-3": "ada",
+      "5-1": "brigitte",
+      "4-4": "cameron",
+      "3-0": "darlene",
+      "1-2": "edison",
+      "2-5": "vinita",
+    },
+  },
 ];
 
 

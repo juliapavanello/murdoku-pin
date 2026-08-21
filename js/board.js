@@ -6,10 +6,10 @@
 //  - as interações de clique (selecionar suspeito -> marcar célula, X, apagar, desfazer, enviar)
 //
 // Uso básico:
-//   const jogo = criarJogoMurdoku(TABULEIROS[0], {
-//     boardEl: document.getElementById("tabuleiro"),
-//     suspeitosEl: document.getElementById("suspeitos"),
-//   });
+// const jogo = criarJogoMurdoku(TABULEIROS[1], {
+//   boardEl: document.getElementById("tabuleiro"),
+//   suspeitosEl: document.getElementById("suspeitos"),
+// });
 
 /**
  * Retorna o nome do cômodo ao qual a célula (linha, coluna) pertence.
