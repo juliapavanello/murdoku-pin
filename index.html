@@ -2,86 +2,30 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Murdoku — O Chiqueiro</title>
-  <link rel="stylesheet" href="css/board.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Murdoku — Tabuleiros</title>
+  <link rel="stylesheet" href="css/layout.css" />
 </head>
 <body>
-  <div class="tela-jogo">
-    <aside class="barra-lateral" aria-label="Ferramentas do jogo">
-      <h2>Ferramentas</h2>
-
-      <div class="ferramentas">
-        <button id="btn-x" title="Marcar X" aria-label="Marcar X">✕</button>
-        <button id="btn-apagar" title="Limpar marcação" aria-label="Limpar marcação">🧹</button>
-        <button id="btn-desfazer" title="Desfazer" aria-label="Desfazer">↩</button>
+  <main class="conteudo-principal">
+    <header class="hub-cabecalho">
+      <div class="filtros" aria-label="Filtrar tabuleiros por dificuldade">
+        <button class="filtro-btn filtro-btn--ativo" type="button" data-filtro="todos">Todos</button>
+        <button class="filtro-btn" type="button" data-filtro="facil">Fácil</button>
+        <button class="filtro-btn" type="button" data-filtro="medio">Médio</button>
+        <button class="filtro-btn" type="button" data-filtro="dificil">Difícil</button>
       </div>
+    </header>
 
-      <div class="acoes">
-        <button id="btn-auto" class="botao-secundario">✣ <span>Auto resolução</span></button>
-        <button id="btn-enviar" class="botao-enviar">✓ <span>Enviar</span></button>
-      </div>
-
-      <button id="btn-como-jogar" class="botao-como-jogar">? <span>Como jogar</span></button>
-    </aside>
-
-    <div class="coluna-tabuleiro">
-      <h1 id="titulo-caso"></h1>
-
-      <div id="tabuleiro"></div>
-    </div>
-
-    <div class="coluna-suspeitos">
-      <h2>Suspeitos</h2>
-      <div id="suspeitos" class="suspeitos-grid"></div>
-    </div>
-  </div>
+    <section id="grade-tabuleiros" class="grade-tabuleiros" aria-label="Tabuleiros disponíveis"></section>
+  </main>
 
   <script src="js/boards.js"></script>
-  <script src="js/board.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/home.js"></script>
   <script>
-    const tabuleiroAtual = TABULEIROS[1]; // Alterar o índice para escolher outro tabuleiro
-    document.getElementById("titulo-caso").textContent =
-      `${tabuleiroAtual.nome} (${tabuleiroAtual.tamanho}x${tabuleiroAtual.tamanho})`;
-
-    const jogo = criarJogoMurdoku(tabuleiroAtual, {
-      boardEl: document.getElementById("tabuleiro"),
-      suspeitosEl: document.getElementById("suspeitos"),
-    });
-
-    const btnX = document.getElementById("btn-x");
-    const btnApagar = document.getElementById("btn-apagar");
-
-    btnX.addEventListener("click", () => {
-      jogo.selecionarFerramenta("x");
-      btnX.classList.toggle("ativo");
-      btnApagar.classList.remove("ativo");
-    });
-
-    btnApagar.addEventListener("click", () => {
-      jogo.selecionarFerramenta("apagar");
-      btnApagar.classList.toggle("ativo");
-      btnX.classList.remove("ativo");
-    });
-
-    document.getElementById("btn-desfazer").addEventListener("click", () => jogo.desfazer());
-    document.getElementById("btn-auto").addEventListener("click", () => jogo.autoResolver());
-
-    document.getElementById("btn-enviar").addEventListener("click", () => {
-      const resultado = jogo.enviar();
-      alert(
-        resultado.resolvido
-          ? "Caso resolvido! 🎉"
-          : `Você acertou ${resultado.acertos} de ${resultado.total}.`
-      );
-    });
-
-      document.getElementById("btn-como-jogar").addEventListener("click", () => {
-        alert(
-          "Selecione um suspeito e clique em uma célula para marcá-lo. " +
-          "Use Marcar X para indicar uma célula vazia, Limpar marcação para apagar uma marca, " +
-          "Desfazer para voltar uma etapa e Enviar para conferir sua resposta."
-        );
-      });
+    montarNav("tabuleiros");
+    montarHubTabuleiros();
   </script>
 </body>
 </html>
