@@ -1,0 +1,23 @@
+<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="mapa a vila da fronteira">
+<g id="mesa de lado">
+<g id="Rectangle 46">
+<mask id="path-1-inside-1_3_2" fill="white">
+<path d="M0 1H60V54.2331H0V1Z"/>
+</mask>
+<path d="M0 1H60V54.2331H0V1Z" fill="#805348"/>
+<path d="M60 54.2331V55.2331H61V54.2331H60ZM60 1H59V54.2331H60H61V1H60ZM60 54.2331V53.2331H0V54.2331V55.2331H60V54.2331Z" fill="black" mask="url(#path-1-inside-1_3_2)"/>
+</g>
+<rect id="Rectangle 47" x="10" y="51.1843" width="5" height="8.31579" fill="#805348" stroke="black"/>
+<rect id="Rectangle 48" x="45.5" y="51.1843" width="5" height="8.31579" fill="#805348" stroke="black"/>
+<g id="Rectangle 49">
+<mask id="path-5-inside-2_3_2" fill="white">
+<path d="M0 47.5789H60V54.233H0V47.5789Z"/>
+</mask>
+<path d="M0 47.5789H60V54.233H0V47.5789Z" fill="#53362F"/>
+<path d="M60 47.5789H61V46.5789H60V47.5789ZM60 54.233V55.233H61V54.233H60ZM0 47.5789V48.5789H60V47.5789V46.5789H0V47.5789ZM60 47.5789H59V54.233H60H61V47.5789H60ZM60 54.233V53.233H0V54.233V55.233H60V54.233Z" fill="black" mask="url(#path-5-inside-2_3_2)"/>
+</g>
+<line id="Line 40" y1="0.5" x2="7.5" y2="0.5" stroke="black"/>
+</g>
+</g>
+</svg>

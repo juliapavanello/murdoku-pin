@@ -1,0 +1,21 @@
+<svg width="71" height="60" viewBox="0 0 71 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="mapa a vila da fronteira">
+<g id="fim da mesa comprida">
+<g id="Rectangle 213">
+<mask id="path-1-inside-1_3_2" fill="white">
+<path d="M0 0H71V49.0435H0V0Z"/>
+</mask>
+<path d="M0 0H71V49.0435H0V0Z" fill="#805348"/>
+<path d="M0 0V-1H-1V0H0ZM0 49.0435H-1V50.0435H0V49.0435ZM0 0V1H71V0V-1H0V0ZM71 49.0435V48.0435H0V49.0435V50.0435H71V49.0435ZM0 49.0435H1V0H0H-1V49.0435H0Z" fill="black" mask="url(#path-1-inside-1_3_2)"/>
+</g>
+<rect id="Rectangle 215" x="10.4395" y="51.1086" width="6.81" height="8.3913" fill="#805348" stroke="black"/>
+<g id="Rectangle 214">
+<mask id="path-4-inside-2_3_2" fill="white">
+<path d="M0 47.4783H71V54.2609H0V47.4783Z"/>
+</mask>
+<path d="M0 47.4783H71V54.2609H0V47.4783Z" fill="#53362F"/>
+<path d="M0 47.4783V46.4783H-1V47.4783H0ZM0 54.2609H-1V55.2609H0V54.2609ZM0 47.4783V48.4783H71V47.4783V46.4783H0V47.4783ZM71 54.2609V53.2609H0V54.2609V55.2609H71V54.2609ZM0 54.2609H1V47.4783H0H-1V54.2609H0Z" fill="black" mask="url(#path-4-inside-2_3_2)"/>
+</g>
+</g>
+</g>
+</svg>

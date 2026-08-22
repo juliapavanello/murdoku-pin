@@ -1,0 +1,33 @@
+<svg width="120" height="101" viewBox="0 0 120 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="A floricultura componentes">
+<g id="Mesa direita">
+<rect id="Rectangle 152" x="89.5" y="83.5" width="10" height="17" fill="#E295A8" stroke="black"/>
+<g id="Rectangle 150" filter="url(#filter0_d_3_2)">
+<mask id="path-2-inside-1_3_2" fill="white">
+<path d="M4 0H116V90H4V0Z"/>
+</mask>
+<path d="M4 0H116V90H4V0Z" fill="#E295A8"/>
+<path d="M116 0H117V-1H116V0ZM116 90V91H117V90H116ZM4 0V1H116V0V-1H4V0ZM116 0H115V90H116H117V0H116ZM116 90V89H4V90V91H116V90Z" fill="black" mask="url(#path-2-inside-1_3_2)"/>
+</g>
+<g id="Rectangle 151">
+<mask id="path-4-inside-2_3_2" fill="white">
+<path d="M4 78H116V90H4V78Z"/>
+</mask>
+<path d="M4 78H116V90H4V78Z" fill="#CE8E9D"/>
+<path d="M116 78H117V77H116V78ZM116 90V91H117V90H116ZM4 78V79H116V78V77H4V78ZM116 78H115V90H116H117V78H116ZM116 90V89H4V90V91H116V90Z" fill="black" mask="url(#path-4-inside-2_3_2)"/>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_3_2" x="0" y="0" width="120" height="98" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.886275 0 0 0 0 0.584314 0 0 0 0 0.658824 0 0 0 0.47 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3_2"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3_2" result="shape"/>
+</filter>
+</defs>
+</svg>

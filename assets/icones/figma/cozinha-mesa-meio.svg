@@ -1,0 +1,32 @@
+<svg width="97" height="81" viewBox="0 0 97 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="mapa cozinha do inferno">
+<g id="meio da mesa">
+<g id="Rectangle 175">
+<mask id="path-1-inside-1_3_2" fill="white">
+<path d="M4 0H93V67.3222H4V0Z"/>
+</mask>
+<path d="M4 0H93V67.3222H4V0Z" fill="#945210"/>
+<path d="M4 0V1H93V0V-1H4V0ZM93 67.3222V66.3222H4V67.3222V68.3222H93V67.3222Z" fill="black" mask="url(#path-1-inside-1_3_2)"/>
+</g>
+<g id="Rectangle 176" filter="url(#filter0_d_3_2)">
+<mask id="path-3-inside-2_3_2" fill="white">
+<path d="M4 63.2666H93V72.9999H4V63.2666Z"/>
+</mask>
+<path d="M4 63.2666H93V72.9999H4V63.2666Z" fill="#5B340E"/>
+<path d="M4 63.2666V64.2666H93V63.2666V62.2666H4V63.2666ZM93 72.9999V71.9999H4V72.9999V73.9999H93V72.9999Z" fill="black" mask="url(#path-3-inside-2_3_2)"/>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_3_2" x="0" y="63.2666" width="97" height="17.7334" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.580392 0 0 0 0 0.321569 0 0 0 0 0.0627451 0 0 0 0.5 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3_2"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3_2" result="shape"/>
+</filter>
+</defs>
+</svg>

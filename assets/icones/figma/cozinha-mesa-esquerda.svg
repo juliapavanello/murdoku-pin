@@ -1,0 +1,33 @@
+<svg width="96" height="82" viewBox="0 0 96 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="mapa cozinha do inferno">
+<g id="mesa esquerda">
+<rect id="Rectangle 148" x="17.0713" y="67.8862" width="7.64286" height="13.6139" fill="#945210" stroke="black"/>
+<g id="Rectangle 147" filter="url(#filter0_d_3_2)">
+<mask id="path-2-inside-1_3_2" fill="white">
+<path d="M4 0H92V73.0693H4V0Z"/>
+</mask>
+<path d="M4 0H92V73.0693H4V0Z" fill="#945210"/>
+<path d="M4 0V-1H3V0H4ZM4 73.0693H3V74.0693H4V73.0693ZM4 0V1H92V0V-1H4V0ZM92 73.0693V72.0693H4V73.0693V74.0693H92V73.0693ZM4 73.0693H5V0H4H3V73.0693H4Z" fill="black" mask="url(#path-2-inside-1_3_2)"/>
+</g>
+<g id="Rectangle 149">
+<mask id="path-4-inside-2_3_2" fill="white">
+<path d="M4 63.3267H92V73.0692H4V63.3267Z"/>
+</mask>
+<path d="M4 63.3267H92V73.0692H4V63.3267Z" fill="#5B340E"/>
+<path d="M4 63.3267V62.3267H3V63.3267H4ZM4 73.0692H3V74.0692H4V73.0692ZM4 63.3267V64.3267H92V63.3267V62.3267H4V63.3267ZM92 73.0692V72.0692H4V73.0692V74.0692H92V73.0692ZM4 73.0692H5V63.3267H4H3V73.0692H4Z" fill="black" mask="url(#path-4-inside-2_3_2)"/>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_3_2" x="0" y="0" width="96" height="81.0693" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.580392 0 0 0 0 0.321569 0 0 0 0 0.0627451 0 0 0 0.5 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3_2"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3_2" result="shape"/>
+</filter>
+</defs>
+</svg>

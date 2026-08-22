@@ -25,7 +25,15 @@ function getComodoDaCelula(comodos, linha, coluna) {
  * Retorna um objeto com métodos públicos (reiniciar, desfazer, enviar...).
  */
 function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
-  const { tamanho, gridInicial, comodos, suspeitos, solucaoMock, icones = {} } = tabuleiro;
+  const {
+    tamanho,
+    gridInicial,
+    comodos,
+    suspeitos,
+    solucaoMock,
+    icones = {},
+    pistasGerais = [],
+  } = tabuleiro;
 
   // Estado interno: o que foi marcado em cada célula (independente do tipo de fundo, que vem do gridInicial e não muda).
   // marcacoes["linha-coluna"] = { tipo: "x" | "suspeito", suspeitoId?: string }
@@ -198,6 +206,7 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
 
   function renderizarSuspeitos() {
     suspeitosEl.innerHTML = "";
+    suspeitosEl.classList.toggle("suspeitos-grid--compacta", suspeitos.length > 8);
     suspeitos.forEach((suspeito) => {
       const card = document.createElement("div");
       card.className = "suspeito-card";
@@ -217,6 +226,25 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
       card.addEventListener("click", () => selecionarSuspeito(suspeito.id));
       suspeitosEl.appendChild(card);
     });
+
+    if (pistasGerais.length > 0) {
+      const blocoPistas = document.createElement("section");
+      blocoPistas.className = "pistas-gerais";
+
+      const titulo = document.createElement("h3");
+      titulo.textContent = "Pistas gerais";
+      blocoPistas.appendChild(titulo);
+
+      const lista = document.createElement("ul");
+      pistasGerais.forEach((pista) => {
+        const item = document.createElement("li");
+        item.textContent = pista;
+        lista.appendChild(item);
+      });
+
+      blocoPistas.appendChild(lista);
+      suspeitosEl.appendChild(blocoPistas);
+    }
   }
 
   function autoResolver() {

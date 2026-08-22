@@ -5,7 +5,7 @@
   --cor-fundo-celula-alt: #f2c879;
   --cor-fundo-chiqueiro: #e8b4a8;
   --cor-fundo-chiqueiro-escuro: #8a5a2e;
-  --cor-borda-fina: #d9ad5c;
+  --cor-borda-fina: #000000;
   --cor-borda-grossa: #1a1a1a;
   --cor-marca-x: #1a1a1a;
   --cor-azul-selecao: #2f6fed;
@@ -26,13 +26,13 @@ html, body {
 
 .tela-jogo {
   display: grid;
-  grid-template-columns: 180px minmax(480px, 1fr) 300px;
-  gap: 32px;
+  grid-template-columns: 180px minmax(0, 1fr) minmax(260px, 320px);
+  gap: clamp(20px, 3vw, 32px);
   align-items: stretch;
-  width: min(1400px, 100%);
+  width: min(1440px, 100%);
   min-height: 100vh;
   margin: 0 auto;
-  padding: 0 32px 24px;
+  padding: 0 clamp(18px, 3vw, 32px) 24px;
   font-family: "Segoe UI", system-ui, sans-serif;
 }
 
@@ -54,7 +54,7 @@ html, body {
 
 .coluna-tabuleiro h1 {
   align-self: center;
-  width: 480px;
+  width: min(100%, 620px);
   margin: 12px 0 36px;
   font-size: 16px;
   text-align: left;
@@ -77,8 +77,8 @@ html, body {
   display: grid;
   grid-template-columns: repeat(var(--tamanho-grid), 1fr);
   grid-template-rows: repeat(var(--tamanho-grid), 1fr);
-  width: 480px;
-  height: 480px;
+  width: min(100%, clamp(480px, calc(var(--tamanho-grid) * 76px), 620px));
+  aspect-ratio: 1 / 1;
   border-radius: 12px;
   overflow: hidden;
   border: 4px solid var(--cor-borda-grossa);
@@ -94,10 +94,11 @@ html, body {
 
 .camada-rotulos__item {
   position: absolute;
+  z-index: 3;
   transform: translate(-50%, -50%);
-  font-size: clamp(10px, calc(96px / var(--tamanho-grid)), 18px);
+  font-size: clamp(12px, calc(140px / var(--tamanho-grid)), 20px);
   font-weight: 800;
-  letter-spacing: 0.03em;
+  letter-spacing: 0;
   text-align: center;
   color: #fff;
   text-shadow:
@@ -112,7 +113,7 @@ html, body {
 
 @media (max-width: 1100px) {
   .camada-rotulos__item {
-    font-size: 16px;
+    font-size: clamp(10px, calc(120px / var(--tamanho-grid)), 17px);
   }
 }
 
@@ -144,10 +145,41 @@ html, body {
 
 .celula__icone {
   position: absolute;
+  z-index: 0;
   opacity: 0.9;
   pointer-events: none;
   width: clamp(24px, 78%, 52px);
   height: clamp(24px, 78%, 52px);
+}
+
+.celula[data-tipo*="mesa"] .celula__icone,
+.celula[data-tipo*="Mesa"] .celula__icone,
+.celula[data-tipo^="tapete"] .celula__icone,
+.celula[data-tipo="continua"] .celula__icone,
+.celula[data-tipo^="vilaCama"] .celula__icone {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+
+.celula[data-tipo="estante"] .celula__icone {
+  width: 72%;
+  height: 90%;
+}
+
+.celula[data-tipo="cadeira"] .celula__icone {
+  width: 74%;
+  height: 74%;
+}
+
+.celula[data-tipo="flores"] .celula__icone,
+.celula[data-tipo="vilaCactus"] .celula__icone,
+.celula[data-tipo="vilaCaixaRegistradora"] .celula__icone,
+.celula[data-tipo="vilaCavalo"] .celula__icone,
+.celula[data-tipo="vilaCofre"] .celula__icone,
+.celula[data-tipo="vilaSacoDinheiro"] .celula__icone {
+  width: clamp(24px, 82%, 56px);
+  height: clamp(24px, 82%, 56px);
 }
 
 .celula__icone img {
@@ -292,6 +324,32 @@ html, body {
   margin-top: 2px;
 }
 
+.pistas-gerais {
+  grid-column: 1 / -1;
+  padding: 12px 14px 14px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+  text-align: left;
+}
+
+.pistas-gerais h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.pistas-gerais ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.pistas-gerais li {
+  font-size: 12px;
+  line-height: 1.35;
+  color: #333;
+}
+
 /* --- BOTÕES DE AÇÃO --- */
 
 .acoes {
@@ -357,23 +415,21 @@ html, body {
 
 @media (max-width: 1100px) {
   .tela-jogo {
-    grid-template-columns: 160px minmax(360px, 1fr) 240px;
-    gap: 20px;
-    padding: 0 24px 20px;
+    grid-template-columns: 148px minmax(0, 1fr) 220px;
+    gap: 18px;
+    padding: 0 18px 20px;
   }
 
   .barra-lateral {
-    width: 160px;
-    height: auto;
+    width: 148px;
   }
 
   .tabuleiro-grid {
-    width: 380px;
-    height: 380px;
+    width: min(100%, clamp(360px, calc(100vw - 430px), 540px));
   }
 
   .coluna-tabuleiro h1 {
-    width: 380px;
+    width: min(100%, clamp(360px, calc(100vw - 430px), 540px));
   }
 
   .suspeitos-grid {
@@ -399,8 +455,8 @@ html, body {
   }
 
   .celula__icone {
-    width: 48px;
-    height: 48px;
+    width: clamp(20px, 76%, 44px);
+    height: clamp(20px, 76%, 44px);
   }
 
   .suspeito-card__nome {
@@ -414,78 +470,138 @@ html, body {
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 920px) {
   .tela-jogo {
-    grid-template-columns: 110px minmax(260px, 1fr) 170px;
-    gap: 20px;
-    padding: 0 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+    min-height: 100vh;
+    padding: 12px 16px 28px;
   }
 
   .barra-lateral {
-    width: 110px;
-    height: auto;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px 12px;
+    padding: 10px 0 12px;
+    border-right: 0;
+    border-bottom: 1px solid #cfcfcf;
+    background: #fafafa;
+  }
+
+  .barra-lateral h2 {
+    margin: 0;
+    font-size: 12px;
   }
 
   .ferramentas {
-    gap: 4px;
+    order: 1;
+    gap: 8px;
   }
 
   .ferramentas button {
-    width: 30px;
-    height: 30px;
-    font-size: 17px;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .acoes {
+    order: 2;
+    flex-direction: row;
+    width: auto;
+    max-width: none;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .acoes button,
+  .botao-como-jogar {
+    min-height: 36px;
+    white-space: nowrap;
+  }
+
+  .botao-como-jogar {
+    order: 3;
+    width: auto;
+    margin-top: 0;
   }
 
   .coluna-tabuleiro {
+    padding-right: 0;
+    border-right: 0;
     min-width: 0;
   }
 
   .tabuleiro-grid {
-    width: min(340px, calc(100vw - 340px));
-    height: min(340px, calc(100vw - 340px));
+    width: min(100%, 620px);
   }
 
   .coluna-tabuleiro h1 {
-    width: min(340px, calc(100vw - 340px));
+    width: min(100%, 620px);
+    margin: 0 0 12px;
   }
 
   .coluna-suspeitos {
-    grid-column: auto;
+    width: min(100%, 620px);
+    margin: 0 auto;
+  }
+
+  .coluna-suspeitos h2 {
+    margin: 0 0 12px;
   }
 
   .suspeitos-grid {
-    width: 160px;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(136px, 1fr));
+    gap: 12px;
   }
 }
 
 @media (max-width: 560px) {
   .tela-jogo {
-    grid-template-columns: 112px minmax(0, 1fr);
-    align-items: start;
-    gap: 16px;
-    padding: 16px 10px;
+    gap: 14px;
+    padding: 10px 10px 24px;
   }
 
   .barra-lateral {
-    width: 112px;
+    align-items: stretch;
   }
 
   .barra-lateral h2 {
-    font-size: 12px;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .ferramentas {
+    flex: 1 1 100%;
   }
 
   .acoes,
   .botao-como-jogar {
-    width: 110px;
+    width: 100%;
+  }
+
+  .acoes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .acoes button,
   .botao-como-jogar {
     font-size: 11px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
   }
 
   .acoes button span,
@@ -494,11 +610,73 @@ html, body {
   }
 
   .tabuleiro-grid {
-    width: min(420px, calc(100vw - 138px));
-    height: min(420px, calc(100vw - 138px));
+    width: 100%;
+    border-width: 3px;
   }
 
-  .coluna-suspeitos {
-    display: none;
+  .celula {
+    border-width: 1px;
+  }
+
+  .celula--borda-direita {
+    border-right-width: 3px;
+  }
+
+  .celula--borda-baixo {
+    border-bottom-width: 3px;
+  }
+
+  .camada-rotulos__item {
+    font-size: clamp(9px, calc(110px / var(--tamanho-grid)), 14px);
+    max-width: 48%;
+  }
+
+  .suspeitos-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .suspeitos-grid--compacta {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .suspeito-card__avatar {
+    width: 58px;
+    height: 58px;
+  }
+
+  .suspeito-card__info {
+    min-height: 60px;
+  }
+
+  .suspeitos-grid--compacta .suspeito-card {
+    padding-bottom: 3px;
+  }
+
+  .suspeitos-grid--compacta .suspeito-card__avatar {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 2px;
+  }
+
+  .suspeitos-grid--compacta .suspeito-card__info {
+    min-height: 52px;
+    margin-top: -10px;
+    padding: 5px 4px 6px;
+    border-radius: 9px;
+  }
+
+  .suspeitos-grid--compacta .suspeito-card__nome {
+    font-size: 11px;
+  }
+
+  .suspeitos-grid--compacta .suspeito-card__dica {
+    font-size: 9px;
+    line-height: 1.1;
+  }
+
+  .pistas-gerais {
+    padding: 10px 12px 12px;
   }
 }

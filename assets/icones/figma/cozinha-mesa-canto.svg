@@ -1,0 +1,14 @@
+<svg width="87" height="86" viewBox="0 0 87 86" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="mapa cozinha do inferno">
+<g id="mesa de canto">
+<g id="Rectangle 196">
+<mask id="path-1-inside-1_3_2" fill="white">
+<path d="M0 0H87V86H0V0Z"/>
+</mask>
+<path d="M0 0H87V86H0V0Z" fill="#945210"/>
+<path d="M0 0V-1H-1V0H0ZM0 0V1H87V0V-1H0V0ZM0 86H1V0H0H-1V86H0Z" fill="black" mask="url(#path-1-inside-1_3_2)"/>
+</g>
+<line id="Line 54" x1="86.5" y1="86" x2="86.5" y2="67.08" stroke="black"/>
+</g>
+</g>
+</svg>

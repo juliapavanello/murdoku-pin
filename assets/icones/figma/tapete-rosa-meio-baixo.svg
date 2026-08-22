@@ -1,0 +1,14 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Cozinha do inferno componentes">
+<g id="meio do tapete parte de baixo">
+<g id="Rectangle 202">
+<mask id="path-1-inside-1_3_2" fill="white">
+<path d="M0 0H100V100H0V0Z"/>
+</mask>
+<path d="M0 0H100V100H0V0Z" fill="#FFB3CB"/>
+<path d="M100 100V99H0V100V101H100V100Z" fill="black" mask="url(#path-1-inside-1_3_2)"/>
+</g>
+<line id="Line 59" x1="100" y1="89.5" y2="89.5" stroke="#BA9EA7"/>
+</g>
+</g>
+</svg>

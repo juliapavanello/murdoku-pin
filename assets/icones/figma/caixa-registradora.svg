@@ -1,0 +1,20 @@
+<svg width="80" height="120" viewBox="0 0 80 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="A floricultura componentes">
+<g id="caixa registradora">
+<rect id="Rectangle 162" x="0.5" y="65.5" width="79" height="39" fill="#888888" stroke="black"/>
+<rect id="Rectangle 163" x="0.5" y="105.5" width="79" height="14" fill="#888888" stroke="black"/>
+<path id="Rectangle 164" d="M15 40.5H65C73.0081 40.5 79.5 46.9919 79.5 55V64.5H0.5V55C0.5 46.9919 6.99187 40.5 15 40.5Z" fill="#CACACA" stroke="black"/>
+<rect id="Rectangle 165" x="13.5" y="33.5" width="53" height="19" fill="#D9D9D9" stroke="black"/>
+<rect id="Rectangle 166" x="13.5" y="4.5" width="53" height="29" fill="#D9D9D9" stroke="black"/>
+<rect id="Rectangle 167" x="52.5" y="12.5" width="4" height="12" fill="#EAC98F" stroke="black"/>
+<rect id="Rectangle 169" x="21.5" y="9.5" width="20" height="18" fill="#EAC98F" stroke="black"/>
+<rect id="Rectangle 168" x="57.5" y="12.5" width="4" height="12" fill="#EAC98F" stroke="black"/>
+<line id="Line 49" x1="27.5" y1="9" x2="27.5" y2="28" stroke="black"/>
+<line id="Line 50" x1="34.5" y1="9" x2="34.5" y2="28" stroke="black"/>
+<line id="Line 51" x1="21" y1="15.5" x2="42" y2="15.5" stroke="black"/>
+<line id="Line 52" x1="21" y1="21.5" x2="42" y2="21.5" stroke="black"/>
+<path id="Rectangle 170" d="M51 0.5H54C56.3162 0.5 58.2229 2.25007 58.4717 4.5H46.5283C46.7771 2.25007 48.6838 0.5 51 0.5Z" fill="#EAC98F" stroke="black"/>
+<rect id="Rectangle 171" x="18.25" y="2.25" width="4.5" height="1.5" fill="#84490D" stroke="black" stroke-width="0.5"/>
+</g>
+</g>
+</svg>
