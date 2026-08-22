@@ -1,4 +1,5 @@
 function dificuldadeDoTabuleiro(tabuleiro) {
+  if (tabuleiro.dificuldade) return tabuleiro.dificuldade;
   if (tabuleiro.tamanho <= 5) return "facil";
   if (tabuleiro.tamanho === 6) return "medio";
   return "dificil";

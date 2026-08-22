@@ -95,7 +95,7 @@ html, body {
 .camada-rotulos__item {
   position: absolute;
   transform: translate(-50%, -50%);
-  font-size: 18px;
+  font-size: clamp(10px, calc(96px / var(--tamanho-grid)), 18px);
   font-weight: 800;
   letter-spacing: 0.03em;
   text-align: center;
@@ -105,8 +105,8 @@ html, body {
     1px -1px 0 rgba(0, 0, 0, 0.55),
     -1px 1px 0 rgba(0, 0, 0, 0.55),
     1px 1px 0 rgba(0, 0, 0, 0.55);
-  max-width: none;
-  white-space: nowrap;
+  max-width: 42%;
+  white-space: normal;
   line-height: 1.15;
 }
 
@@ -146,8 +146,8 @@ html, body {
   position: absolute;
   opacity: 0.9;
   pointer-events: none;
-  width: 52px;
-  height: 52px;
+  width: clamp(24px, 78%, 52px);
+  height: clamp(24px, 78%, 52px);
 }
 
 .celula__icone img {
