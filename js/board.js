@@ -206,7 +206,9 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
 
   function renderizarSuspeitos() {
     suspeitosEl.innerHTML = "";
-    suspeitosEl.classList.toggle("suspeitos-grid--compacta", suspeitos.length > 8);
+    const usaGradeCompacta = suspeitos.length > 8;
+    suspeitosEl.classList.toggle("suspeitos-grid--compacta", usaGradeCompacta);
+    suspeitosEl.closest(".tela-jogo")?.classList.toggle("tela-jogo--suspeitos-compactos", usaGradeCompacta);
     suspeitos.forEach((suspeito) => {
       const card = document.createElement("div");
       card.className = "suspeito-card";
