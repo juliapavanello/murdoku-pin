@@ -1,7 +1,5 @@
 <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="70" height="70" fill="#F5F5F5"/>
 <g id="mapa visitante inesperado">
-<rect width="1440" height="1024" transform="translate(-526 -333)" fill="#F9F9F9"/>
 <g id="tv">
 <path id="Rectangle 183" d="M69.5 54.1365V67.9998C69.5 68.8282 68.8284 69.4998 68 69.4998H2C1.17157 69.4998 0.5 68.8282 0.5 67.9998V54.1365H69.5Z" fill="#676576" stroke="black"/>
 <rect id="Rectangle 177" x="0.5" y="32.3181" width="69" height="24.4545" rx="1.5" fill="#676576" stroke="black"/>
