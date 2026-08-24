@@ -13,6 +13,35 @@ function rotuloDificuldade(dificuldade) {
   }[dificuldade];
 }
 
+const ORDEM_DIFICULDADES = ["facil", "medio", "dificil"];
+const ORDEM_CONFIGURACAO_MAPA = [1, 2, 6, 3, 4, 7, 8, 5];
+
+function ordenarComoFigma(a, b) {
+  const posicaoA = ORDEM_CONFIGURACAO_MAPA.indexOf(a.id);
+  const posicaoB = ORDEM_CONFIGURACAO_MAPA.indexOf(b.id);
+  const ordemA = posicaoA === -1 ? Number.MAX_SAFE_INTEGER : posicaoA;
+  const ordemB = posicaoB === -1 ? Number.MAX_SAFE_INTEGER : posicaoB;
+  return ordemA - ordemB;
+}
+
+function criarCardTabuleiro(tabuleiro) {
+  const dificuldade = dificuldadeDoTabuleiro(tabuleiro);
+  const card = document.createElement("a");
+  card.className = "card-tabuleiro";
+  card.href = `tabuleiro.html?id=${tabuleiro.id}`;
+  card.innerHTML = `
+    <h2 class="card-tabuleiro__nome">${tabuleiro.nome}</h2>
+    <span class="badge-dificuldade badge-dificuldade--${dificuldade}">
+      ${rotuloDificuldade(dificuldade)}
+    </span>
+    <div class="card-tabuleiro__meta">
+      ${tabuleiro.tamanho}x${tabuleiro.tamanho}
+      <span>${tabuleiro.suspeitos.length} suspeitos</span>
+    </div>
+  `;
+  return card;
+}
+
 function montarHubTabuleiros() {
   const grade = document.getElementById("grade-tabuleiros");
   const filtros = document.querySelectorAll("[data-filtro]");
@@ -21,27 +50,30 @@ function montarHubTabuleiros() {
   let filtroAtual = "todos";
 
   function renderizar() {
-    const tabuleiros = TABULEIROS.filter((tabuleiro) => {
-      const dificuldade = dificuldadeDoTabuleiro(tabuleiro);
-      return filtroAtual === "todos" || dificuldade === filtroAtual;
-    });
-
     grade.innerHTML = "";
 
-    tabuleiros.forEach((tabuleiro) => {
-      const dificuldade = dificuldadeDoTabuleiro(tabuleiro);
-      const card = document.createElement("a");
-      card.className = "card-tabuleiro";
-      card.href = `tabuleiro.html?id=${tabuleiro.id}`;
-      card.innerHTML = `
-        <span class="card-tabuleiro__tag">${tabuleiro.tamanho}x${tabuleiro.tamanho}</span>
-        <h2 class="card-tabuleiro__nome">${tabuleiro.nome}</h2>
-        <span class="badge-dificuldade badge-dificuldade--${dificuldade}">
-          ${rotuloDificuldade(dificuldade)}
-        </span>
-        <div class="card-tabuleiro__meta">${tabuleiro.suspeitos.length} suspeitos</div>
-      `;
-      grade.appendChild(card);
+    const dificuldades =
+      filtroAtual === "todos" ? ORDEM_DIFICULDADES : [filtroAtual];
+
+    dificuldades.forEach((dificuldade) => {
+      const tabuleiros = TABULEIROS.filter(
+        (tabuleiro) => dificuldadeDoTabuleiro(tabuleiro) === dificuldade
+      ).sort(ordenarComoFigma);
+      if (tabuleiros.length === 0) return;
+
+      const grupo = document.createElement("section");
+      grupo.className = `grupo-tabuleiros grupo-tabuleiros--${dificuldade}`;
+      grupo.setAttribute(
+        "aria-label",
+        `Tabuleiros ${rotuloDificuldade(dificuldade).toLowerCase()}`
+      );
+
+      const lista = document.createElement("div");
+      lista.className = "grupo-tabuleiros__grade";
+      tabuleiros.forEach((tabuleiro) => lista.appendChild(criarCardTabuleiro(tabuleiro)));
+
+      grupo.appendChild(lista);
+      grade.appendChild(grupo);
     });
   }
 

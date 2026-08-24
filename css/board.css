@@ -155,7 +155,8 @@ html, body {
 .celula[data-tipo*="Mesa"] .celula__icone,
 .celula[data-tipo^="tapete"] .celula__icone,
 .celula[data-tipo="continua"] .celula__icone,
-.celula[data-tipo^="vilaCama"] .celula__icone {
+.celula[data-tipo^="vilaCama"] .celula__icone,
+.celula[data-tipo^="visitanteCama"] .celula__icone {
   width: 100%;
   height: 100%;
   opacity: 1;
@@ -172,6 +173,12 @@ html, body {
 }
 
 .celula[data-tipo="flores"] .celula__icone,
+.celula[data-tipo="casamentoArvore"] .celula__icone,
+.celula[data-tipo="pinturaCavalete"] .celula__icone,
+.celula[data-tipo="pinturaEstatua"] .celula__icone,
+.celula[data-tipo="pinturaPedra"] .celula__icone,
+.celula[data-tipo="poltronaBranca"] .celula__icone,
+.celula[data-tipo="visitanteTv"] .celula__icone,
 .celula[data-tipo="vilaCactus"] .celula__icone,
 .celula[data-tipo="vilaCaixaRegistradora"] .celula__icone,
 .celula[data-tipo="vilaCavalo"] .celula__icone,

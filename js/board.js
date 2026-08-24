@@ -185,6 +185,7 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     camada.className = "camada-rotulos";
 
     comodos.forEach((comodo) => {
+      if (comodo.exibirRotulo === false || !comodo.nome) return;
       const posicoes = comodo.celulas.map((chave) => chave.split("-").map(Number));
       const mediaLinha = posicoes.reduce((soma, [l]) => soma + l, 0) / posicoes.length;
       const mediaColuna = posicoes.reduce((soma, [, c]) => soma + c, 0) / posicoes.length;

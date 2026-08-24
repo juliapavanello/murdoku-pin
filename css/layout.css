@@ -164,11 +164,18 @@ html,
  /* --- GRADE DE TABULEIROS --- */
  
 .grade-tabuleiros {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 225px), 1fr));
-  gap: 24px 20px;
-  max-width: 1180px;
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+  width: min(100%, 1085px);
+  max-width: 1085px;
   margin: 0 auto;
+}
+
+.grupo-tabuleiros__grade {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 230px));
+  gap: 24px 55px;
 }
  
  .card-tabuleiro {
@@ -177,9 +184,10 @@ html,
    border: 1px solid var(--borda);
    border-radius: 20px;
    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-   padding: 22px 20px 18px;
+   min-height: 140px;
+   padding: 22px 18px 18px;
    cursor: pointer;
-   text-align: left;
+   text-align: center;
    transition: transform 0.15s ease, box-shadow 0.15s ease;
  }
  
@@ -202,7 +210,8 @@ html,
    margin: 0 0 12px;
    font-size: 16px;
    font-weight: 600;
-   padding-right: 60px;
+   line-height: 1.2;
+   padding-right: 0;
  }
  
  .card-tabuleiro__meta {
@@ -350,10 +359,24 @@ html,
  }
 
 .card-tabuleiro {
-  display: block;
-  min-height: 148px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   color: inherit;
   text-decoration: none;
+}
+
+.card-tabuleiro__meta span {
+  margin-left: 8px;
+}
+
+@media (max-width: 1280px) {
+  .grupo-tabuleiros__grade {
+    grid-template-columns: repeat(3, minmax(0, 230px));
+    justify-content: center;
+    column-gap: 32px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -389,6 +412,12 @@ html,
   }
 }
 
+@media (max-width: 780px) {
+  .grupo-tabuleiros__grade {
+    grid-template-columns: repeat(2, minmax(0, 230px));
+  }
+}
+
 @media (max-width: 620px) {
   .conteudo-principal {
     padding: 72px 14px 28px;
@@ -415,14 +444,15 @@ html,
     gap: 14px;
   }
 
+  .grupo-tabuleiros__grade {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
   .card-tabuleiro {
     min-height: 124px;
     border-radius: 14px;
     padding: 18px 16px 16px;
-  }
-
-  .card-tabuleiro__nome {
-    padding-right: 54px;
   }
 
   .historico-titulo {
@@ -453,10 +483,6 @@ html,
   .filtro-btn {
     min-width: 0;
     padding: 8px 10px;
-  }
-
-  .card-tabuleiro__nome {
-    padding-right: 0;
   }
 
   .card-tabuleiro__tag {

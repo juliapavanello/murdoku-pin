@@ -45,6 +45,14 @@ const ICONES_FIGMA = {
   tapeteRosaEsqCima: `${PASTA_FIGMA}tapete-rosa-esq-cima.svg`,
   tapeteRosaMeioBaixo: `${PASTA_FIGMA}tapete-rosa-meio-baixo.svg`,
   tapeteRosaMeioCima: `${PASTA_FIGMA}tapete-rosa-meio-cima.svg`,
+  casamentoArvore: `${PASTA_FIGMA}casamento-arvore.svg`,
+  pinturaCavalete: `${PASTA_FIGMA}pintura-cavalete.svg`,
+  pinturaEstatua: `${PASTA_FIGMA}pintura-estatua.svg`,
+  pinturaPedra: `${PASTA_FIGMA}pintura-pedra.svg`,
+  poltronaBranca: `${PASTA_FIGMA}poltrona-branca.svg`,
+  visitanteCamaBase: `${PASTA_FIGMA}visitante-cama-base.svg`,
+  visitanteCamaCoberta: `${PASTA_FIGMA}visitante-cama-coberta.svg`,
+  visitanteTv: `${PASTA_FIGMA}visitante-tv.svg`,
   vilaCactus: `${PASTA_FIGMA}vila-cactus.svg`,
   vilaCaixaRegistradora: `${PASTA_FIGMA}vila-caixa-registradora.svg`,
   vilaCamaBase: `${PASTA_FIGMA}vila-cama-base.svg`,
@@ -218,7 +226,7 @@ const TABULEIROS = [
     id: 3,
     nome: "A Floricultura",
     tamanho: 7,
-    dificuldade: "medio",
+    dificuldade: "facil",
 
     gridInicial: [
       ["mesaEsquerda", "mesaDireita", "vazio", "estante", "vazio", "vazio", "vazio"],
@@ -482,6 +490,320 @@ const TABULEIROS = [
       "8-1": "hazel",
       "9-1": "isa",
       "7-5": "vini",
+    },
+  },
+  {
+    id: 6,
+    nome: "Pintura ao Ar Livre",
+    tamanho: 6,
+    dificuldade: "facil",
+
+    gridInicial: [
+      ["vazio", "vazio", "pinturaPedra", "vazio", "poltronaBranca", "vazio"],
+      ["vazio", "vazio", "vazio", "pinturaEstatua", "flores", "vazio"],
+      ["flores", "vazio", "vazio", "vazio", "pinturaCavalete", "poltronaBranca"],
+      ["vazio", "vazio", "vazio", "vazio", "vazio", "vazio"],
+      ["vazio", "vazio", "vazio", "flores", "vazio", "vazio"],
+      ["vazio", "vazio", "vazio", "poltronaBranca", "vazio", "vazio"],
+    ],
+
+    icones: {
+      flores: ICONES_FIGMA.flores,
+      pinturaCavalete: ICONES_FIGMA.pinturaCavalete,
+      pinturaEstatua: ICONES_FIGMA.pinturaEstatua,
+      pinturaPedra: ICONES_FIGMA.pinturaPedra,
+      poltronaBranca: ICONES_FIGMA.poltronaBranca,
+    },
+
+    comodos: [
+      {
+        nome: "LAGO",
+        cor: "#cdf5ff",
+        rotulo: { left: 25, top: 29 },
+        celulas: [
+          ...celulasRetangulo(0, 0, 0, 3),
+          ...celulasRetangulo(1, 0, 1, 1),
+        ],
+      },
+      {
+        nome: "CALÇADA",
+        cor: "#b5b5b5",
+        rotulo: { left: 54, top: 94 },
+        celulas: [
+          "4-0",
+          "4-5",
+          ...celulasRetangulo(5, 0, 5, 5),
+        ],
+      },
+      {
+        nome: "FLORESTA",
+        cor: "#a1d65c",
+        rotulo: { left: 48, top: 75 },
+        celulas: celulasExceto(
+          6,
+          [
+            ...celulasRetangulo(0, 0, 0, 3),
+            ...celulasRetangulo(1, 0, 1, 1),
+          ],
+          [
+            "4-0",
+            "4-5",
+            ...celulasRetangulo(5, 0, 5, 5),
+          ]
+        ),
+      },
+    ],
+
+    suspeitos: [
+      { id: "allison", nome: "Allison", dica: "Ela estava na primeira coluna.", foto: "assets/suspeitos/dolores.png" },
+      { id: "brendon", nome: "Brendon", dica: "Ele estava uma fileira ao sul de Donovan, em outra área.", foto: "assets/suspeitos/man_avatar.png" },
+      { id: "clark", nome: "Clark", dica: "Ela estava ao lado da pedra.", foto: "assets/suspeitos/cameron.png" },
+      { id: "donovan", nome: "Donovan", dica: "Ele estava ao lado do cavalete.", foto: "assets/suspeitos/brent.png" },
+      { id: "ellie", nome: "Ellie", dica: "Ela estava sentada em uma cadeira.", foto: "assets/suspeitos/carissa.png" },
+      { id: "vincenza", nome: "Vincenza", dica: "A vítima. Ela estava sozinha com o assassino.", foto: "assets/suspeitos/vinita.png", isVitima: true },
+    ],
+
+    solucaoMock: {
+      "2-0": "allison",
+      "3-3": "brendon",
+      "0-1": "clark",
+      "2-3": "donovan",
+      "0-4": "ellie",
+      "4-3": "vincenza",
+    },
+  },
+  {
+    id: 7,
+    nome: "Casamento Branco",
+    tamanho: 9,
+    dificuldade: "medio",
+
+    gridInicial: [
+      ["vazio", "flores", "vazio", "tapeteRosaEsqCima", "mesa", "tapeteRosaDirCima", "vazio", "vazio", "casamentoArvore"],
+      ["casamentoArvore", "vazio", "vazio", "tapeteRosaEsqBaixo", "tapeteRosaMeioBaixo", "tapeteRosaDirBaixo", "vazio", "vazio", "vazio"],
+      ["vazio", "vazio", "vazio", "vazio", "tapeteRosaMeioCima", "flores", "vazio", "vazio", "vazio"],
+      ["vazio", "vazio", "flores", "poltronaBranca", "tapeteRosaMeioCima", "poltronaBranca", "vazio", "vazio", "casamentoArvore"],
+      ["vazio", "vazio", "poltronaBranca", "vazio", "tapeteRosaMeioCima", "vazio", "poltronaBranca", "vazio", "mesa"],
+      ["vazio", "vazio", "vazio", "vazio", "tapeteRosaMeioCima", "vazio", "vazio", "vazio", "vazio"],
+      ["flores", "vazio", "flores", "poltronaBranca", "tapeteRosaMeioBaixo", "poltronaBranca", "poltronaBranca", "flores", "casamentoArvore"],
+      ["vazio", "mesaEsquerda", "mesaDireita", "flores", "vazio", "vazio", "flores", "vazio", "vazio"],
+      ["casamentoArvore", "vazio", "mesa", "vazio", "vazio", "vazio", "vazio", "vazio", "vazio"],
+    ],
+
+    icones: {
+      casamentoArvore: ICONES_FIGMA.casamentoArvore,
+      flores: ICONES_FIGMA.flores,
+      mesa: ICONES_FIGMA.mesa,
+      mesaDireita: ICONES_FIGMA.mesaDireita,
+      mesaEsquerda: ICONES_FIGMA.mesaEsquerda,
+      poltronaBranca: ICONES_FIGMA.poltronaBranca,
+      tapeteRosaDirBaixo: ICONES_FIGMA.tapeteRosaDirBaixo,
+      tapeteRosaDirCima: ICONES_FIGMA.tapeteRosaDirCima,
+      tapeteRosaEsqBaixo: ICONES_FIGMA.tapeteRosaEsqBaixo,
+      tapeteRosaEsqCima: ICONES_FIGMA.tapeteRosaEsqCima,
+      tapeteRosaMeioBaixo: ICONES_FIGMA.tapeteRosaMeioBaixo,
+      tapeteRosaMeioCima: ICONES_FIGMA.tapeteRosaMeioCima,
+    },
+
+    comodos: [
+      {
+        nome: "ALTAR",
+        cor: "#f7d4ec",
+        rotulo: { left: 48, top: 24 },
+        celulas: celulasRetangulo(0, 3, 1, 5),
+      },
+      {
+        nome: "PÁTIO OESTE",
+        cor: "#c4fea4",
+        rotulo: { left: 17, top: 96 },
+        celulas: [
+          ...celulasRetangulo(0, 0, 6, 1),
+          ...celulasRetangulo(7, 0, 8, 1),
+          "8-2",
+        ],
+      },
+      {
+        nome: "PÁTIO LESTE",
+        cor: "#c4fea4",
+        rotulo: { left: 82, top: 96 },
+        celulas: [
+          ...celulasRetangulo(0, 7, 6, 8),
+          ...celulasRetangulo(7, 6, 8, 8),
+        ],
+      },
+      {
+        nome: "ALPENDRE",
+        cor: "#f1ecee",
+        rotulo: { left: 48, top: 96 },
+        celulas: celulasRetangulo(7, 2, 8, 5),
+      },
+      {
+        nome: "CAPELA",
+        cor: "#f1ecee",
+        rotulo: { left: 48, top: 73 },
+        celulas: celulasExceto(
+          9,
+          celulasRetangulo(0, 3, 1, 5),
+          [
+            ...celulasRetangulo(0, 0, 6, 1),
+            ...celulasRetangulo(7, 0, 8, 1),
+            "8-2",
+          ],
+          [
+            ...celulasRetangulo(0, 7, 6, 8),
+            ...celulasRetangulo(7, 6, 8, 8),
+          ],
+          celulasRetangulo(7, 2, 8, 5)
+        ),
+      },
+    ],
+
+    suspeitos: [
+      { id: "archer", nome: "Archer", dica: "Ele estava ao lado de uma mesa.", foto: "assets/suspeitos/man_avatar.png" },
+      { id: "brooke", nome: "Brooke", dica: "Ela estava ao lado de algumas flores.", foto: "assets/suspeitos/vinita.png" },
+      { id: "crystal", nome: "Crystal", dica: "Havia um homem na cama em sua área.", foto: "assets/suspeitos/dolores.png" },
+      { id: "daisy", nome: "Daisy", dica: "Ela estava no Alpendre.", foto: "assets/suspeitos/carissa.png" },
+      { id: "ernie", nome: "Ernie", dica: "Ele estava a nordeste de Crystal.", foto: "assets/suspeitos/cameron.png" },
+      { id: "finn", nome: "Finn", dica: "Ele estava num canto da sua área.", foto: "assets/suspeitos/brent.png" },
+      { id: "giulia", nome: "Giulia", dica: "Ela estava com alguém que estava ao lado de uma árvore.", foto: "assets/suspeitos/vinita.png" },
+      { id: "harper", nome: "Harper", dica: "Ela estava sentada numa cadeira.", foto: "assets/suspeitos/eduardo.png" },
+      { id: "vikram", nome: "Vikram", dica: "A vítima. Ele estava sozinha com o assassino.", foto: "assets/suspeitos/man_avatar.png", isVitima: true },
+    ],
+
+    solucaoMock: {
+      "0-3": "archer",
+      "6-0": "brooke",
+      "4-8": "crystal",
+      "8-4": "daisy",
+      "3-7": "ernie",
+      "8-8": "finn",
+      "7-7": "giulia",
+      "4-2": "harper",
+      "6-5": "vikram",
+    },
+  },
+  {
+    id: 8,
+    nome: "Visitantes Inesperados",
+    tamanho: 9,
+    dificuldade: "dificil",
+
+    gridInicial: [
+      ["estante", "planta", "estante", "vazio", "mesa", "vazio", "planta", "vazio", "visitanteCamaBase"],
+      ["vazio", "visitanteCamaBase", "tapeteAzulLado", "vazio", "vazio", "vazio", "vazio", "tapeteAzulDobra", "visitanteCamaCoberta"],
+      ["vazio", "visitanteCamaCoberta", "estante", "vazio", "visitanteTv", "vazio", "tapeteAzulBaixo", "vazio", "poltronaBranca"],
+      ["tapeteAzulLado", "tapeteAzulDobra", "estante", "tapeteRosaEsqCima", "tapeteRosaMeioCima", "tapeteRosaDirCima", "poltronaBranca", "vazio", "estante"],
+      ["vazio", "planta", "poltronaBranca", "tapeteRosaEsqBaixo", "tapeteRosaMeioBaixo", "tapeteRosaDirBaixo", "poltronaBranca", "poltronaBranca", "vazio"],
+      ["mesa", "vazio", "vazio", "vazio", "vazio", "poltronaBranca", "planta", "estante", "vazio"],
+      ["poltronaBranca", "vazio", "vazio", "vazio", "vazio", "planta", "poltronaBranca", "poltronaBranca", "tapeteAzulLado"],
+      ["vazio", "vazio", "tapeteAzulDobra", "vazio", "vazio", "poltronaBranca", "mesaEsquerda", "mesaDireita", "tapeteAzulBaixo"],
+      ["vazio", "tapeteAzulBaixo", "estante", "vazio", "vazio", "vazio", "vazio", "poltronaBranca", "vazio"],
+    ],
+
+    icones: {
+      estante: ICONES_FIGMA.estante,
+      mesa: ICONES_FIGMA.mesa,
+      mesaDireita: ICONES_FIGMA.mesaDireita,
+      mesaEsquerda: ICONES_FIGMA.mesaEsquerda,
+      planta: ICONES_FIGMA.planta,
+      poltronaBranca: ICONES_FIGMA.poltronaBranca,
+      tapeteAzulBaixo: ICONES_FIGMA.tapeteAzulBaixo,
+      tapeteAzulDobra: ICONES_FIGMA.tapeteAzulDobra,
+      tapeteAzulLado: ICONES_FIGMA.tapeteAzulLado,
+      tapeteRosaDirBaixo: ICONES_FIGMA.tapeteRosaDirBaixo,
+      tapeteRosaDirCima: ICONES_FIGMA.tapeteRosaDirCima,
+      tapeteRosaEsqBaixo: ICONES_FIGMA.tapeteRosaEsqBaixo,
+      tapeteRosaEsqCima: ICONES_FIGMA.tapeteRosaEsqCima,
+      tapeteRosaMeioBaixo: ICONES_FIGMA.tapeteRosaMeioBaixo,
+      tapeteRosaMeioCima: ICONES_FIGMA.tapeteRosaMeioCima,
+      visitanteCamaBase: ICONES_FIGMA.visitanteCamaBase,
+      visitanteCamaCoberta: ICONES_FIGMA.visitanteCamaCoberta,
+      visitanteTv: ICONES_FIGMA.visitanteTv,
+    },
+
+    comodos: [
+      {
+        nome: "ENTRADA",
+        cor: "#a9eada",
+        exibirRotulo: false,
+        celulas: [
+          ...celulasRetangulo(0, 0, 2, 3),
+          ...celulasRetangulo(3, 0, 3, 2),
+          ...celulasRetangulo(4, 0, 5, 1),
+        ],
+      },
+      {
+        nome: "SUÍTE",
+        cor: "#baf3e4",
+        exibirRotulo: false,
+        celulas: [
+          ...celulasRetangulo(0, 4, 2, 8),
+          ...celulasRetangulo(3, 6, 3, 8),
+          ...celulasRetangulo(4, 7, 4, 8),
+        ],
+      },
+      {
+        nome: "SALA",
+        cor: "#c0cadd",
+        exibirRotulo: false,
+        celulas: [
+          ...celulasRetangulo(3, 3, 3, 5),
+          ...celulasRetangulo(4, 2, 6, 6),
+        ],
+      },
+      {
+        nome: "GARAGEM",
+        cor: "#a1b8d7",
+        exibirRotulo: false,
+        celulas: [
+          ...celulasRetangulo(6, 0, 6, 1),
+          ...celulasRetangulo(7, 0, 7, 4),
+          ...celulasRetangulo(8, 0, 8, 3),
+        ],
+      },
+      {
+        nome: "JARDIM",
+        cor: "#bff1c2",
+        exibirRotulo: false,
+        celulas: [
+          ...celulasRetangulo(7, 5, 7, 7),
+          ...celulasRetangulo(8, 4, 8, 7),
+        ],
+      },
+      {
+        nome: "CORREDOR",
+        cor: "#addaae",
+        exibirRotulo: false,
+        celulas: [
+          ...celulasRetangulo(5, 7, 6, 8),
+          "7-8",
+          "8-8",
+        ],
+      },
+    ],
+
+    suspeitos: [
+      { id: "angelo", nome: "Angelo", dica: "Ele estava ao lado da televisão.", foto: "assets/suspeitos/man_avatar.png" },
+      { id: "bruna", nome: "Bruna", dica: "Ela estava em uma cama.", foto: "assets/suspeitos/vinita.png" },
+      { id: "camila", nome: "Camila", dica: "Ela estava na última coluna.", foto: "assets/suspeitos/dolores.png" },
+      { id: "danielVisitante", nome: "Daniel", dica: "Ele estava ao lado de uma mesa.", foto: "assets/suspeitos/cameron.png" },
+      { id: "ed", nome: "Ed", dica: "Ele era a única pessoa ao lado de uma planta.", foto: "assets/suspeitos/brent.png" },
+      { id: "fabio", nome: "Fabio", dica: "Ele estava ao lado de uma prateleira.", foto: "assets/suspeitos/man_avatar.png" },
+      { id: "gabi", nome: "Gabi", dica: "Ela estava ao lado de uma cama.", foto: "assets/suspeitos/carissa.png" },
+      { id: "hayden", nome: "Hayden", dica: "Ele estava sentado em uma cadeira.", foto: "assets/suspeitos/eduardo.png" },
+      { id: "virginia", nome: "Virginia", dica: "A vítima. Ele estava sozinha com o assassino.", foto: "assets/suspeitos/vinita.png", isVitima: true },
+    ],
+
+    solucaoMock: {
+      "2-3": "angelo",
+      "1-8": "bruna",
+      "4-8": "camila",
+      "5-1": "danielVisitante",
+      "5-5": "ed",
+      "3-7": "fabio",
+      "0-7": "gabi",
+      "4-6": "hayden",
+      "7-7": "virginia",
     },
   },
 ];

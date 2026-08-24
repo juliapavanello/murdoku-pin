@@ -1,0 +1,26 @@
+<svg width="80" height="100" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="80" height="100" fill="#F5F5F5"/>
+<g id="mapa pintura ao ar livre">
+<rect width="1440" height="1024" transform="translate(-766 -434)" fill="#F9F9F9"/>
+<g id="Quatro com tripe">
+<rect id="Rectangle 142" x="30.3999" y="67.0281" width="17.6" height="3.31003" fill="black"/>
+<rect id="Rectangle 140" x="22.8999" y="78.2856" width="33.4" height="2.31003" fill="#AC6115" stroke="black"/>
+<rect id="Rectangle 141" x="28.5" y="70.8381" width="23.8" height="6.44757" fill="#593510" stroke="black"/>
+<rect id="Rectangle 138" x="0.244091" y="0.637817" width="5.31171" height="36.8755" rx="1.5" transform="matrix(0.926324 0.376728 -0.438143 0.898906 28.0924 63.5482)" fill="#AC6115" stroke="black"/>
+<rect id="Rectangle 139" x="0.682233" y="0.261089" width="5.31171" height="36.8755" rx="1.5" transform="matrix(0.926324 -0.376728 0.438143 0.898906 45.536 66.237)" fill="#AC6115" stroke="black"/>
+<rect id="Rectangle 137" x="0.5" y="60.0806" width="79" height="6.44757" rx="1.5" fill="#AC6115" stroke="black"/>
+<rect id="Rectangle 143" x="8.5" y="11.2576" width="63" height="47.823" fill="#FFFEFA" stroke="black"/>
+<path id="Polygon 2" d="M1.787 59.6831L7.7634 53.6069L7.76331 59.6829L1.787 59.6831Z" fill="#AC6115" stroke="black" stroke-width="0.5"/>
+<path id="Polygon 3" d="M71.7292 54.3537L78.248 59.9511L71.5943 59.8133L71.7292 54.3537Z" fill="#AC6115" stroke="black" stroke-width="0.5"/>
+<rect id="Rectangle 144" x="8.25" y="9.35254" width="63.5" height="3.63754" rx="1.75" fill="white" stroke="black" stroke-width="0.5"/>
+<g id="Rectangle 145">
+<mask id="path-11-inside-1_3_2" fill="white">
+<path d="M31.2 2.48242H47.2V9.10248H31.2V2.48242Z"/>
+</mask>
+<path d="M31.2 2.48242H47.2V9.10248H31.2V2.48242Z" fill="#AC6115"/>
+<path d="M31.2 2.48242V1.48242H30.2V2.48242H31.2ZM47.2 2.48242H48.2V1.48242H47.2V2.48242ZM47.2 9.10248V9.60248H48.2V9.10248H47.2ZM31.2 9.10248H30.2V9.60248H31.2V9.10248ZM31.2 2.48242V3.48242H47.2V2.48242V1.48242H31.2V2.48242ZM47.2 2.48242H46.2V9.10248H47.2H48.2V2.48242H47.2ZM47.2 9.10248V8.60248H31.2V9.10248V9.60248H47.2V9.10248ZM31.2 9.10248H32.2V2.48242H31.2H30.2V9.10248H31.2Z" fill="black" mask="url(#path-11-inside-1_3_2)"/>
+</g>
+<rect id="Rectangle 146" x="35.7" y="0.5" width="7.8" height="1.48252" fill="#AC6115" stroke="black"/>
+</g>
+</g>
+</svg>
