@@ -173,6 +173,9 @@ html, body {
 }
 
 .celula[data-tipo="flores"] .celula__icone,
+.celula[data-tipo="bandeiraGolf"] .celula__icone,
+.celula[data-tipo="barril"] .celula__icone,
+.celula[data-tipo="caixa"] .celula__icone,
 .celula[data-tipo="casamentoArvore"] .celula__icone,
 .celula[data-tipo="pinturaCavalete"] .celula__icone,
 .celula[data-tipo="pinturaEstatua"] .celula__icone,

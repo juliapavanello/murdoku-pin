@@ -14,7 +14,7 @@ function rotuloDificuldade(dificuldade) {
 }
 
 const ORDEM_DIFICULDADES = ["facil", "medio", "dificil"];
-const ORDEM_CONFIGURACAO_MAPA = [1, 2, 6, 3, 4, 7, 8, 5];
+const ORDEM_CONFIGURACAO_MAPA = [1, 2, 6, 3, 9, 4, 7, 10, 11, 8, 12, 5];
 
 function ordenarComoFigma(a, b) {
   const posicaoA = ORDEM_CONFIGURACAO_MAPA.indexOf(a.id);
