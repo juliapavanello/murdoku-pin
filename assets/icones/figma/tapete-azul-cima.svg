@@ -1,0 +1,18 @@
+<svg width="100" height="110" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g transform="translate(0 110) scale(1 -1)">
+<g id="A floricultura componentes">
+<g id="tapete parte de cima">
+<g id="Rectangle 153">
+<mask id="path-1-inside-1_3_2" fill="white">
+<path d="M0 0H100V110H0V0Z"/>
+</mask>
+<path d="M0 0H100V110H0V0Z" fill="#C4FAF6"/>
+<path d="M100 110V111H101V110H100ZM0 110H-1V111H0V110ZM100 0H99V110H100H101V0H100ZM100 110V109H0V110V111H100V110ZM0 110H1V0H0H-1V110H0Z" fill="black" mask="url(#path-1-inside-1_3_2)"/>
+</g>
+<line id="Line 29" x1="9.5" y1="101" x2="9.5" stroke="#919191"/>
+<line id="Line 30" x1="89.5" y1="101" x2="89.5" stroke="#919191"/>
+<line id="Line 41" x1="8.99683" y1="101.006" x2="90.003" y2="101.006" stroke="#919191"/>
+</g>
+</g>
+</g>
+</svg>

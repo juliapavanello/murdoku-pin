@@ -1,0 +1,17 @@
+<svg width="75" height="58" viewBox="0 0 75 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="mapa visitante inesperado">
+<g id="Tapeta fora esquerda">
+<g id="Rectangle 129">
+<mask id="path-1-inside-1_3_2" fill="white">
+<path d="M75 58L0 58V0L75 0V58Z"/>
+</mask>
+<path d="M75 58L0 58V0L75 0V58Z" fill="#D1D0FE"/>
+<path d="M75 58V59H76V58H75ZM75 0H76V-1H75V0ZM75 58V57L0 57V58V59L75 59V58ZM0 0V1L75 1V0V-1L0 -1V0ZM75 0H74V58H75H76V0H75Z" fill="black" mask="url(#path-1-inside-1_3_2)"/>
+</g>
+<line id="Line 29" y1="5.30005" x2="67.5" y2="5.30005" stroke="#919191"/>
+<line id="Line 30" y1="51.7" x2="67.5" y2="51.7" stroke="#919191"/>
+<line id="Line 31" x1="67.9766" y1="5.21997" x2="67.9766" y2="52.2" stroke="#919191"/>
+<line id="Line 33" x1="67.9766" y1="5.21997" x2="67.9766" y2="52.2" stroke="#919191"/>
+</g>
+</g>
+</svg>

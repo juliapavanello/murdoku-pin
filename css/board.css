@@ -160,6 +160,7 @@ html, body {
 .celula[data-tipo*="mesa"] .celula__icone,
 .celula[data-tipo*="Mesa"] .celula__icone,
 .celula[data-tipo^="tapete"] .celula__icone,
+.celula[data-tipo^="visitanteTapete"] .celula__icone,
 .celula[data-tipo="continua"] .celula__icone,
 .celula[data-tipo^="vilaCama"] .celula__icone,
 .celula[data-tipo^="visitanteCama"] .celula__icone {

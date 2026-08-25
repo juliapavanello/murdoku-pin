@@ -1,0 +1,18 @@
+<svg width="100" height="90" viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="90" fill="#F5F5F5"/>
+<g id="A barbearia componentes">
+<rect width="825" height="435" transform="translate(-332 -334)" fill="white"/>
+<g id="tapete azul/roxo">
+<g id="Rectangle 187">
+<mask id="path-1-inside-1_3_2" fill="white">
+<path d="M0 0.00244141H100V90.0024H0V0.00244141Z"/>
+</mask>
+<path d="M0 0.00244141H100V90.0024H0V0.00244141Z" fill="#96ADF0"/>
+<path d="M100 90.0024V91.0024H101V90.0024H100ZM0 90.0024H-1V91.0024H0V90.0024ZM100 0.00244141H99V90.0024H100H101V0.00244141H100ZM100 90.0024V89.0024H0V90.0024V91.0024H100V90.0024ZM0 90.0024H1V0.00244141H0H-1V90.0024H0Z" fill="black" mask="url(#path-1-inside-1_3_2)"/>
+</g>
+<line id="Line 35" x1="8" x2="8" y2="80" stroke="#919191"/>
+<line id="Line 36" x1="90.5" y1="0.00244141" x2="90.5" y2="80.0024" stroke="#919191"/>
+<line id="Line 53" x1="8" y1="79.5024" x2="91" y2="79.5024" stroke="#919191"/>
+</g>
+</g>
+</svg>

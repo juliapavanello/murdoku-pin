@@ -1,0 +1,25 @@
+<svg width="68" height="69" viewBox="0 0 68 69" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="mapa visitante inesperado">
+<g id="tapete virado direita 2/3">
+<g id="Rectangle 430">
+<mask id="path-1-inside-1_3_2" fill="white">
+<path d="M0 13.4167H68V69.0001H0V13.4167Z"/>
+</mask>
+<path d="M0 13.4167H68V69.0001H0V13.4167Z" fill="#D1D0FE"/>
+<path d="M0 69.0001H-1V70.0001H0V69.0001ZM68 69.0001V68.0001H0V69.0001V70.0001H68V69.0001ZM0 69.0001H1V13.4167H0H-1V69.0001H0Z" fill="black" mask="url(#path-1-inside-1_3_2)"/>
+</g>
+<g id="Rectangle 431">
+<mask id="path-3-inside-2_3_2" fill="white">
+<path d="M0 0H58V13.4167H0V0Z"/>
+</mask>
+<path d="M0 0H58V13.4167H0V0Z" fill="#D1D0FE"/>
+<path d="M58 0H57V13.4167H58H59V0H58ZM0 13.4167H1V0H0H-1V13.4167H0Z" fill="black" mask="url(#path-3-inside-2_3_2)"/>
+</g>
+<line id="Line 115" x1="57" y1="13.875" x2="68" y2="13.875" stroke="black"/>
+<line id="Line 30" x1="51.7002" y1="19.1667" x2="51.7002" y2="8.2016e-05" stroke="#919191"/>
+<line id="Line 29" x1="5.2998" y1="63.25" x2="5.2998" y2="3.8147e-06" stroke="#919191"/>
+<line id="Line 116" x1="52" y1="18.4749" x2="68" y2="18.4749" stroke="#919191"/>
+<line id="Line 117" x1="5" y1="62.9419" x2="68" y2="62.9419" stroke="#919191"/>
+</g>
+</g>
+</svg>

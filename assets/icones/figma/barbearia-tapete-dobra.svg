@@ -1,0 +1,34 @@
+<svg width="111" height="112" viewBox="0 0 111 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="111" height="112" fill="#F5F5F5"/>
+<g id="A barbearia componentes">
+<rect width="825" height="435" transform="translate(-332 -222)" fill="white"/>
+<g id="tapete azul/roxo dobrado">
+<g id="Rectangle 184">
+<mask id="path-1-inside-1_3_2" fill="white">
+<path d="M34 0H110V100H34V0Z"/>
+</mask>
+<path d="M34 0H110V100H34V0Z" fill="#96ADF0"/>
+<path d="M34 0V1H110V0V-1H34V0Z" fill="black" mask="url(#path-1-inside-1_3_2)"/>
+</g>
+<g id="Rectangle 185">
+<mask id="path-3-inside-2_3_2" fill="white">
+<path d="M0 0H34V100H0V0Z"/>
+</mask>
+<path d="M0 0H34V100H0V0Z" fill="#96ADF0"/>
+<path d="M0 0V-1H-1V0H0ZM0 0V1H34V0V-1H0V0ZM0 100H1V0H0H-1V100H0Z" fill="black" mask="url(#path-3-inside-2_3_2)"/>
+</g>
+<g id="Rectangle 186">
+<mask id="path-5-inside-3_3_2" fill="white">
+<path d="M0 100H100V112H0V100Z"/>
+</mask>
+<path d="M0 100H100V112H0V100Z" fill="#96ADF0"/>
+<path d="M100 100H99V112H100H101V100H100ZM0 112H1V100H0H-1V112H0Z" fill="black" mask="url(#path-5-inside-3_3_2)"/>
+</g>
+<line id="Line 30" x1="90" y1="89.5308" x2="110.068" y2="89.5308" stroke="#919191"/>
+<line id="Line 33" x1="8" y1="8.99756" x2="8" y2="112.002" stroke="#919191"/>
+<line id="Line 34" x1="90.5" y1="89" x2="90.5" y2="112" stroke="#919191"/>
+<line id="Line 31" x1="99" y1="99.5" x2="110" y2="99.5" stroke="black"/>
+<line id="Line 29" x1="8" y1="9.5" x2="110" y2="9.49998" stroke="#919191"/>
+</g>
+</g>
+</svg>

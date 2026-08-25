@@ -20,6 +20,12 @@ function getComodoDaCelula(comodos, linha, coluna) {
   return comodo ? comodo.nome : null;
 }
 
+function getGrupoBordaDaCelula(comodos, linha, coluna) {
+  const chave = `${linha}-${coluna}`;
+  const comodo = comodos.find((c) => c.celulas.includes(chave));
+  return comodo ? (comodo.grupoBorda || comodo.nome) : null;
+}
+
 /**
  * Cria e controla uma instância do jogo para um tabuleiro específico.
  * Retorna um objeto com métodos públicos (reiniciar, desfazer, enviar...).
@@ -34,7 +40,15 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     icones = {},
     pistasGerais = [],
     celulasBloqueadas = [],
+    bordasExtras = {},
+    bordasAbertas = {},
   } = tabuleiro;
+  const bordasExtrasDireita = bordasExtras.direita || [];
+  const bordasExtrasBaixo = bordasExtras.baixo || [];
+  const bordasExtrasCima = bordasExtras.cima || [];
+  const bordasExtrasEsquerda = bordasExtras.esquerda || [];
+  const bordasAbertasDireita = bordasAbertas.direita || [];
+  const bordasAbertasBaixo = bordasAbertas.baixo || [];
 
   // Estado interno: o que foi marcado em cada célula (independente do tipo de fundo, que vem do gridInicial e não muda).
   // marcacoes["linha-coluna"] = { tipo: "x" | "suspeito", suspeitoId?: string }
@@ -142,6 +156,23 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
             comodoDaCelula.corPorCelula?.[chave] || comodoDaCelula.cor;
         }
 
+        const sombrasBordasExtras = [];
+        if (bordasExtrasCima.includes(chave)) {
+          sombrasBordasExtras.push("inset 0 4px 0 var(--cor-borda-grossa)");
+        }
+        if (bordasExtrasDireita.includes(chave)) {
+          sombrasBordasExtras.push("inset -4px 0 0 var(--cor-borda-grossa)");
+        }
+        if (bordasExtrasBaixo.includes(chave)) {
+          sombrasBordasExtras.push("inset 0 -4px 0 var(--cor-borda-grossa)");
+        }
+        if (bordasExtrasEsquerda.includes(chave)) {
+          sombrasBordasExtras.push("inset 4px 0 0 var(--cor-borda-grossa)");
+        }
+        if (sombrasBordasExtras.length) {
+          celula.style.boxShadow = sombrasBordasExtras.join(", ");
+        }
+
         // Ícone de fundo configurado pelo tabuleiro — fica atrás da marcação.
         if (icones[tipo]) {
           const icone = document.createElement("span");
@@ -165,16 +196,28 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
         }
 
         // Bordas grossas entre cômodos diferentes.
-        const comodoAtual = getComodoDaCelula(comodos, linha, coluna);
-        const comodoDireita = getComodoDaCelula(comodos, linha, coluna + 1);
-        const comodoBaixo = getComodoDaCelula(comodos, linha + 1, coluna);
+        const comodoAtual = getGrupoBordaDaCelula(comodos, linha, coluna);
+        const comodoDireita = getGrupoBordaDaCelula(comodos, linha, coluna + 1);
+        const comodoBaixo = getGrupoBordaDaCelula(comodos, linha + 1, coluna);
 
         // A borda externa do tabuleiro é feita pelo container (.tabuleiro-grid);
         // aqui só marcamos as divisas *internas* entre cômodos diferentes.
-        if (coluna < tamanho - 1 && comodoAtual !== comodoDireita) {
+        if (
+          coluna < tamanho - 1 &&
+          (
+            (comodoAtual !== comodoDireita && !bordasAbertasDireita.includes(chave)) ||
+            bordasExtrasDireita.includes(chave)
+          )
+        ) {
           celula.classList.add("celula--borda-direita");
         }
-        if (linha < tamanho - 1 && comodoAtual !== comodoBaixo) {
+        if (
+          linha < tamanho - 1 &&
+          (
+            (comodoAtual !== comodoBaixo && !bordasAbertasBaixo.includes(chave)) ||
+            bordasExtrasBaixo.includes(chave)
+          )
+        ) {
           celula.classList.add("celula--borda-baixo");
         }
 
