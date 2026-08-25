@@ -1,6 +1,3 @@
-// Fonte de dados dos tabuleiros. Cada objeto descreve um "caso" completo:
-// tamanho do grid, o layout inicial (pistas visuais), os cômodos, os suspeitos e o gabarito de resposta.
-
 function celulasRetangulo(linhaInicio, colunaInicio, linhaFim, colunaFim) {
   const celulas = [];
   for (let linha = linhaInicio; linha <= linhaFim; linha++) {
@@ -84,11 +81,9 @@ const TABULEIROS = [
   {
     id: 1,
     nome: "O Chiqueiro",
-    tamanho: 5, // 5x5
+    tamanho: 5, 
     dificuldade: "facil",
 
-    // Layout inicial das células do grid.
-    // Tipos aceitos: "vazio", "lama", "porco"
     gridInicial: [
       ["vazio", "vazio", "lama", "vazio", "vazio"],
       ["porco", "lama", "lama", "vazio", "lama"],
@@ -97,18 +92,13 @@ const TABULEIROS = [
       ["vazio", "vazio", "vazio", "vazio", "vazio"],
     ],
 
-    // Coordenadas onde não é permitido colocar personagens ou marcações.
-    // Exemplo: ["1-2", "3-4"]. As linhas e colunas começam em 0.
     celulasBloqueadas: ["4-4"],
 
-    // Cada tabuleiro define os próprios ícones. Tipos omitidos não exibem imagem.
     icones: {
       lama: "assets/icones/Lama.png",
       porco: "assets/icones/noto-v1_pig.png",
     },
 
-    // Delimitação dos cômodos para aplicar as bordas pretas grossas.
-    // As chaves de célula seguem o padrão "linha-coluna" (0-indexado).
     comodos: [
       {
         nome: "PÁTIO ENLAMEADO",
@@ -144,7 +134,6 @@ const TABULEIROS = [
       { id: "eduardo", nome: "Eduardo", dica: "A Vítima. Ele estava sozinho com o assassino.", foto: "assets/suspeitos/eduardo.png", isVitima: true },
     ],
 
-    // Resposta gabarito para a validação 
     solucaoMock: {
       "4-3": "carissa",
       "2-4": "andy",
@@ -156,11 +145,9 @@ const TABULEIROS = [
   {
     id: 2,
     nome: "O Clube Do Livro",
-    tamanho: 6, // 6x6
+    tamanho: 6, 
     dificuldade: "facil",
 
-    // Layout inicial das células do grid.
-    // Tipos aceitos: "vazio", "estante", "planta", "tapete", "poltrona"
     gridInicial: [
       ["vazio", "estante", "planta", "vazio", "estante","estante"],
       ["estante", "tapetePontaEsquerda", "continua", "continua", "continua","tapetePontaDireita"],
@@ -170,7 +157,6 @@ const TABULEIROS = [
       ["mesa", "vazio", "poltrona", "planta", "mesa","mesaDeLado"],
     ],
 
-    // Cada tabuleiro define os próprios ícones. Tipos omitidos não exibem imagem.
     icones: {
       estante: "assets/icones/estante.png",
       planta: "assets/icones/planta.png",
@@ -186,8 +172,6 @@ const TABULEIROS = [
       mesaDeLado2: "assets/icones/mesa de lado2.png",
     },
 
-    // Delimitação dos cômodos para aplicar as bordas pretas grossas.
-    // As chaves de célula seguem o padrão "linha-coluna" (0-indexado).
     comodos: [
       {
         nome: "Biblioteca",
@@ -230,7 +214,6 @@ const TABULEIROS = [
 
 celulasBloqueadas: ["0-1","0-2","0-4","0-5","1-0","2-3","2-4","4-5","5-0","5-3","5-4","5-5"],
 
-    // Resposta gabarito para a validação 
     solucaoMock: {
       "0-3": "ada",
       "5-1": "brigitte",

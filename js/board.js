@@ -1,19 +1,3 @@
-// Componente reutilizável do tabuleiro do Murdoku.
-// Recebe um objeto de tabuleiro (ver js/boards.js) e renderiza:
-//  - a grid NxN com CSS Grid dinâmico
-//  - as bordas grossas dos cômodos
-//  - o painel de suspeitos
-//  - as interações de clique (selecionar suspeito -> marcar célula, X, apagar, desfazer, enviar)
-//
-// Uso básico:
-// const jogo = criarJogoMurdoku(TABULEIROS[1], {
-//   boardEl: document.getElementById("tabuleiro"),
-//   suspeitosEl: document.getElementById("suspeitos"),
-// });
-
-/**
- * Retorna o nome do cômodo ao qual a célula (linha, coluna) pertence.
- */
 function getComodoDaCelula(comodos, linha, coluna) {
   const chave = `${linha}-${coluna}`;
   const comodo = comodos.find((c) => c.celulas.includes(chave));
@@ -26,10 +10,6 @@ function getGrupoBordaDaCelula(comodos, linha, coluna) {
   return comodo ? (comodo.grupoBorda || comodo.nome) : null;
 }
 
-/**
- * Cria e controla uma instância do jogo para um tabuleiro específico.
- * Retorna um objeto com métodos públicos (reiniciar, desfazer, enviar...).
- */
 function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
   const {
     tamanho,
@@ -50,12 +30,10 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
   const bordasAbertasDireita = bordasAbertas.direita || [];
   const bordasAbertasBaixo = bordasAbertas.baixo || [];
 
-  // Estado interno: o que foi marcado em cada célula (independente do tipo de fundo, que vem do gridInicial e não muda).
-  // marcacoes["linha-coluna"] = { tipo: "x" | "suspeito", suspeitoId?: string }
   let marcacoes = {};
-  let historico = []; // pilha de snapshots de `marcacoes` para o desfazer
+  let historico = []; 
   let suspeitoSelecionadoId = null;
-  let ferramentaAtiva = null; // "x" | "apagar" | null
+  let ferramentaAtiva = null; 
 
   function salvarHistorico() {
     historico.push(JSON.parse(JSON.stringify(marcacoes)));
@@ -99,7 +77,6 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     } else if (suspeitoSelecionadoId) {
       marcacoes[chave] = { tipo: "suspeito", suspeitoId: suspeitoSelecionadoId };
     } else {
-      // Sem ferramenta/suspeito selecionado: clique simples alterna X.
       if (marcacoes[chave] && marcacoes[chave].tipo === "x") {
         delete marcacoes[chave];
       } else {
@@ -149,7 +126,6 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
           `Célula linha ${linha + 1}, coluna ${coluna + 1}${estaBloqueada ? ", bloqueada" : ""}`
         );
 
-        // Cor de fundo do cômodo ao qual a célula pertence (se definida em boards.js).
         const comodoDaCelula = comodos.find((c) => c.celulas.includes(chave));
         if (comodoDaCelula?.cor) {
           celula.style.background =
@@ -173,7 +149,6 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
           celula.style.boxShadow = sombrasBordasExtras.join(", ");
         }
 
-        // Ícone de fundo configurado pelo tabuleiro — fica atrás da marcação.
         if (icones[tipo]) {
           const icone = document.createElement("span");
           icone.className = "celula__icone";
@@ -185,7 +160,6 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
           celula.appendChild(icone);
         }
 
-        // Marcação do jogador (X ou letra do suspeito).
         const conteudo = conteudoDaCelula(linha, coluna);
         if (conteudo) {
           const marca = document.createElement("span");
@@ -195,13 +169,10 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
           celula.appendChild(marca);
         }
 
-        // Bordas grossas entre cômodos diferentes.
         const comodoAtual = getGrupoBordaDaCelula(comodos, linha, coluna);
         const comodoDireita = getGrupoBordaDaCelula(comodos, linha, coluna + 1);
         const comodoBaixo = getGrupoBordaDaCelula(comodos, linha + 1, coluna);
 
-        // A borda externa do tabuleiro é feita pelo container (.tabuleiro-grid);
-        // aqui só marcamos as divisas *internas* entre cômodos diferentes.
         if (
           coluna < tamanho - 1 &&
           (
@@ -229,8 +200,6 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     renderizarRotulosComodos();
   }
 
-  // Escreve o nome de cada cômodo centralizado sobre a area. Calcula o centróide das células do cômodo e posiciona o rótulo
-  // em porcentagem, como uma camada por cima do grid — assim nunca é cortado pelo overflow de uma célula individual.
   function renderizarRotulosComodos() {
     const camada = document.createElement("div");
     camada.className = "camada-rotulos";
