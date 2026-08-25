@@ -18,6 +18,7 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     suspeitos,
     solucaoMock,
     icones = {},
+    decoracoes = {},
     pistasGerais = [],
     celulasBloqueadas = [],
     bordasExtras = {},
@@ -148,6 +149,23 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
         if (sombrasBordasExtras.length) {
           celula.style.boxShadow = sombrasBordasExtras.join(", ");
         }
+
+        const decoracoesDaCelula = Array.isArray(decoracoes[chave])
+          ? decoracoes[chave]
+          : decoracoes[chave]
+            ? [decoracoes[chave]]
+            : [];
+        decoracoesDaCelula.forEach((decoracao) => {
+          if (!icones[decoracao]) return;
+          const camadaDecoracao = document.createElement("span");
+          camadaDecoracao.className = `celula__decoracao celula__decoracao--${decoracao}`;
+          const imagemDecoracao = document.createElement("img");
+          imagemDecoracao.src = icones[decoracao];
+          imagemDecoracao.alt = "";
+          imagemDecoracao.setAttribute("aria-hidden", "true");
+          camadaDecoracao.appendChild(imagemDecoracao);
+          celula.appendChild(camadaDecoracao);
+        });
 
         if (icones[tipo]) {
           const icone = document.createElement("span");

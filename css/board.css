@@ -369,6 +369,7 @@ html, body {
   cursor: pointer;
   padding: 0;
   font-size: 28px;
+  overflow: hidden;
   transition: filter 0.15s ease;
 }
 
@@ -393,11 +394,49 @@ html, body {
 
 .celula__icone {
   position: absolute;
-  z-index: 0;
+  z-index: 1;
   opacity: 0.9;
   pointer-events: none;
   width: clamp(24px, 78%, 52px);
   height: clamp(24px, 78%, 52px);
+}
+
+.celula__decoracao {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.celula__decoracao--barbeariaTapeteDobra {
+  top: 4%;
+  left: 9%;
+  width: 90%;
+  height: 95%;
+}
+
+.celula__decoracao--barbeariaTapeteConexao {
+  top: 4%;
+  left: 1%;
+  width: 98%;
+  height: 84%;
+}
+
+.celula__decoracao--barbeariaTapeteVertical {
+  top: 1%;
+  left: 9%;
+  width: 81%;
+  height: 90%;
+}
+
+.celula__decoracao--barbeariaTapeteForaEsquerda {
+  top: -12%;
+  left: -13%;
+  width: 86%;
+  height: 84%;
 }
 
 .celula[data-tipo*="mesa"] .celula__icone,
@@ -446,6 +485,13 @@ html, body {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.celula__decoracao img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
 }
 
 .celula__marca {
