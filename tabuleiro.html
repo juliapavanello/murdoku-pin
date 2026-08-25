@@ -23,6 +23,7 @@
       </div>
 
       <button id="btn-como-jogar" class="botao-como-jogar">? <span>Como jogar</span></button>
+      <a class="botao-sair" href="index.html"><img src="assets/icones/mingcute_exit-line.png" alt="" aria-hidden="true" /><span>Sair</span></a>
     </aside>
 
     <div class="coluna-tabuleiro">
@@ -34,6 +35,61 @@
     <div class="coluna-suspeitos">
       <h2>Suspeitos</h2>
       <div id="suspeitos" class="suspeitos-grid"></div>
+    </div>
+  </div>
+
+  <div id="resultado-modal" class="modal-overlay resultado-modal" role="dialog" aria-modal="true" aria-labelledby="resultado-titulo" hidden>
+    <div class="modal-card resultado-modal__cartao">
+      <button id="fechar-resultado" class="resultado-modal__fechar" type="button" aria-label="Fechar">&times;</button>
+      <div class="resultado-modal__ilustracao" aria-hidden="true">
+        <img src="assets/icones/detective.png" alt="" onerror="this.style.display='none'" />
+      </div>
+      <h2 id="resultado-titulo">
+        <img class="resultado-modal__titulo-imagem" src="assets/fonts/Caso%20concluido!.png" alt="Caso concluído!" />
+        <span class="resultado-modal__titulo-texto">Caso concluído!</span>
+      </h2>
+      <p id="resultado-mensagem"></p>
+      <div class="resultado-modal__acoes">
+        <button id="jogar-novamente" class="resultado-modal__acao resultado-modal__acao--principal" type="button">Jogar novamente</button>
+        <button id="escolher-mapa" class="resultado-modal__acao" type="button">Escolher novo mapa</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="como-jogar-modal" class="modal-overlay como-jogar-modal" role="dialog" aria-modal="true" aria-labelledby="como-jogar-titulo" hidden>
+    <div class="modal-card como-jogar-modal__cartao">
+      <button id="fechar-como-jogar" class="modal-fechar" type="button" aria-label="Fechar">&times;</button>
+      <h2 id="como-jogar-titulo">Como jogar</h2>
+
+      <section class="como-jogar-modal__secao">
+        <h3>Objetivo</h3>
+        <p>O assassino esta no mesmo local que a vítima (na mesma área). Use as pistas para descobri quem estava em cada lugar.</p>
+      </section>
+
+      <section class="como-jogar-modal__secao">
+        <h3>Regras</h3>
+        <div class="como-jogar-modal__exemplos">
+          <div class="como-jogar-modal__exemplo">
+            <div class="mini-tabuleiro mini-tabuleiro--x" aria-hidden="true">
+              <span></span><span></span><span></span><span>X</span><span></span><span>X</span><span></span><span></span><span></span>
+            </div>
+            <p>Uma pessoa por linha e por coluna.</p>
+          </div>
+          <div class="como-jogar-modal__exemplo">
+            <div class="mini-tabuleiro mini-tabuleiro--suspeito" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span class="mini-tabuleiro__pessoa"></span><span></span><span></span><span></span><span></span>
+            </div>
+            <p>Os suspeitos só podem ser colocados em células que não estejam ocupadas.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="como-jogar-modal__secao como-jogar-modal__ferramentas">
+        <h3>Ferramentas</h3>
+        <p><strong>✕</strong> Marca células impossíveis.</p>
+        <p><strong>🧹</strong> Toque para limpar uma célula.</p>
+        <p><strong>↩</strong> Reverte a última ação.</p>
+      </section>
     </div>
   </div>
 
@@ -71,6 +127,37 @@
     document.getElementById("btn-desfazer").addEventListener("click", () => jogo.desfazer());
     document.getElementById("btn-auto").addEventListener("click", () => jogo.autoResolver());
 
+    const resultadoModal = document.getElementById("resultado-modal");
+    const resultadoTitulo = document.getElementById("resultado-titulo");
+    const resultadoMensagem = document.getElementById("resultado-mensagem");
+
+    function mostrarResultado(resultado) {
+      resultadoModal.classList.toggle("resultado-modal--resolvido", resultado.resolvido);
+      resultadoTitulo.querySelector(".resultado-modal__titulo-texto").textContent = resultado.resolvido
+        ? "Caso concluído!"
+        : "Quase lá!";
+      resultadoMensagem.textContent = resultado.resolvido
+        ? "Você encontrou todas as respostas do caso."
+        : `Você acertou ${resultado.acertos} de ${resultado.total}. Revise as marcações e tente novamente.`;
+      resultadoModal.hidden = false;
+      document.getElementById("fechar-resultado").focus();
+    }
+
+    function fecharResultado() {
+      resultadoModal.hidden = true;
+    }
+
+    const comoJogarModal = document.getElementById("como-jogar-modal");
+
+    function mostrarComoJogar() {
+      comoJogarModal.hidden = false;
+      document.getElementById("fechar-como-jogar").focus();
+    }
+
+    function fecharComoJogar() {
+      comoJogarModal.hidden = true;
+    }
+
     document.getElementById("btn-enviar").addEventListener("click", () => {
       const resultado = jogo.enviar();
       const historico = JSON.parse(localStorage.getItem("murdoku.historico") || "[]");
@@ -82,20 +169,31 @@
         resolvido: resultado.resolvido,
       });
       localStorage.setItem("murdoku.historico", JSON.stringify(historico.slice(0, 20)));
-      alert(
-        resultado.resolvido
-          ? "Caso resolvido! 🎉"
-          : `Você acertou ${resultado.acertos} de ${resultado.total}.`
-      );
+      mostrarResultado(resultado);
     });
 
-      document.getElementById("btn-como-jogar").addEventListener("click", () => {
-        alert(
-          "Selecione um suspeito e clique em uma célula para marcá-lo. " +
-          "Use Marcar X para indicar uma célula vazia, Limpar marcação para apagar uma marca, " +
-          "Desfazer para voltar uma etapa e Enviar para conferir sua resposta."
-        );
-      });
+    document.getElementById("fechar-resultado").addEventListener("click", fecharResultado);
+    document.getElementById("jogar-novamente").addEventListener("click", () => {
+      fecharResultado();
+      window.location.reload();
+    });
+    document.getElementById("escolher-mapa").addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+    resultadoModal.addEventListener("click", (evento) => {
+      if (evento.target === resultadoModal) fecharResultado();
+    });
+    document.addEventListener("keydown", (evento) => {
+      if (evento.key !== "Escape") return;
+      if (!resultadoModal.hidden) fecharResultado();
+      if (!comoJogarModal.hidden) fecharComoJogar();
+    });
+
+    document.getElementById("btn-como-jogar").addEventListener("click", mostrarComoJogar);
+    document.getElementById("fechar-como-jogar").addEventListener("click", fecharComoJogar);
+    comoJogarModal.addEventListener("click", (evento) => {
+      if (evento.target === comoJogarModal) fecharComoJogar();
+    });
   </script>
 </body>
 </html>
