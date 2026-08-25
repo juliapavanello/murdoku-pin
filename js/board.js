@@ -33,6 +33,7 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     solucaoMock,
     icones = {},
     pistasGerais = [],
+    celulasBloqueadas = [],
   } = tabuleiro;
 
   // Estado interno: o que foi marcado em cada célula (independente do tipo de fundo, que vem do gridInicial e não muda).
@@ -73,6 +74,8 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
 
   function onCelulaClicada(linha, coluna) {
     const chave = `${linha}-${coluna}`;
+    if (celulasBloqueadas.includes(chave)) return;
+
     salvarHistorico();
 
     if (ferramentaAtiva === "apagar") {
@@ -122,9 +125,14 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
         celula.dataset.linha = linha;
         celula.dataset.coluna = coluna;
         celula.dataset.tipo = tipo;
+        const estaBloqueada = celulasBloqueadas.includes(chave);
+        if (estaBloqueada) {
+          celula.classList.add("celula--bloqueada");
+          celula.disabled = true;
+        }
         celula.setAttribute(
           "aria-label",
-          `Célula linha ${linha + 1}, coluna ${coluna + 1}`
+          `Célula linha ${linha + 1}, coluna ${coluna + 1}${estaBloqueada ? ", bloqueada" : ""}`
         );
 
         // Cor de fundo do cômodo ao qual a célula pertence (se definida em boards.js).

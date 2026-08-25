@@ -39,6 +39,7 @@ const ICONES_FIGMA = {
   planta: `${PASTA_FIGMA}planta.svg`,
   tapeteAzulBaixo: `${PASTA_FIGMA}tapete-azul-baixo.svg`,
   tapeteAzulDobra: `${PASTA_FIGMA}tapete-azul-dobra.svg`,
+  tapeteAzulDobraCima: `${PASTA_FIGMA}tapete-azul-dobra_copy.svg`,
   tapeteAzulLado: `${PASTA_FIGMA}tapete-azul-lado.svg`,
   cozinhaMesa: `${PASTA_FIGMA}cozinha-mesa.svg`,
   cozinhaMesaCanto: `${PASTA_FIGMA}cozinha-mesa-canto.svg`,
@@ -90,6 +91,10 @@ const TABULEIROS = [
       ["porco", "vazio", "porco", "vazio", "porco"],
       ["vazio", "vazio", "vazio", "vazio", "vazio"],
     ],
+
+    // Coordenadas onde não é permitido colocar personagens ou marcações.
+    // Exemplo: ["1-2", "3-4"]. As linhas e colunas começam em 0.
+    celulasBloqueadas: ["4-4"],
 
     // Cada tabuleiro define os próprios ícones. Tipos omitidos não exibem imagem.
     icones: {
@@ -182,7 +187,7 @@ const TABULEIROS = [
       {
         nome: "Biblioteca",
         cor: "#A3ABD2",
-        rotulo: { left: 48, top: 57 },
+        rotulo: { left: 58, top: 47 },
         celulas: [
           "0-0", "0-1", "0-2", "0-3", "0-4", "0-5",
           "1-0", "1-1", "1-2", "1-3", "1-4","1-5",
@@ -217,6 +222,8 @@ const TABULEIROS = [
   { id: "edison", nome: "Edison", dica: "Ele estava na biblioteca. Ele não estava ao lado de uma estante", foto: "assets/suspeitos/brent.png" },
   { id: "vinita", nome: "Vinita", dica: "A vítima. Ela estava sozinha com o assassino.", foto: "assets/suspeitos/vinita.png", isVitima: true },
 ],
+
+celulasBloqueadas: ["0-1","0-2","0-4","0-5","1-0","2-3","2-4","4-5","5-0","5-3","5-4","5-5"],
 
     // Resposta gabarito para a validação 
     solucaoMock: {
@@ -291,6 +298,7 @@ const TABULEIROS = [
       { id: "felicia", nome: "Felícia", dica: "Ela estava na Área de vendas. Havia um homem com ela.", foto: "assets/suspeitos/carissa.png" },
       { id: "vickie", nome: "Vickie", dica: "A vítima. Ela estava sozinha com o assassino.", foto: "assets/suspeitos/eduardo.png", isVitima: true },
     ],
+    celulasBloqueadas: ["0-0","0-1","0-3","2-0","2-2","2-6","3-0","3-6","4-3","4-4","4-6","5-0","5-4","6-0"],
 
     solucaoMock: {
       "4-5": "amir",
@@ -373,7 +381,8 @@ const TABULEIROS = [
       { id: "gabriel", nome: "Gabriel", dica: "Ele estava na Recepção.", foto: "assets/suspeitos/man_avatar.png" },
       { id: "vitoria", nome: "Vitória", dica: "A vítima. Ela estava sozinha com o assassino.", foto: "assets/suspeitos/eduardo.png", isVitima: true },
     ],
-
+    celulasBloqueadas: ["0-0","0-1","0-3","0-4","1-0","1-5","2-6","3-1","3-2","3-3","4-1","4-4","4-5","5-0","5-1","5-6","6-3","7-5"],
+    
     solucaoMock: {
       "2-5": "amelia",
       "4-5": "beatriz",
@@ -485,6 +494,8 @@ const TABULEIROS = [
       "O foragido estava ao lado de uma mesa.",
     ],
 
+    celulasBloqueadas: ["0-1","0-2","0-8","1-5","1-6","2-1","2-2","2-4","2-9","4-0","6-0","6-4","7-0","7-2","7-3","7-5","7-7","7-8","8-7","8-9","9-0","9-2","9-3","9-6","9-9"],
+
     solucaoMock: {
       "7-2": "abigail",
       "0-0": "bruna",
@@ -568,6 +579,8 @@ const TABULEIROS = [
       { id: "ellie", nome: "Ellie", dica: "Ela estava sentada em uma cadeira.", foto: "assets/suspeitos/carissa.png" },
       { id: "vincenza", nome: "Vincenza", dica: "A vítima. Ela estava sozinha com o assassino.", foto: "assets/suspeitos/vinita.png", isVitima: true },
     ],
+
+    celulasBloqueadas: ["0-2","1-3","1-4","2-0","2-4","4-3"],
 
     solucaoMock: {
       "2-0": "allison",
@@ -676,6 +689,8 @@ const TABULEIROS = [
       { id: "vikram", nome: "Vikram", dica: "A vítima. Ele estava sozinha com o assassino.", foto: "assets/suspeitos/man_avatar.png", isVitima: true },
     ],
 
+    celulasBloqueadas: ["0-1","0-4","0-8","1-0","2-5","3-2","3-8","4-8","6-0","6-2","6-7","6-8","7-1","7-2","7-3","7-6","8-0","8-2"],
+
     solucaoMock: {
       "0-3": "archer",
       "6-0": "brooke",
@@ -696,8 +711,8 @@ const TABULEIROS = [
 
     gridInicial: [
       ["estante", "planta", "estante", "vazio", "mesa", "vazio", "planta", "vazio", "visitanteCamaBase"],
-      ["vazio", "visitanteCamaBase", "tapeteAzulLado", "vazio", "vazio", "vazio", "vazio", "tapeteAzulDobra", "visitanteCamaCoberta"],
-      ["vazio", "visitanteCamaCoberta", "estante", "vazio", "visitanteTv", "vazio", "tapeteAzulBaixo", "vazio", "poltronaBranca"],
+      ["visitanteCamaBase", "vazio", "tapeteAzulLado", "vazio", "vazio", "vazio", "vazio", "tapeteAzulDobra", "visitanteCamaCoberta"],
+      ["visitanteCamaCoberta", "vazio", "estante", "vazio", "visitanteTv", "vazio", "tapeteAzulBaixo", "vazio", "poltronaBranca"],
       ["tapeteAzulLado", "tapeteAzulDobra", "estante", "tapeteRosaEsqCima", "tapeteRosaMeioCima", "tapeteRosaDirCima", "poltronaBranca", "vazio", "estante"],
       ["vazio", "planta", "poltronaBranca", "tapeteRosaEsqBaixo", "tapeteRosaMeioBaixo", "tapeteRosaDirBaixo", "poltronaBranca", "poltronaBranca", "vazio"],
       ["mesa", "vazio", "vazio", "vazio", "vazio", "poltronaBranca", "planta", "estante", "vazio"],
@@ -714,7 +729,7 @@ const TABULEIROS = [
       planta: ICONES_FIGMA.planta,
       poltronaBranca: ICONES_FIGMA.poltronaBranca,
       tapeteAzulBaixo: ICONES_FIGMA.tapeteAzulBaixo,
-      tapeteAzulDobra: ICONES_FIGMA.tapeteAzulDobra,
+      tapeteAzulDobra: ICONES_FIGMA.tapeteAzulDobraCima,
       tapeteAzulLado: ICONES_FIGMA.tapeteAzulLado,
       tapeteRosaDirBaixo: ICONES_FIGMA.tapeteRosaDirBaixo,
       tapeteRosaDirCima: ICONES_FIGMA.tapeteRosaDirCima,
@@ -799,6 +814,8 @@ const TABULEIROS = [
       { id: "hayden", nome: "Hayden", dica: "Ele estava sentado em uma cadeira.", foto: "assets/suspeitos/eduardo.png" },
       { id: "virginia", nome: "Virginia", dica: "A vítima. Ele estava sozinha com o assassino.", foto: "assets/suspeitos/vinita.png", isVitima: true },
     ],
+
+    celulasBloqueadas: ["0-0","0-1","0-2","0-4","0-6","2-2","2-4","3-2","3-8","4-1","5-0","5-6","5-7","6-5","7-6","7-7","8-2"],
 
     solucaoMock: {
       "2-3": "angelo",
@@ -891,6 +908,8 @@ const TABULEIROS = [
       { id: "grant", nome: "Grant", dica: "Ele estava ao lado da estante na Sala de espera.", foto: "assets/suspeitos/man_avatar.png" },
       { id: "vasiliy", nome: "Vasiliy", dica: "A vítima. Ele estava sozinho com o assassino.", foto: "assets/suspeitos/eduardo.png", isVitima: true },
     ],
+
+    celulasBloqueadas: ["0-0","0-6","1-4","2-1","2-2","2-3","2-4","4-0","5-0","5-3","5-5","7-0","7-5"],
 
     solucaoMock: {
       "3-6": "adonis",
@@ -1016,6 +1035,8 @@ const TABULEIROS = [
       { id: "vivianna", nome: "Vivianna", dica: "A vítima. Ela estava sozinha com o assassino.", foto: "assets/suspeitos/eduardo.png", isVitima: true },
     ],
 
+    celulasBloqueadas: ["1-1","1-2","1-7","2-0","2-1","2-3","2-6","2-8","3-6","4-3","5-2","5-3","5-7","5-8","6-0","6-1","6-2","6-5","6-6","7-2","7-4","7-7","7-8","8-1","8-4","8-6","8-7"],
+
     solucaoMock: {
       "1-5": "angeloPreparadores",
       "4-5": "blake",
@@ -1120,6 +1141,8 @@ const TABULEIROS = [
       { id: "henry", nome: "Henry", dica: "Ele estava ao lado de uma mesa.", foto: "assets/suspeitos/brent.png" },
       { id: "vinAdega", nome: "Vin", dica: "A vítima. Ele estava sozinho com o assassino.", foto: "assets/suspeitos/vinita.png", isVitima: true },
     ],
+
+    celulasBloqueadas: ["0-0","0-1","0-7","0-8","1-6","2-7","3-0","3-2","3-5","4-0","4-8","5-0","5-3","5-8","6-2","6-3","6-5","6-6","6-8","7-0","7-1","7-2","7-5","8-0","8-1","8-2","8-3","8-5","8-7"],
 
     solucaoMock: {
       "4-4": "austin",
@@ -1232,6 +1255,8 @@ const TABULEIROS = [
       { id: "isaMinigolf", nome: "Isa", dica: "Ela estava sozinha no Deserto com alguém.", foto: "assets/suspeitos/vinita.png" },
       { id: "virginiaMinigolf", nome: "Virginia", dica: "A vítima. Ela estava sozinha com o assassino.", foto: "assets/suspeitos/dolores.png", isVitima: true },
     ],
+
+    celulasBloqueadas: ["0-4","0-7","0-8","0-9","3-1","3-7","4-8","5-2","6-9","7-7","7-8","7-9","8-9","9-5"],
 
     solucaoMock: {
       "2-4": "alisson",

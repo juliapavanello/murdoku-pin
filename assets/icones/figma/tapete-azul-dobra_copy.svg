@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="112" height="110" viewBox="0 0 112 110" fill="none"><g transform="rotate(90 55 56)">
+<g xmlns="http://www.w3.org/2000/svg" id="A floricultura componentes">
+<g id="tapete drobado topo">
+<g id="Rectangle 154">
+<mask id="path-1-inside-1_3_2" fill="white">
+<path d="M34.004 0H110.004V100H34.004V0Z"/>
+</mask>
+<path d="M34.004 0H110.004V100H34.004V0Z" fill="#C4FAF6"/>
+<path d="M110.004 0H111.004V-1H110.004V0ZM34.004 0V1H110.004V0V-1H34.004V0ZM110.004 0H109.004V100H110.004H111.004V0H110.004Z" fill="black" mask="url(#path-1-inside-1_3_2)"/>
+</g>
+<g id="Rectangle 155">
+<mask id="path-3-inside-2_3_2" fill="white">
+<path d="M0.00402832 0H34.004V100H0.00402832V0Z"/>
+</mask>
+<path d="M0.00402832 0H34.004V100H0.00402832V0Z" fill="#C4FAF6"/>
+<path d="M0.00402832 0V1H34.004V0V-1H0.00402832V0Z" fill="black" mask="url(#path-3-inside-2_3_2)"/>
+</g>
+<g id="Rectangle 156">
+<mask id="path-5-inside-3_3_2" fill="white">
+<path d="M10.004 100H110.004V112H10.004V100Z"/>
+</mask>
+<path d="M10.004 100H110.004V112H10.004V100Z" fill="#C4FAF6"/>
+<path d="M110.004 100H109.004V112H110.004H111.004V100H110.004ZM10.004 112H11.004V100H10.004H9.00403V112H10.004Z" fill="black" mask="url(#path-5-inside-3_3_2)"/>
+</g>
+<line id="Line 42" x1="0.00402832" y1="99.5" x2="11.004" y2="99.5" stroke="black"/>
+<line id="Line 43" x1="0.00158691" y1="9.28271" x2="100.002" y2="9.28271" stroke="#919191"/>
+<line id="Line 45" y1="90.5625" x2="20.0012" y2="90.5625" stroke="#919191"/>
+<line id="Line 46" x1="19.504" y1="91" x2="19.504" y2="112" stroke="#919191"/>
+<line id="Line 30" x1="99.5011" y1="112" x2="99.5011" y2="9" stroke="#919191"/>
+</g>
+</g>
+</g></svg>

@@ -133,6 +133,12 @@ html, body {
   filter: brightness(0.95);
 }
 
+.celula--bloqueada,
+.celula--bloqueada:hover {
+  cursor: not-allowed;
+  
+}
+
 .celula[data-tipo="porco"],
 .celula[data-tipo="lama"] {
   background: var(--cor-fundo-celula);
