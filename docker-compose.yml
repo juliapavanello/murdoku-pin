@@ -1,0 +1,17 @@
+services:
+  back-murdoku:
+    build:
+      context: ./server
+    container_name: back-murdoku
+    restart: unless-stopped
+    ports:
+      - "7032:7032"
+    env_file:
+      - ./server/.env
+    volumes:
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm start
+
+volumes:
+  postgres_data:
