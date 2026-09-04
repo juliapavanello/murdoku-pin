@@ -1,8 +1,8 @@
 import RESPONSE from '../../shared/constants/response.js';
 
 function criarControllerUsuario(service) {
-    async function teste(req, res) {
-        const data = await service.teste({
+    async function gameStart(req, res) {
+        const data = await service.gameStart({
             suspeitos: [
                 {
                     nome: 'João',
@@ -38,7 +38,7 @@ function criarControllerUsuario(service) {
         res.json({ ...RESPONSE.SUCESSO, payload: data })
     }
 
-    return { teste }
+    return { gameStart }
 }
 
 export default criarControllerUsuario;

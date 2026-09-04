@@ -1,8 +1,11 @@
 import AppError from "../../infrastructure/errors/app.error.js";
 import RESPONSE from "../../shared/constants/response.js";
+import { socketAberto } from "../../infrastructure/websocket/websocket.js";
 
-function criarServiceUsuario(repository) {
-    function teste(payload) {
+function criarServiceUsuario() {
+    function gameStart(payload) {
+        socketAberto.send(JSON.stringify({objeto: "Complicado", eae: 2}));
+        return;
         let posicoesFinais = {}
         let dominios = {}
 
@@ -23,7 +26,7 @@ function criarServiceUsuario(repository) {
 
                 if (validarJogada()) {
                     const proximosSuspeitos = removerSuspeito(suspeitosRestantes, suspeitoAtual)
-                    if(investigarSuspeitosRestantes(proximosSuspeitos, novosDominios)){
+                    if (investigarSuspeitosRestantes(proximosSuspeitos, novosDominios)) {
                         return true; //Achou o suspeito, e propaga a resposta pra trás
                     }
                 }
@@ -66,11 +69,11 @@ function criarServiceUsuario(repository) {
 
     function removerLinhaAndColunaDosDominios(dominiosAtuais, celula, posicoesFinais) {
         for (const dominioAtual of dominiosAtuais) {
-            
+
         }
     }
 
-    return { teste }
+    return { gameStart }
 }
 
 export default criarServiceUsuario;

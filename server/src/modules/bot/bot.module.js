@@ -1,5 +1,5 @@
-import criarService from "./usuario.service.js";
-import criarController from "./usuario.controller.js";
+import criarService from "./bot.service.js";
+import criarController from "./bot.controller.js";
 
 export const service = criarService();
 const controller = criarController(service);
