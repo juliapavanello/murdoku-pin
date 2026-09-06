@@ -35,16 +35,23 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
   let historico = []; 
   let suspeitoSelecionadoId = null;
   let ferramentaAtiva = null; 
+  let celulaSelecionada = null;
 
   function salvarHistorico() {
     historico.push(JSON.parse(JSON.stringify(marcacoes)));
   }
 
-  function desfazer() {
+  function focarCelula(linha, coluna) {
+    if (linha === undefined || coluna === undefined) return;
+    boardEl.querySelector(`.celula[data-linha="${linha}"][data-coluna="${coluna}"]`)?.focus();
+  }
+
+  function desfazer(linha, coluna) {
     const anterior = historico.pop();
     if (!anterior) return;
     marcacoes = anterior;
     renderizarGrid();
+    focarCelula(linha, coluna);
   }
 
   function limparTudo() {
@@ -65,16 +72,19 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     renderizarSuspeitos();
   }
 
-  function onCelulaClicada(linha, coluna) {
+  function marcarCelula(linha, coluna, marcacaoSolicitada = null) {
     const chave = `${linha}-${coluna}`;
     if (celulasBloqueadas.includes(chave)) return;
+    const celulaAtiva = document.activeElement;
 
     salvarHistorico();
 
-    if (ferramentaAtiva === "apagar") {
+    if (marcacaoSolicitada === "apagar" || ferramentaAtiva === "apagar") {
       delete marcacoes[chave];
-    } else if (ferramentaAtiva === "x") {
+    } else if (marcacaoSolicitada === "x" || ferramentaAtiva === "x") {
       marcacoes[chave] = { tipo: "x" };
+    } else if (marcacaoSolicitada) {
+      marcacoes[chave] = { tipo: "suspeito", suspeitoId: marcacaoSolicitada };
     } else if (suspeitoSelecionadoId) {
       marcacoes[chave] = { tipo: "suspeito", suspeitoId: suspeitoSelecionadoId };
     } else {
@@ -86,6 +96,53 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     }
 
     renderizarGrid();
+    if (celulaAtiva?.classList.contains("celula")) focarCelula(linha, coluna);
+  }
+
+  function onCelulaClicada(evento) {
+    const celula = evento.currentTarget;
+    const linha = Number(celula.dataset.linha);
+    const coluna = Number(celula.dataset.coluna);
+    celulaSelecionada = `${linha}-${coluna}`;
+    celula.focus();
+    boardEl.querySelectorAll(".celula--selecionada").forEach((item) => {
+      item.classList.remove("celula--selecionada");
+    });
+    celula.classList.add("celula--selecionada");
+    if (ferramentaAtiva || suspeitoSelecionadoId) marcarCelula(linha, coluna);
+  }
+
+  function onCelulaDigitada(evento) {
+    const tecla = evento.key.toLowerCase();
+    const linha = Number(evento.currentTarget.dataset.linha);
+    const coluna = Number(evento.currentTarget.dataset.coluna);
+
+    if ((evento.ctrlKey || evento.metaKey) && tecla === "z") {
+      evento.preventDefault();
+      desfazer(linha, coluna);
+      return;
+    }
+    if (evento.ctrlKey || evento.metaKey || evento.altKey) return;
+
+    if (tecla === "x") {
+      evento.preventDefault();
+      marcarCelula(linha, coluna, "x");
+      return;
+    }
+
+    if (tecla === "backspace" || tecla === "delete") {
+      evento.preventDefault();
+      marcarCelula(linha, coluna, "apagar");
+      return;
+    }
+
+    const suspeito = suspeitos.find(
+      (item) => item.nome.charAt(0).toLowerCase() === tecla
+    );
+    if (suspeito) {
+      evento.preventDefault();
+      marcarCelula(linha, coluna, suspeito.id);
+    }
   }
 
   function conteudoDaCelula(linha, coluna) {
@@ -117,6 +174,7 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
         celula.dataset.linha = linha;
         celula.dataset.coluna = coluna;
         celula.dataset.tipo = tipo;
+        if (celulaSelecionada === chave) celula.classList.add("celula--selecionada");
         const estaBloqueada = celulasBloqueadas.includes(chave);
         if (estaBloqueada) {
           celula.classList.add("celula--bloqueada");
@@ -210,7 +268,8 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
           celula.classList.add("celula--borda-baixo");
         }
 
-        celula.addEventListener("click", () => onCelulaClicada(linha, coluna));
+        celula.addEventListener("click", onCelulaClicada);
+        celula.addEventListener("keydown", onCelulaDigitada);
         boardEl.appendChild(celula);
       }
     }

@@ -377,6 +377,13 @@ html, body {
   filter: brightness(0.95);
 }
 
+.celula:focus-visible,
+.celula--selecionada {
+  z-index: 2;
+  outline: 3px solid var(--cor-azul-selecao);
+  outline-offset: -3px;
+}
+
 .celula--bloqueada,
 .celula--bloqueada:hover {
   cursor: not-allowed;
