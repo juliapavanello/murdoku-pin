@@ -33,12 +33,16 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
 
   let marcacoes = {};
   let historico = []; 
+  let jogadas = [];
   let suspeitoSelecionadoId = null;
   let ferramentaAtiva = null; 
   let celulaSelecionada = null;
 
   function salvarHistorico() {
-    historico.push(JSON.parse(JSON.stringify(marcacoes)));
+    historico.push({
+      marcacoes: JSON.parse(JSON.stringify(marcacoes)),
+      jogadas: JSON.parse(JSON.stringify(jogadas)),
+    });
   }
 
   function focarCelula(linha, coluna) {
@@ -49,7 +53,8 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
   function desfazer(linha, coluna) {
     const anterior = historico.pop();
     if (!anterior) return;
-    marcacoes = anterior;
+    marcacoes = anterior.marcacoes;
+    jogadas = anterior.jogadas;
     renderizarGrid();
     focarCelula(linha, coluna);
   }
@@ -81,17 +86,23 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
 
     if (marcacaoSolicitada === "apagar" || ferramentaAtiva === "apagar") {
       delete marcacoes[chave];
+      jogadas.push({ linha, coluna, acao: "apagar" });
     } else if (marcacaoSolicitada === "x" || ferramentaAtiva === "x") {
       marcacoes[chave] = { tipo: "x" };
+      jogadas.push({ linha, coluna, acao: "x" });
     } else if (marcacaoSolicitada) {
       marcacoes[chave] = { tipo: "suspeito", suspeitoId: marcacaoSolicitada };
+      jogadas.push({ linha, coluna, acao: "suspeito", suspeitoId: marcacaoSolicitada });
     } else if (suspeitoSelecionadoId) {
       marcacoes[chave] = { tipo: "suspeito", suspeitoId: suspeitoSelecionadoId };
+      jogadas.push({ linha, coluna, acao: "suspeito", suspeitoId: suspeitoSelecionadoId });
     } else {
       if (marcacoes[chave] && marcacoes[chave].tipo === "x") {
         delete marcacoes[chave];
+        jogadas.push({ linha, coluna, acao: "apagar" });
       } else {
         marcacoes[chave] = { tipo: "x" };
+        jogadas.push({ linha, coluna, acao: "x" });
       }
     }
 
@@ -384,6 +395,7 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     selecionarFerramenta,
     autoResolver,
     enviar,
+    obterJogadas: () => JSON.parse(JSON.stringify(jogadas)),
   };
 }
 

@@ -267,7 +267,7 @@ html,
    font-weight: 700;
    margin: 4px 0 24px;
  }
- 
+
  .historico-lista {
    max-width: 1000px;
    margin: 0 auto;
@@ -278,13 +278,48 @@ html,
  
  .historico-item {
    display: flex;
+   flex-direction: column;
    align-items: center;
-   justify-content: space-between;
+   align-items: stretch;
    gap: 16px;
    background: #fff;
    border: 1px solid var(--borda);
    border-radius: 14px;
    padding: 16px 20px;
+ }
+
+ .historico-item__cabecalho {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 16px;
+ }
+
+ .historico-item__jogadas {
+   border-top: 1px solid var(--borda);
+   padding-top: 12px;
+   color: #555;
+   font-size: 14px;
+ }
+
+ .historico-item__jogadas summary {
+   cursor: pointer;
+   color: #333;
+   font-weight: 700;
+ }
+
+ .historico-item__jogadas p {
+   margin: 8px 0 0;
+   color: #777;
+ }
+
+ .historico-item__jogadas ol {
+   margin: 8px 0 0;
+   padding-left: 24px;
+ }
+
+ .historico-item__jogadas li + li {
+   margin-top: 4px;
  }
  
  .historico-item__nome {

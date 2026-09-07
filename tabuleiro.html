@@ -100,6 +100,7 @@
     const idTabuleiro = Number(params.get("id"));
     const tabuleiroAtual =
       TABULEIROS.find((tabuleiro) => tabuleiro.id === idTabuleiro) || TABULEIROS[0];
+    const partidaId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     document.title = `Murdoku — ${tabuleiroAtual.nome}`;
     document.getElementById("titulo-caso").textContent =
       `${tabuleiroAtual.nome} (${tabuleiroAtual.tamanho}x${tabuleiroAtual.tamanho})`;
@@ -162,11 +163,14 @@
       const resultado = jogo.enviar();
       const historico = JSON.parse(localStorage.getItem("murdoku.historico") || "[]");
       historico.unshift({
+        partidaId,
+        mapaId: tabuleiroAtual.id,
         nome: tabuleiroAtual.nome,
         data: new Date().toLocaleString("pt-BR"),
         acertos: resultado.acertos,
         total: resultado.total,
         resolvido: resultado.resolvido,
+        jogadas: jogo.obterJogadas(),
       });
       localStorage.setItem("murdoku.historico", JSON.stringify(historico.slice(0, 20)));
       mostrarResultado(resultado);
