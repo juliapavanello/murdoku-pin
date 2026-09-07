@@ -5,10 +5,19 @@ socket.onopen = () => {
 };
 
 socket.onmessage = (event) => {
-    const res = JSON.parse(event.data)
+    let res;
+    try {
+        res = JSON.parse(event.data);
+    } catch {
+        console.log('Mensagem do servidor:', event.data);
+        return;
+    }
+
     console.log("Servidor: ");
-    
     console.log(res);
+
+    const resultado = window.jogo?.botResolver(res);
+    if (resultado) console.log("Resultado da jogada do bot:", resultado);
 };
 
 socket.onerror = (error) => {

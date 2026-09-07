@@ -77,7 +77,7 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     renderizarSuspeitos();
   }
 
-  function marcarCelula(linha, coluna, marcacaoSolicitada = null) {
+  function marcarCelula(linha, coluna, marcacaoSolicitada = null, origem = "jogador") {
     const chave = `${linha}-${coluna}`;
     if (celulasBloqueadas.includes(chave)) return;
     const celulaAtiva = document.activeElement;
@@ -86,23 +86,23 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
 
     if (marcacaoSolicitada === "apagar" || ferramentaAtiva === "apagar") {
       delete marcacoes[chave];
-      jogadas.push({ linha, coluna, acao: "apagar" });
+      jogadas.push({ linha, coluna, acao: "apagar", origem });
     } else if (marcacaoSolicitada === "x" || ferramentaAtiva === "x") {
       marcacoes[chave] = { tipo: "x" };
-      jogadas.push({ linha, coluna, acao: "x" });
+      jogadas.push({ linha, coluna, acao: "x", origem });
     } else if (marcacaoSolicitada) {
       marcacoes[chave] = { tipo: "suspeito", suspeitoId: marcacaoSolicitada };
-      jogadas.push({ linha, coluna, acao: "suspeito", suspeitoId: marcacaoSolicitada });
+      jogadas.push({ linha, coluna, acao: "suspeito", suspeitoId: marcacaoSolicitada, origem });
     } else if (suspeitoSelecionadoId) {
       marcacoes[chave] = { tipo: "suspeito", suspeitoId: suspeitoSelecionadoId };
-      jogadas.push({ linha, coluna, acao: "suspeito", suspeitoId: suspeitoSelecionadoId });
+      jogadas.push({ linha, coluna, acao: "suspeito", suspeitoId: suspeitoSelecionadoId, origem });
     } else {
       if (marcacoes[chave] && marcacoes[chave].tipo === "x") {
         delete marcacoes[chave];
-        jogadas.push({ linha, coluna, acao: "apagar" });
+        jogadas.push({ linha, coluna, acao: "apagar", origem });
       } else {
         marcacoes[chave] = { tipo: "x" };
-        jogadas.push({ linha, coluna, acao: "x" });
+        jogadas.push({ linha, coluna, acao: "x", origem });
       }
     }
 
@@ -357,6 +357,53 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
       suspeitosEl.appendChild(blocoPistas);
     }
   }
+  
+  function botResolver(res) {
+    const payload = res?.payload;
+    const suspeitoRecebido = payload?.suspeito ?? payload?.supeito;
+    const posicao = payload?.posicao;
+
+    const suspeito = typeof suspeitoRecebido === "object"
+      ? suspeitoRecebido
+      : suspeitos.find(
+        (item) => item.id === suspeitoRecebido || item.nome === suspeitoRecebido
+      );
+    const suspeitoId = suspeito?.id ?? suspeitoRecebido;
+
+    let linha;
+    let coluna;
+    if (typeof posicao === "string") {
+      [linha, coluna] = posicao.split("-").map(Number);
+    } else if (Array.isArray(posicao)) {
+      [linha, coluna] = posicao.map(Number);
+    } else {
+      linha = Number(posicao?.linha);
+      coluna = Number(posicao?.coluna);
+    }
+
+    if (!suspeitoId || !Number.isInteger(linha) || !Number.isInteger(coluna)) {
+      console.error("Resposta do bot inválida:", res);
+      return { correto: false, erro: "Resposta do bot inválida" };
+    }
+
+    marcarCelula(linha, coluna, suspeitoId, "bot");
+
+    const chave = `${linha}-${coluna}`;
+    const correto = solucaoMock[chave] === suspeitoId;
+    const celula = boardEl.querySelector(
+      `.celula[data-linha="${linha}"][data-coluna="${coluna}"]`
+    );
+    celula?.classList.add(correto ? "celula--correta" : "celula--incorreta");
+
+    console.log(correto ? "Jogada do bot correta" : "Jogada do bot incorreta", {
+      suspeitoId,
+      linha,
+      coluna,
+    });
+
+    return { correto, suspeitoId, linha, coluna };
+  }
+
 
   function autoResolver() {
     salvarHistorico();
@@ -393,6 +440,7 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     desfazer,
     limparTudo,
     selecionarFerramenta,
+    botResolver,
     autoResolver,
     enviar,
     obterJogadas: () => JSON.parse(JSON.stringify(jogadas)),

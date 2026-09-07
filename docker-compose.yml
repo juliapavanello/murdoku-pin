@@ -6,8 +6,8 @@ services:
     restart: unless-stopped
     ports:
       - "7032:7032"
-    env_file:
-      - ./server/.env
+    environment:
+      PORT_BACK: 7032
     volumes:
       - ./server:/usr/src/app
       - /usr/src/app/node_modules

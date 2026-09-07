@@ -15,7 +15,10 @@ function montarHistorico() {
     const celula = `linha ${Number(jogada.linha) + 1}, coluna ${Number(jogada.coluna) + 1}`;
     if (jogada.acao === "apagar") return `Marcacao apagada na ${celula}`;
     if (jogada.acao === "x") return `Marcacao X adicionada na ${celula}`;
-    if (jogada.acao === "suspeito") return `Suspeito ${jogada.suspeitoId ?? ""} marcado na ${celula}`;
+    if (jogada.acao === "suspeito") {
+      const origem = jogada.origem === "bot" ? " pelo bot" : "";
+      return `Suspeito ${jogada.suspeitoId ?? ""} marcado na ${celula}${origem}`;
+    }
     return `Acao registrada na ${celula}`;
   }
 
