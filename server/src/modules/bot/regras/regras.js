@@ -123,12 +123,26 @@ const REGRAS = {
   estaUmaLinhaAoSulEEmAreaDiferenteDeSuspeito: ({ celula, posicoes, params }) => {
     const referencia = posicoes[params?.suspeitoId];
     if (!referencia) return true; // Se Donovan ainda não foi posicionado, não bloqueia
-    
+
     const umaLinhaAoSul = celula.linha === referencia.linha + 1;
     const areaDiferente = !mesmoComodo(celula, referencia);
-    
+
     return umaLinhaAoSul && areaDiferente;
   },
+
+  estaNoComodoComHomem: ({ celula, suspeitos, posicoes, params }) => {
+    if (celula.comodo !== params?.comodo) return false;
+    const homensIds = params?.homensIds || [];
+
+    const todosHomensPosicionados = homensIds.every((id) => Boolean(posicoes[id]));
+    if (!todosHomensPosicionados) return true;
+    
+    return homensIds.some((id) => {
+      const posHomem = posicoes[id];
+      return posHomem && mesmoComodo(celula, posHomem);
+    });
+  },
+
   // --- Regras "de caso" (compostas, específicas de uma dica) --------------
   estaNoComodoSemFicarAoLadoDeTipo: ({ celula, tabuleiro, params }) =>
     celula.comodo === params?.comodo &&

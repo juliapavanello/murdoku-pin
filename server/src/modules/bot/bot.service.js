@@ -42,8 +42,16 @@ function criarServiceUsuario() {
 
       throw new AppError({
         ...RESPONSE.ERRO_DESCONHECIDO,
-        message:
-          "Não encontrei nenhuma posição válida pra todos os suspeitos com as dicas fornecidas.",
+        payload: {
+          msg: "Não encontrei nenhuma posição válida pra todos os suspeitos com as dicas fornecidas.",
+          estado: [
+            [...suspeitos],
+            dominioInicial,
+            posicoesFinais,
+            suspeitos,
+            tabuleiro
+          ]
+        }
       });
     }
 
@@ -130,7 +138,7 @@ function criarServiceUsuario() {
           tabuleiro,
           posicoesFinais
         );
-
+        
         if (investigarSuspeitosRestantes(proximosSuspeitos, novosDominios, posicoesFinais, suspeitos, tabuleiro)) { return true; }
       }
 
@@ -142,7 +150,7 @@ function criarServiceUsuario() {
     return false;
   }
 
-  function validarPosicoesAtuais(suspeitos,posicoesFinais,tabuleiro) {
+  function validarPosicoesAtuais(suspeitos, posicoesFinais, tabuleiro) {
     const idsPosicionados = Object.keys(posicoesFinais);
 
     for (let i = 0; i < idsPosicionados.length; i++) {
@@ -154,6 +162,7 @@ function criarServiceUsuario() {
           a.linha === b.linha ||
           a.coluna === b.coluna
         ) {
+          console.log("Bot: Ops coloquei o suspeito em uma linha/coluna que já tinha dono!");          
           return false;
         }
       }
@@ -163,7 +172,7 @@ function criarServiceUsuario() {
       const suspeito = suspeitos.find((s) => s.id === suspeitoId);
       const regra = REGRAS[suspeito.regraId] || REGRAS.semRestricao;
 
-      return regra({
+      const segueRegra = regra({
         celula: posicoesFinais[suspeitoId],
         suspeito,
         suspeitos,
@@ -171,6 +180,8 @@ function criarServiceUsuario() {
         posicoes: posicoesFinais,
         params: suspeito.regraParams,
       });
+      if(!segueRegra){console.log(`Regra (${suspeito.regraId}) do suspeito foi violada!`);}
+      return segueRegra;
     });
   }
 
@@ -190,7 +201,7 @@ function criarServiceUsuario() {
         posicoesFinais
       );
     }
-
+    
     return dominios;
   }
 
