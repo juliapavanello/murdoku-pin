@@ -585,23 +585,23 @@ const TABULEIROS = [
     ],
 
     suspeitos: [
-      { id: "allison", nome: "Allison", dica: "Ela estava na primeira coluna.", foto: "assets/suspeitos/dolores.png" },
-      { id: "brendon", nome: "Brendon", dica: "Ele estava uma fileira ao sul de Donovan, em outra área.", foto: "assets/suspeitos/man_avatar.png" },
-      { id: "clark", nome: "Clark", dica: "Ela estava ao lado da pedra.", foto: "assets/suspeitos/cameron.png" },
-      { id: "donovan", nome: "Donovan", dica: "Ele estava ao lado do cavalete.", foto: "assets/suspeitos/brent.png" },
-      { id: "ellie", nome: "Ellie", dica: "Ela estava sentada em uma cadeira.", foto: "assets/suspeitos/carissa.png" },
-      { id: "vincenza", nome: "Vincenza", dica: "A vítima. Ela estava sozinha com o assassino.", foto: "assets/suspeitos/vinita.png", isVitima: true },
+      { id: "allison", nome: "Allison", dica: "Ela estava na primeira coluna.", foto: "assets/suspeitos/dolores.png", regraId: "estaNaPrimeiraColuna" },
+      { id: "brendon", nome: "Brendon", dica: "Ele estava uma fileira ao sul de Donovan, em outra área.", foto: "assets/suspeitos/man_avatar.png", regraId: "estaUmaLinhaAoSulEEmAreaDiferenteDeSuspeito", regraParams: { suspeitoId: "donovan" } },
+      { id: "clark", nome: "Clark", dica: "Ela estava ao lado da pedra.", foto: "assets/suspeitos/cameron.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "pinturaPedra" } },
+      { id: "donovan", nome: "Donovan", dica: "Ele estava ao lado do cavalete.", foto: "assets/suspeitos/brent.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "pinturaCavalete" } },
+      { id: "ellie", nome: "Ellie", dica: "Ela estava sentada em uma cadeira.", foto: "assets/suspeitos/carissa.png", regraId: "estaSobreTipo", regraParams: { tipo: "poltronaBranca" } },
+      { id: "vincenza", nome: "Vincenza", dica: "A vítima. Ela estava sozinha com o assassino.", foto: "assets/suspeitos/vinita.png", regraId: "semRestricao", isVitima: true },
     ],
 
     celulasBloqueadas: ["0-2", "1-3", "1-4", "2-0", "2-4", "4-3"],
 
     solucaoMock: {
-      "2-0": "allison",
-      "3-3": "brendon",
+      "1-0": "allison",
+      "4-5": "brendon",
       "0-1": "clark",
-      "2-3": "donovan",
-      "0-4": "ellie",
-      "4-3": "vincenza",
+      "3-4": "donovan",
+      "5-3": "ellie",
+      "2-2": "vincenza",
     },
   },
   {

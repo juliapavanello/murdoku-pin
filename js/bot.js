@@ -26,7 +26,7 @@ setInterval(() => {
 
     const resultado = window?.botResolver(jogada);
     if (resultado) console.log("Resultado da jogada do bot:", resultado);
-}, 2000)
+}, 1500)
 
 socket.onerror = (error) => {
     console.error('❌ Erro:', error);

@@ -58,7 +58,7 @@ function criarServiceUsuario() {
   ) {
     const regra = REGRAS[suspeito.regraId] || REGRAS.semRestricao;
 
-    return tabuleiro.celulas.filter((celula) => {      
+    return tabuleiro.celulas.filter((celula) => {
       if (celula.bloqueada) return false;
 
       if (celulaOcupada(celula, posicoesFinais)) return false;
@@ -118,13 +118,7 @@ function criarServiceUsuario() {
         posicao: `${celula.linha}-${celula.coluna}`,
       });
 
-      if (
-        validarPosicoesAtuais(
-          suspeitos,
-          posicoesFinais,
-          tabuleiro
-        )
-      ) {
+      if (validarPosicoesAtuais(suspeitos, posicoesFinais, tabuleiro)) {
         const proximosSuspeitos = removerSuspeito(
           suspeitosRestantes,
           suspeitoAtual
@@ -137,17 +131,7 @@ function criarServiceUsuario() {
           posicoesFinais
         );
 
-        if (
-          investigarSuspeitosRestantes(
-            proximosSuspeitos,
-            novosDominios,
-            posicoesFinais,
-            suspeitos,
-            tabuleiro
-          )
-        ) {
-          return true;
-        }
+        if (investigarSuspeitosRestantes(proximosSuspeitos, novosDominios, posicoesFinais, suspeitos, tabuleiro)) { return true; }
       }
 
       delete posicoesFinais[suspeitoAtual.id];
@@ -158,11 +142,7 @@ function criarServiceUsuario() {
     return false;
   }
 
-  function validarPosicoesAtuais(
-    suspeitos,
-    posicoesFinais,
-    tabuleiro
-  ) {
+  function validarPosicoesAtuais(suspeitos,posicoesFinais,tabuleiro) {
     const idsPosicionados = Object.keys(posicoesFinais);
 
     for (let i = 0; i < idsPosicionados.length; i++) {
@@ -180,12 +160,8 @@ function criarServiceUsuario() {
     }
 
     return idsPosicionados.every((suspeitoId) => {
-      const suspeito = suspeitos.find(
-        (s) => s.id === suspeitoId
-      );
-
-      const regra =
-        REGRAS[suspeito.regraId] || REGRAS.semRestricao;
+      const suspeito = suspeitos.find((s) => s.id === suspeitoId);
+      const regra = REGRAS[suspeito.regraId] || REGRAS.semRestricao;
 
       return regra({
         celula: posicoesFinais[suspeitoId],

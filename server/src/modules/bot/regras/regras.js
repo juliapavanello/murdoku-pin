@@ -120,6 +120,15 @@ const REGRAS = {
     return !mesmoComodo(celula, referencia);
   },
 
+  estaUmaLinhaAoSulEEmAreaDiferenteDeSuspeito: ({ celula, posicoes, params }) => {
+    const referencia = posicoes[params?.suspeitoId];
+    if (!referencia) return true; // Se Donovan ainda não foi posicionado, não bloqueia
+    
+    const umaLinhaAoSul = celula.linha === referencia.linha + 1;
+    const areaDiferente = !mesmoComodo(celula, referencia);
+    
+    return umaLinhaAoSul && areaDiferente;
+  },
   // --- Regras "de caso" (compostas, específicas de uma dica) --------------
   estaNoComodoSemFicarAoLadoDeTipo: ({ celula, tabuleiro, params }) =>
     celula.comodo === params?.comodo &&
