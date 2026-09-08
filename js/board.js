@@ -85,8 +85,16 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     salvarHistorico();
 
     if (marcacaoSolicitada === "apagar" || ferramentaAtiva === "apagar") {
+      const marcacaoApagada = marcacoes[chave];
       delete marcacoes[chave];
-      jogadas.push({ linha, coluna, acao: "apagar", origem });
+      jogadas.push({
+        linha,
+        coluna,
+        acao: "apagar",
+        suspeitoId: marcacaoApagada?.suspeitoId,
+        origem,
+        apagada: true,
+      });
     } else if (marcacaoSolicitada === "x" || ferramentaAtiva === "x") {
       marcacoes[chave] = { tipo: "x" };
       jogadas.push({ linha, coluna, acao: "x", origem });
@@ -99,7 +107,7 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     } else {
       if (marcacoes[chave] && marcacoes[chave].tipo === "x") {
         delete marcacoes[chave];
-        jogadas.push({ linha, coluna, acao: "apagar", origem });
+        jogadas.push({ linha, coluna, acao: "apagar", origem, apagada: true });
       } else {
         marcacoes[chave] = { tipo: "x" };
         jogadas.push({ linha, coluna, acao: "x", origem });
@@ -364,7 +372,15 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     const posicao = payload?.posicao;
 
     if (res?.code == 2) { jogo?.desfazer(); return; }
-    if (res?.code == 3) { jogo?.enviar(); return; }
+    if (res?.code == 3) {
+      jogadas.push({
+        acao: "bot-finalizou",
+        origem: "bot",
+        mensagem: res.message || "O bot terminou a resolução.",
+      });
+      jogo?.enviar();
+      return;
+    }
 
     const suspeito = typeof suspeitoRecebido === "object"
       ? suspeitoRecebido

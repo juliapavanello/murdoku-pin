@@ -12,7 +12,14 @@ function montarHistorico() {
   }
 
   function descreverJogada(jogada) {
+    if (jogada.acao === "bot-finalizou") {
+      return jogada.mensagem || "O bot terminou a resolução.";
+    }
     const celula = `linha ${Number(jogada.linha) + 1}, coluna ${Number(jogada.coluna) + 1}`;
+    if (jogada.apagada && jogada.suspeitoId) {
+      return `Suspeito ${jogada.suspeitoId} apagado na ${celula}`;
+    }
+    if (jogada.apagada) return `Marcacao apagada na ${celula}`;
     if (jogada.acao === "apagar") return `Marcacao apagada na ${celula}`;
     if (jogada.acao === "x") return `Marcacao X adicionada na ${celula}`;
     if (jogada.acao === "suspeito") {
