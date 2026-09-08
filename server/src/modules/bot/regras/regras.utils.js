@@ -49,9 +49,14 @@ function celulasVizinhas(tabuleiro, celula) {
 }
 
 function celulaTemTipoOuDecoracao(celula, tipo) {
-  if (!celula) return false;
-  if (celula.tipo === tipo) return true;
-  return (celula.decoracoes || []).includes(tipo);
+  if (!celula || !tipo) return false;
+  const tipoProcurado = tipo.toLowerCase();
+  const tipoMatch = celula.tipo && celula.tipo.toLowerCase().includes(tipoProcurado);
+  const decoracaoMatch = (celula.decoracoes || []).some((dec) =>
+    dec.toLowerCase().includes(tipoProcurado)
+  );
+
+  return tipoMatch || decoracaoMatch;
 }
 
 function mesmoComodo(celulaA, celulaB) {

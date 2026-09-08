@@ -128,7 +128,13 @@
     });
 
     document.getElementById("btn-desfazer").addEventListener("click", () => jogo.desfazer());
-    document.getElementById("btn-auto").addEventListener("click", () => { fetch("http://localhost:7032/api/v1/bot/start/", { method: 'POST' }) });
+    document.getElementById("btn-auto").addEventListener("click", () => {
+      fetch("http://localhost:7032/api/v1/bot/start/", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tabuleiro: tabuleiroAtual, suspeitos: tabuleiroAtual.suspeitos })
+      })
+    });
 
     const resultadoModal = document.getElementById("resultado-modal");
     const resultadoTitulo = document.getElementById("resultado-titulo");

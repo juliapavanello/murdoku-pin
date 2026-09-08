@@ -32,8 +32,6 @@ import {
  * posicionados baterem simultaneamente.
  */
 const REGRAS = {
-  // Regra "neutra": não impõe nenhuma restrição própria (fica só com as
-  // restrições globais do tabuleiro, tipo "não pode estar bloqueada").
   semRestricao: () => true,
 
   // --- Regras genéricas e reutilizáveis -----------------------------------
@@ -64,14 +62,9 @@ const REGRAS = {
 
   estaNaUltimaLinha: ({ celula, tabuleiro }) => celula.linha === tabuleiro.tamanho - 1,
 
-  // "Ninguém mais na área dele/dela" — nenhum outro suspeito já colocado
-  // pode estar no mesmo cômodo desta célula.
   estaSozinhoNoComodo: ({ celula, suspeito, suspeitos, posicoes }) =>
     estaSozinhoNoComodo(celula, suspeito.id, suspeitos, posicoes),
 
-  // "Era a única pessoa sentada numa cadeira" (ou qualquer outro tipo/objeto):
-  // a célula precisa ter o tipo pedido E nenhum outro suspeito já
-  // posicionado pode estar sobre uma célula do mesmo tipo.
   euSouOUnicoSobreTipo: ({ celula, suspeito, suspeitos, posicoes, params }) => {
     if (!celulaTemTipoOuDecoracao(celula, params?.tipo)) return false;
     return !suspeitos.some((outro) => {
@@ -82,9 +75,6 @@ const REGRAS = {
   },
 
   // --- Regras relacionais (posição relativa a outro suspeito) ------------
-  // Todas seguem o mesmo padrão: se a posição do suspeito de referência
-  // ainda não é conhecida, a regra não descarta a célula (retorna true);
-  // a validação real acontece quando os dois já estiverem posicionados.
 
   estaAoSulDeSuspeito: ({ celula, posicoes, params }) => {
     const referencia = posicoes[params?.suspeitoId];
@@ -131,9 +121,6 @@ const REGRAS = {
   },
 
   // --- Regras "de caso" (compostas, específicas de uma dica) --------------
-  // Exemplo real do case "O Clube do Livro": "Ele estava na biblioteca.
-  // Ele não estava ao lado de uma estante". Mistura duas condições —
-  // perfeitamente possível numa strategy, já que é só uma função.
   estaNoComodoSemFicarAoLadoDeTipo: ({ celula, tabuleiro, params }) =>
     celula.comodo === params?.comodo &&
     !celulasVizinhas(tabuleiro, celula).some((vizinha) =>
