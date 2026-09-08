@@ -32,10 +32,10 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
   const bordasAbertasBaixo = bordasAbertas.baixo || [];
 
   let marcacoes = {};
-  let historico = []; 
+  let historico = [];
   let jogadas = [];
   let suspeitoSelecionadoId = null;
-  let ferramentaAtiva = null; 
+  let ferramentaAtiva = null;
   let celulaSelecionada = null;
 
   function salvarHistorico() {
@@ -357,11 +357,14 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
       suspeitosEl.appendChild(blocoPistas);
     }
   }
-  
+
   function botResolver(res) {
     const payload = res?.payload;
     const suspeitoRecebido = payload?.suspeito ?? payload?.supeito;
     const posicao = payload?.posicao;
+
+    if (res?.code == 2) { jogo?.desfazer(); return; }
+    if (res?.code == 3) { jogo?.enviar(); return; }
 
     const suspeito = typeof suspeitoRecebido === "object"
       ? suspeitoRecebido
@@ -404,6 +407,7 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     return { correto, suspeitoId, linha, coluna };
   }
 
+  window.botResolver = botResolver
 
   function autoResolver() {
     salvarHistorico();

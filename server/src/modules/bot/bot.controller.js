@@ -1,10 +1,6 @@
 import RESPONSE from '../../shared/constants/response.js';
 import { normalizarTabuleiro } from './regras/tabuleiro.mapper.js';
 
-// Exemplo real, equivalente ao caso "O Chiqueiro" (id 1) do js/boards.js,
-// já no novo formato esperado pelo service (suspeito.regraId + regraParams).
-// Usado como fallback só pra o endpoint funcionar "out of the box" sem
-// precisar já ter o front mandando o payload nesse formato.
 const CASO_EXEMPLO = {
   tabuleiro: normalizarTabuleiro({
     tamanho: 5,

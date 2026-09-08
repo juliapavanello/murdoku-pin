@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Murdoku — O Chiqueiro</title>
   <link rel="stylesheet" href="css/board.css" />
 </head>
+
 <body>
   <div class="tela-jogo">
     <aside class="barra-lateral" aria-label="Ferramentas do jogo">
@@ -126,7 +128,7 @@
     });
 
     document.getElementById("btn-desfazer").addEventListener("click", () => jogo.desfazer());
-    document.getElementById("btn-auto").addEventListener("click", () => jogo.autoResolver());
+    document.getElementById("btn-auto").addEventListener("click", () => { fetch("http://localhost:7032/api/v1/bot/start/", { method: 'POST' }) });
 
     const resultadoModal = document.getElementById("resultado-modal");
     const resultadoTitulo = document.getElementById("resultado-titulo");
@@ -201,4 +203,5 @@
   </script>
   <script src="js/bot.js"></script>
 </body>
+
 </html>
