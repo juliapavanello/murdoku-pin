@@ -1,4 +1,10 @@
 const RESPONSE = Object.freeze({
+    // Usado só pela rota REST (POST /bot/start), não pelo WebSocket.
+    SUCESSO: {
+        code: 200,
+        message: "Ok.",
+        status: 200
+    },
     ERRO_DESCONHECIDO: {
         code: 0,
         message: "Um erro inesperado ocorreu! Espero que não tenha acontecido na frente do professor",
@@ -15,7 +21,7 @@ const RESPONSE = Object.freeze({
     },
     DESFAZER: {
         code: 2,
-        message: "Ok, o último suspeito não deve estar errado, pois estou sem opções de jogada e ainda tenho suspeitos.",
+        message: "Ok, o último suspeito deve estar errado, pois estou sem opções de jogada e ainda tenho suspeitos.",
         status: "200"
     },
     ENVIAR_SOLUCAO: {

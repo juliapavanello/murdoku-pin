@@ -99,10 +99,10 @@ const TABULEIROS = [
       ["porco", "lama", "lama", "vazio", "lama"],
       ["vazio", "vazio", "vazio", "vazio", "vazio"],
       ["porco", "vazio", "porco", "vazio", "porco"],
-      ["vazio", "vazio", "vazio", "vazio", "vazio"],
+      ["vazio", "vazio", "vazio", "vazio", "mesa"],
     ],
 
-    celulasBloqueadas: ["4-4"],
+    celulasBloqueadas: ["1-0", "3-0", "3-2", "3-4", "4-4"],
 
     icones: {
       lama: "assets/icones/Lama.png",

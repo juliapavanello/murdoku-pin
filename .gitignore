@@ -3,5 +3,6 @@
 #---------- Server side -------------------------------------------
 server/.env
 server/node_modules
+murdoku-pin-bot-finalizado
 
 #---------- Client side -------------------------------------------
