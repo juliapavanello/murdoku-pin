@@ -1,4 +1,4 @@
-# Murdoku Pin
+# Murdoku
 
 Jogo de lógica baseado em tabuleiro, com foco em dedução e resolução de casos por meio de pistas e marcações.
 
