@@ -363,8 +363,8 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     const suspeitoRecebido = payload?.suspeito ?? payload?.supeito;
     const posicao = payload?.posicao;
 
-    if (res?.code == 2) { jogo?.desfazer(); return; }
-    if (res?.code == 3) { jogo?.enviar(); return; }
+    if (res?.code == 2) { desfazer(); return; }
+    if (res?.code == 3) { return window.registrarEnvioMurdoku?.("bot"); }
 
     const suspeito = typeof suspeitoRecebido === "object"
       ? suspeitoRecebido

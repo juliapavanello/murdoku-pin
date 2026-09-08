@@ -331,6 +331,22 @@ html,
    font-size: 13px;
    color: #666;
  }
+
+ .historico-item__tempo {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 6px;
+   margin-top: 8px;
+   color: #555;
+   font-size: 12px;
+ }
+
+ .historico-item__tempo span {
+   border: 1px solid var(--borda);
+   border-radius: 999px;
+   background: #f8f8f8;
+   padding: 4px 10px;
+ }
  
  .historico-item__resultado {
    font-size: 14px;
