@@ -110,23 +110,77 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     if (celulaAtiva?.classList.contains("celula")) focarCelula(linha, coluna);
   }
 
-  function onCelulaClicada(evento) {
-    const celula = evento.currentTarget;
-    const linha = Number(celula.dataset.linha);
-    const coluna = Number(celula.dataset.coluna);
-    celulaSelecionada = `${linha}-${coluna}`;
-    celula.focus();
+  function selecionarCelula(linha, coluna, { focar = true } = {}) {
+    const chave = `${linha}-${coluna}`;
+    celulaSelecionada = chave;
+    const celula = boardEl.querySelector(`.celula[data-linha="${linha}"][data-coluna="${coluna}"]`);
+    if (!celula) return;
+
     boardEl.querySelectorAll(".celula--selecionada").forEach((item) => {
       item.classList.remove("celula--selecionada");
     });
     celula.classList.add("celula--selecionada");
+    if (focar) celula.focus();
+  }
+
+  function onCelulaClicada(evento) {
+    const celula = evento.currentTarget;
+    const linha = Number(celula.dataset.linha);
+    const coluna = Number(celula.dataset.coluna);
+
+    if (celula.dataset.bloqueada === "true") {
+      selecionarCelula(linha, coluna, { focar: true });
+      return;
+    }
+
+    selecionarCelula(linha, coluna, { focar: true });
     if (ferramentaAtiva || suspeitoSelecionadoId) marcarCelula(linha, coluna);
+  }
+
+  function moverSelecaoPorTecla(evento) {
+    const mover = {
+      ArrowUp: [-1, 0],
+      ArrowDown: [1, 0],
+      ArrowLeft: [0, -1],
+      ArrowRight: [0, 1],
+    };
+
+    const deslocamento = mover[evento.key];
+    if (!deslocamento) return;
+
+    const linha = Number(evento.currentTarget.dataset.linha);
+    const coluna = Number(evento.currentTarget.dataset.coluna);
+    const proximaLinha = linha + deslocamento[0];
+    const proximaColuna = coluna + deslocamento[1];
+
+    if (
+      proximaLinha < 0 ||
+      proximaLinha >= tamanho ||
+      proximaColuna < 0 ||
+      proximaColuna >= tamanho
+    ) {
+      return;
+    }
+
+    evento.preventDefault();
+    const proximaCelula = boardEl.querySelector(
+      `.celula[data-linha="${proximaLinha}"][data-coluna="${proximaColuna}"]`
+    );
+
+    if (!proximaCelula) return;
+
+    selecionarCelula(proximaLinha, proximaColuna, { focar: true });
   }
 
   function onCelulaDigitada(evento) {
     const tecla = evento.key.toLowerCase();
     const linha = Number(evento.currentTarget.dataset.linha);
     const coluna = Number(evento.currentTarget.dataset.coluna);
+
+    if (evento.key.startsWith("Arrow")) {
+      moverSelecaoPorTecla(evento);
+      return;
+    }
 
     if ((evento.ctrlKey || evento.metaKey) && tecla === "z") {
       evento.preventDefault();
@@ -189,7 +243,8 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
         const estaBloqueada = celulasBloqueadas.includes(chave);
         if (estaBloqueada) {
           celula.classList.add("celula--bloqueada");
-          celula.disabled = true;
+          celula.dataset.bloqueada = "true";
+          celula.setAttribute("aria-disabled", "true");
         }
         celula.setAttribute(
           "aria-label",

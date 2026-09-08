@@ -176,11 +176,11 @@ html, body {
 
 .resultado-modal__ilustracao {
   position: absolute;
-  top: 8px;
+  top: 4px;
   right: 48px;
   z-index: 1;
-  width: 72px;
-  height: 92px;
+  width: 82px;
+  height: 116px;
 }
 
 .resultado-modal__ilustracao img {
@@ -232,7 +232,7 @@ html, body {
 }
 
 .resultado-modal p {
-  margin: 10px 0 18px;
+  margin: 42px 0 18px;
   color: #555;
   font-size: 14px;
   line-height: 1.4;
