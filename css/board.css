@@ -193,7 +193,7 @@ html, body {
   position: relative;
   z-index: 2;
   width: 82%;
-  margin: 0 auto;
+  margin: 12px auto 0;
   color: #171717;
   font-family: Sherlock, Georgia, "Times New Roman", serif;
   font-size: 34px;
