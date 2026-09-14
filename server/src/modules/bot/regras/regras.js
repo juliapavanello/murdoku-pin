@@ -66,7 +66,8 @@ const REGRAS = {
 
   naoEstaAoLadoDeTipo: ({ celula, tabuleiro, params }) =>
     !celulasVizinhas(tabuleiro, celula).some((vizinha) =>
-      celulaTemTipoOuDecoracao(vizinha, params?.tipo)
+      celulaTemTipoOuDecoracao(vizinha, params?.tipo) &&
+      mesmoComodo(celula, vizinha)
     ),
 
   estaNaPrimeiraColuna: ({ celula }) => celula.coluna === 0,
@@ -543,6 +544,83 @@ const REGRAS = {
         tabuleiro,
         params,
       });
+    });
+  },
+
+  estaSozinhoNoComodoESobreTipo: ({
+    celula,
+    suspeito,
+    suspeitos,
+    posicoes,
+    params,
+  }) => {
+    if (!REGRAS.estaSobreTipo({ celula, params })) {
+      return false;
+    }
+
+    return estaSozinhoNoComodo(
+      celula,
+      suspeito.id,
+      suspeitos,
+      posicoes
+    );
+  },
+
+  estaNoComodoENaoAoLadoDeTipo: ({
+    celula,
+    tabuleiro,
+    params,
+  }) => {
+    const { comodo, tipo } = params;
+
+    if (celula.comodo !== comodo) {
+      return false;
+    }
+
+    return !REGRAS.estaAoLadoDeTipo({
+      celula,
+      tabuleiro,
+      params: { tipo },
+    });
+  },
+
+  estaAoLesteENaoAoLadoDeTipo: ({
+    celula,
+    suspeitos,
+    posicoes,
+    tabuleiro,
+    params,
+  }) => {
+    const { suspeitoId, tipo } = params;
+
+    const suspeito = suspeitos.find(
+      (suspeito) => suspeito.id === suspeitoId
+    );
+
+    if (!suspeito) {
+      return false;
+    }
+
+    const posicao = posicoes[suspeitoId];
+
+    // Enquanto o suspeito de referência não estiver posicionado,
+    // não elimina a possibilidade.
+    if (!posicao) {
+      return true;
+    }
+
+    const estaAoLeste =
+      celula.linha === posicao.linha &&
+      celula.coluna === posicao.coluna + 1;
+
+    if (!estaAoLeste) {
+      return false;
+    }
+
+    return !REGRAS.estaAoLadoDeTipo({
+      celula,
+      tabuleiro,
+      params: { tipo },
     });
   },
 

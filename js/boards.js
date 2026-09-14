@@ -1154,7 +1154,7 @@ const TABULEIROS = [
     dificuldade: "dificil",
 
     gridInicial: [
-      ["planta", "mesaRoxa", "vazio", "vazio", "visitanteCamaBase", "vazio", "poltronaBranca", "mesaRoxa", "mesaRoxa"],
+      ["planta", "mesaRoxa", "vazio", "poltronaBranca", "visitanteCamaBase", "vazio", "poltronaBranca", "mesaRoxa", "mesaRoxa"],
       ["poltronaBranca", "vazio", "vazio", "vazio", "visitanteCamaCoberta", "vazio", "planta", "vazio", "vazio"],
       ["vazio", "poltronaBranca", "vazio", "vazio", "vazio", "vazio", "vazio", "mesaRoxa", "vazio"],
       ["visitanteTv", "vazio", "mesaRoxa", "vazio", "vazio", "mesaRoxa", "poltronaBranca", "vazio", "vazio"],
@@ -1236,16 +1236,26 @@ const TABULEIROS = [
     ],
 
     suspeitos: [
-      { id: "austin", nome: "Austin", dica: "Ele não estava ao lado de uma mesa.", foto: "assets/suspeitos/man_avatar.png" },
-      { id: "benton", nome: "Benton", dica: "Ele estava na linha de baixo.", foto: "assets/suspeitos/brent.png" },
-      { id: "chloe", nome: "Chloe", dica: "Ela estava ao lado de uma estante.", foto: "assets/suspeitos/dolores.png" },
-      { id: "dawn", nome: "Dawn", dica: "Ela estava ao leste de Benton. Ela não estava ao lado de uma mesa.", foto: "assets/suspeitos/vinita.png" },
-      { id: "eloise", nome: "Eloise", dica: "Ela estava no Porão. Ela não estava ao lado da TV.", foto: "assets/suspeitos/eduardo.png" },
-      { id: "fred", nome: "Fred", dica: "Ele estava sozinho. Ele estava sentado em uma cadeira.", foto: "assets/suspeitos/man_avatar.png" },
-      { id: "gean", nome: "Gean", dica: "Ele estava no Banheiro.", foto: "assets/suspeitos/jack.png" },
-      { id: "henry", nome: "Henry", dica: "Ele estava ao lado de uma mesa.", foto: "assets/suspeitos/brent.png" },
-      { id: "vinAdega", nome: "Vin", dica: "A vítima. Ele estava sozinho com o assassino.", foto: "assets/suspeitos/floyd.png", isVitima: true },
+      { id: "austin", nome: "Austin", dica: "Ele não estava ao lado de uma mesa.", foto: "assets/suspeitos/man_avatar.png", regraId: "naoEstaAoLadoDeTipo", regraParams: { tipo: "mesa" } },
+      { id: "benton", nome: "Benton", dica: "Ele estava na linha de baixo.", foto: "assets/suspeitos/brent.png", regraId: "estaNaUltimaLinha", regraParams: {} },
+      { id: "chloe", nome: "Chloe", dica: "Ela estava ao lado de uma estante.", foto: "assets/suspeitos/dolores.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "estante" } },
+      { id: "dawn", nome: "Dawn", dica: "Ela estava ao leste de Benton. Ela não estava ao lado de uma mesa.", foto: "assets/suspeitos/vinita.png", regraId: "estaAoLesteENaoAoLadoDeTipo", regraParams: { suspeitoId: "benton", tipo: 'mesa' } },
+      { id: "eloise", nome: "Eloise", dica: "Ela estava no Porão. Ela não estava ao lado da TV.", foto: "assets/suspeitos/eduardo.png", regraId: "estaNoComodoENaoAoLadoDeTipo", regraParams: { comodo: "PORÃO", tipo: "visitanteTv" } },
+      { id: "fred", nome: "Fred", dica: "Ele estava sozinho. Ele estava sentado em uma cadeira.", foto: "assets/suspeitos/man_avatar.png", regraId: "estaSozinhoNoComodoESobreTipo", regraParams: { tipo: "poltronaBranca" } },
+      { id: "gean", nome: "Gean", dica: "Ele estava no Banheiro.", foto: "assets/suspeitos/jack.png", regraId: "estaNoComodo", regraParams: { comodo: "BANHEIRO" } },
+      { id: "henry", nome: "Henry", dica: "Ele estava ao lado de uma mesa.", foto: "assets/suspeitos/brent.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "mesa" } },
+      { id: "vinAdega", nome: "Vin", dica: "A vítima. Ele estava sozinho com o assassino.", foto: "assets/suspeitos/floyd.png", isVitima: true, regraId: "semRestricao"},
     ],
+    pistasGerais: [
+      "Havia exatamente uma pessoa na cama",
+      "Não havia cômodo vazio",
+      "Havia exatamenteduas pessoas sentadas em uma cadeira",
+    ],
+    // regrasGlobais: [
+    //   { regraId: "exatamenteUmaPessoaNaCama" },
+    //   { regraId: "nenhumComodoVazio" },
+    //   { regraId: "exatamenteDuasPessoasNaCadeira" },
+    // ],
 
     celulasBloqueadas: ["0-0", "0-1", "0-7", "0-8", "1-6", "2-7", "3-0", "3-2", "3-5", "4-0", "4-8", "5-0", "5-3", "5-8", "6-2", "6-3", "6-5", "6-6", "6-8", "7-0", "7-1", "7-2", "7-5", "8-0", "8-1", "8-2", "8-3", "8-5", "8-7"],
 
