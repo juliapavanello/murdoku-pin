@@ -936,14 +936,14 @@ const TABULEIROS = [
     ],
 
     suspeitos: [
-      { id: "adonis", nome: "Adonis", dica: "Ele estava ao lado da mesa na Entrada.", foto: "assets/suspeitos/man_avatar.png" },
+      { id: "adonis", nome: "Adonis", dica: "Ele estava ao lado da mesa na Entrada.", foto: "assets/suspeitos/jack.png" },
       { id: "bryson", nome: "Bryson", dica: "Ninguém na área dele tinha barba.", foto: "assets/suspeitos/brent.png" },
-      { id: "craig", nome: "Craig", dica: "Ele estava sentado em uma cadeira.", foto: "assets/suspeitos/cameron.png" },
+      { id: "craig", nome: "Craig", dica: "Ele estava sentado em uma cadeira.", foto: "assets/suspeitos/craig.png" },
       { id: "dylan", nome: "Dylan", dica: "Ele estava ao lado de uma televisão. Ele estava sozinho.", foto: "assets/suspeitos/eduardo.png" },
-      { id: "edisonBarbearia", nome: "Edison", dica: "Ele estava ao lado de uma caixa.", foto: "assets/suspeitos/vinita.png" },
-      { id: "floyd", nome: "Floyd", dica: "Ele estava em um tapete.", foto: "assets/suspeitos/brent.png" },
-      { id: "grant", nome: "Grant", dica: "Ele estava ao lado da estante na Sala de espera.", foto: "assets/suspeitos/man_avatar.png" },
-      { id: "vasiliy", nome: "Vasiliy", dica: "A vítima. Ele estava sozinho com o assassino.", foto: "assets/suspeitos/eduardo.png", isVitima: true },
+      { id: "edisonBarbearia", nome: "Edison", dica: "Ele estava ao lado de uma caixa.", foto: "assets/suspeitos/man_avatar.png" },
+      { id: "floyd", nome: "Floyd", dica: "Ele estava em um tapete.", foto: "assets/suspeitos/floyd.png" },
+      { id: "grant", nome: "Grant", dica: "Ele estava ao lado da estante na Sala de espera.", foto: "assets/suspeitos/grant.png" },
+      { id: "vasiliy", nome: "Vasiliy", dica: "A vítima. Ele estava sozinho com o assassino.", foto: "assets/suspeitos/vasiliy.png", isVitima: true },
     ],
 
     celulasBloqueadas: ["0-0", "0-1", "0-2", "0-6", "1-3", "1-4", "2-1", "2-2", "2-3", "2-4", "4-0", "5-0", "5-3", "5-5", "7-0", "7-5"],
