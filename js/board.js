@@ -34,6 +34,7 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
   let marcacoes = {};
   let historico = [];
   let jogadas = [];
+  let registroJogadas = [];
   let suspeitoSelecionadoId = null;
   let ferramentaAtiva = null;
   let celulaSelecionada = null;
@@ -45,16 +46,31 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     });
   }
 
+  function registrarJogada(jogada) {
+    jogadas.push(jogada);
+    registroJogadas.push(JSON.parse(JSON.stringify(jogada)));
+  }
+
   function focarCelula(linha, coluna) {
     if (linha === undefined || coluna === undefined) return;
     boardEl.querySelector(`.celula[data-linha="${linha}"][data-coluna="${coluna}"]`)?.focus();
   }
 
   function desfazer(linha, coluna) {
+    const jogadaDesfeita = jogadas[jogadas.length - 1];
     const anterior = historico.pop();
     if (!anterior) return;
     marcacoes = anterior.marcacoes;
     jogadas = anterior.jogadas;
+    if (jogadaDesfeita) {
+      registroJogadas.push({
+        acao: "desfazer",
+        origem: "jogador",
+        linha: jogadaDesfeita.linha,
+        coluna: jogadaDesfeita.coluna,
+        desfeita: JSON.parse(JSON.stringify(jogadaDesfeita)),
+      });
+    }
     renderizarGrid();
     focarCelula(linha, coluna);
   }
@@ -85,24 +101,32 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     salvarHistorico();
 
     if (marcacaoSolicitada === "apagar" || ferramentaAtiva === "apagar") {
+      const marcacaoApagada = marcacoes[chave];
       delete marcacoes[chave];
-      jogadas.push({ linha, coluna, acao: "apagar", origem });
+      registrarJogada({
+        linha,
+        coluna,
+        acao: "apagar",
+        suspeitoId: marcacaoApagada?.suspeitoId,
+        origem,
+        apagada: true,
+      });
     } else if (marcacaoSolicitada === "x" || ferramentaAtiva === "x") {
       marcacoes[chave] = { tipo: "x" };
-      jogadas.push({ linha, coluna, acao: "x", origem });
+      registrarJogada({ linha, coluna, acao: "x", origem });
     } else if (marcacaoSolicitada) {
       marcacoes[chave] = { tipo: "suspeito", suspeitoId: marcacaoSolicitada };
-      jogadas.push({ linha, coluna, acao: "suspeito", suspeitoId: marcacaoSolicitada, origem });
+      registrarJogada({ linha, coluna, acao: "suspeito", suspeitoId: marcacaoSolicitada, origem });
     } else if (suspeitoSelecionadoId) {
       marcacoes[chave] = { tipo: "suspeito", suspeitoId: suspeitoSelecionadoId };
-      jogadas.push({ linha, coluna, acao: "suspeito", suspeitoId: suspeitoSelecionadoId, origem });
+      registrarJogada({ linha, coluna, acao: "suspeito", suspeitoId: suspeitoSelecionadoId, origem });
     } else {
       if (marcacoes[chave] && marcacoes[chave].tipo === "x") {
         delete marcacoes[chave];
-        jogadas.push({ linha, coluna, acao: "apagar", origem });
+        registrarJogada({ linha, coluna, acao: "apagar", origem, apagada: true });
       } else {
         marcacoes[chave] = { tipo: "x" };
-        jogadas.push({ linha, coluna, acao: "x", origem });
+        registrarJogada({ linha, coluna, acao: "x", origem });
       }
     }
 
@@ -110,77 +134,23 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     if (celulaAtiva?.classList.contains("celula")) focarCelula(linha, coluna);
   }
 
-  function selecionarCelula(linha, coluna, { focar = true } = {}) {
-    const chave = `${linha}-${coluna}`;
-    celulaSelecionada = chave;
-    const celula = boardEl.querySelector(`.celula[data-linha="${linha}"][data-coluna="${coluna}"]`);
-    if (!celula) return;
-
-    boardEl.querySelectorAll(".celula--selecionada").forEach((item) => {
-      item.classList.remove("celula--selecionada");
-    });
-    celula.classList.add("celula--selecionada");
-    if (focar) celula.focus();
-  }
-
   function onCelulaClicada(evento) {
     const celula = evento.currentTarget;
     const linha = Number(celula.dataset.linha);
     const coluna = Number(celula.dataset.coluna);
-
-    if (celula.dataset.bloqueada === "true") {
-      selecionarCelula(linha, coluna, { focar: true });
-      return;
-    }
-
-    selecionarCelula(linha, coluna, { focar: true });
+    celulaSelecionada = `${linha}-${coluna}`;
+    celula.focus();
+    boardEl.querySelectorAll(".celula--selecionada").forEach((item) => {
+      item.classList.remove("celula--selecionada");
+    });
+    celula.classList.add("celula--selecionada");
     if (ferramentaAtiva || suspeitoSelecionadoId) marcarCelula(linha, coluna);
-  }
-
-  function moverSelecaoPorTecla(evento) {
-    const mover = {
-      ArrowUp: [-1, 0],
-      ArrowDown: [1, 0],
-      ArrowLeft: [0, -1],
-      ArrowRight: [0, 1],
-    };
-
-    const deslocamento = mover[evento.key];
-    if (!deslocamento) return;
-
-    const linha = Number(evento.currentTarget.dataset.linha);
-    const coluna = Number(evento.currentTarget.dataset.coluna);
-    const proximaLinha = linha + deslocamento[0];
-    const proximaColuna = coluna + deslocamento[1];
-
-    if (
-      proximaLinha < 0 ||
-      proximaLinha >= tamanho ||
-      proximaColuna < 0 ||
-      proximaColuna >= tamanho
-    ) {
-      return;
-    }
-
-    evento.preventDefault();
-    const proximaCelula = boardEl.querySelector(
-      `.celula[data-linha="${proximaLinha}"][data-coluna="${proximaColuna}"]`
-    );
-
-    if (!proximaCelula) return;
-
-    selecionarCelula(proximaLinha, proximaColuna, { focar: true });
   }
 
   function onCelulaDigitada(evento) {
     const tecla = evento.key.toLowerCase();
     const linha = Number(evento.currentTarget.dataset.linha);
     const coluna = Number(evento.currentTarget.dataset.coluna);
-
-    if (evento.key.startsWith("Arrow")) {
-      moverSelecaoPorTecla(evento);
-      return;
-    }
 
     if ((evento.ctrlKey || evento.metaKey) && tecla === "z") {
       evento.preventDefault();
@@ -243,8 +213,7 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
         const estaBloqueada = celulasBloqueadas.includes(chave);
         if (estaBloqueada) {
           celula.classList.add("celula--bloqueada");
-          celula.dataset.bloqueada = "true";
-          celula.setAttribute("aria-disabled", "true");
+          celula.disabled = true;
         }
         celula.setAttribute(
           "aria-label",
@@ -418,8 +387,16 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     const suspeitoRecebido = payload?.suspeito ?? payload?.supeito;
     const posicao = payload?.posicao;
 
-    if (res?.code == 2) { desfazer(); return; }
-    if (res?.code == 3) { return window.registrarEnvioMurdoku?.("bot"); }
+    if (res?.code == 2) { jogo?.desfazer(); return; }
+    if (res?.code == 3) {
+      registrarJogada({
+        acao: "bot-finalizou",
+        origem: "bot",
+        mensagem: res.message || "O bot terminou a resolução.",
+      });
+      jogo?.enviar();
+      return;
+    }
 
     const suspeito = typeof suspeitoRecebido === "object"
       ? suspeitoRecebido
@@ -502,7 +479,7 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     botResolver,
     autoResolver,
     enviar,
-    obterJogadas: () => JSON.parse(JSON.stringify(jogadas)),
+    obterJogadas: () => JSON.parse(JSON.stringify(registroJogadas)),
   };
 }
 

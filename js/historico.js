@@ -12,7 +12,25 @@ function montarHistorico() {
   }
 
   function descreverJogada(jogada) {
+    if (jogada.acao === "bot-finalizou") {
+      return jogada.mensagem || "O bot terminou a resolução.";
+    }
+    if (jogada.acao === "desfazer") {
+      const jogadaDesfeita = jogada.desfeita;
+      if (!jogadaDesfeita) return "Jogada desfeita";
+      const celula = `linha ${Number(jogadaDesfeita.linha) + 1}, coluna ${Number(jogadaDesfeita.coluna) + 1}`;
+      if (jogadaDesfeita.acao === "suspeito") {
+        return `Desfez a marcação do suspeito ${jogadaDesfeita.suspeitoId ?? ""} na ${celula}`;
+      }
+      if (jogadaDesfeita.acao === "x") return `Desfez a marcação X na ${celula}`;
+      if (jogadaDesfeita.acao === "apagar") return `Desfez a exclusão na ${celula}`;
+      return `Desfez uma jogada na ${celula}`;
+    }
     const celula = `linha ${Number(jogada.linha) + 1}, coluna ${Number(jogada.coluna) + 1}`;
+    if (jogada.apagada && jogada.suspeitoId) {
+      return `Suspeito ${jogada.suspeitoId} apagado na ${celula}`;
+    }
+    if (jogada.apagada) return `Marcacao apagada na ${celula}`;
     if (jogada.acao === "apagar") return `Marcacao apagada na ${celula}`;
     if (jogada.acao === "x") return `Marcacao X adicionada na ${celula}`;
     if (jogada.acao === "suspeito") {
