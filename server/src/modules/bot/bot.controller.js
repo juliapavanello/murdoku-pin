@@ -9,6 +9,7 @@ function criarControllerUsuario(service) {
       return;
     }
     payload.tabuleiro = normalizarTabuleiro(payload.tabuleiro);
+    
     const data = await service.gameStart(payload);
 
     res.json({ ...RESPONSE.SUCESSO, payload: data });

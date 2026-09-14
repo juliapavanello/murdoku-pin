@@ -41,7 +41,7 @@ function normalizarTabuleiro(boardFront) {
     }
   }
 
-  return { tamanho, celulas };
+  return { ...boardFront, tamanho, celulas };
 }
 
 export { normalizarTabuleiro };

@@ -321,8 +321,8 @@ const TABULEIROS = [
       ["vazio", "tapeteRosaEsqBaixo", "tapeteRosaMeioBaixo", "tapeteRosaMeioBaixo", "tapeteRosaDirBaixo", "vazio", "planta", "vazio"],
       ["vazio", "cozinhaMesaEsquerda", "cozinhaMesaMeio", "cozinhaMesaDireita", "vazio", "vazio", "vazio", "cadeira"],
       ["vazio", "estante", "vazio", "vazio", "planta", "cozinhaMesa", "cadeira", "vazio"],
-      ["cozinhaMesaEsquerda", "cozinhaMesaDireita", "vazio", "cadeira", "vazio", "vazio", "cozinhaMesa", "cadeira"],
-      ["vazio", "vazio", "cadeira", "cozinhaMesa", "vazio", "cadeira", "vazio", "tapeteRosaEsqCima"],
+      ["cozinhaMesaEsquerda", "vazio", "vazio", "cadeira", "vazio", "vazio", "cozinhaMesa", "cadeira"],
+      ["cozinhaMesaCanto", "cozinhaMesaDireita", "cadeira", "cozinhaMesa", "vazio", "cadeira", "vazio", "tapeteRosaEsqCima"],
       ["tapeteRosaEsqCima", "tapeteRosaDirCima", "vazio", "vazio", "cadeira", "cozinhaMesa", "cadeira", "tapeteRosaEsqBaixo"],
     ],
 
@@ -385,16 +385,24 @@ const TABULEIROS = [
     ],
 
     suspeitos: [
-      { id: "amelia", nome: "Amélia", dica: "Ele estava ao lado de uma planta.", foto: "assets/suspeitos/dolores.png" },
-      { id: "beatriz", nome: "Beatriz", dica: "Ela não estava sentada em uma cadeira.", foto: "assets/suspeitos/vinita.png" },
-      { id: "claudio", nome: "Cláudio", dica: "Ele estava sobre um tapete.", foto: "assets/suspeitos/brent.png" },
-      { id: "duarte", nome: "Duarte", dica: "Ele não estava sentado em uma cadeira.", foto: "assets/suspeitos/cameron.png" },
-      { id: "elisa", nome: "Elisa", dica: "Ela estava ao lado de uma estante.", foto: "assets/suspeitos/carissa.png" },
-      { id: "fatima", nome: "Fátima", dica: "Ela estava no Banheiro.", foto: "assets/suspeitos/dolores.png" },
-      { id: "gabriel", nome: "Gabriel", dica: "Ele estava na Recepção.", foto: "assets/suspeitos/man_avatar.png" },
-      { id: "vitoria", nome: "Vitória", dica: "A vítima. Ela estava sozinha com o assassino.", foto: "assets/suspeitos/eduardo.png", isVitima: true },
+      { id: "amelia", nome: "Amélia", genero: "mulher", dica: "Ela estava ao lado de uma planta.", foto: "assets/suspeitos/dolores.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "planta" } },
+      { id: "beatriz", nome: "Beatriz", genero: "mulher", dica: "Ela não estava sentada em uma cadeira.", foto: "assets/suspeitos/vinita.png", regraId: "naoEstaSobreTipo", regraParams: { tipo: "cadeira" } },
+      { id: "claudio", nome: "Cláudio", genero: "homem", dica: "Ele estava sobre um tapete.", foto: "assets/suspeitos/brent.png", regraId: "estaSobreTipo", regraParams: { tipo: "tapete" } },
+      { id: "duarte", nome: "Duarte", genero: "homem", dica: "Ele não estava sentado em uma cadeira.", foto: "assets/suspeitos/jack.png", regraId: "naoEstaSobreTipo", regraParams: { tipo: "cadeira" } },
+      { id: "elisa", nome: "Elisa", genero: "mulher", dica: "Ela estava ao lado de uma estante.", foto: "assets/suspeitos/carissa.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "estante" } },
+      { id: "fatima", nome: "Fátima", genero: "mulher", dica: "Ela estava no Banheiro.", foto: "assets/suspeitos/dolores.png", regraId: "estaNoComodo", regraParams: { comodo: "BANHEIRO" } },
+      { id: "gabriel", nome: "Gabriel", genero: "homem", dica: "Ele estava na Recepção.", foto: "assets/suspeitos/man_avatar.png", regraId: "estaNoComodo", regraParams: { comodo: "RECEPÇÃO" } },
+      { id: "vitoria", nome: "Vitória", genero: "mulher", dica: "A vítima. Ela estava sozinha com o assassino.", foto: "assets/suspeitos/eduardo.png", regraId: "semRestricao", isVitima: true },
     ],
-    celulasBloqueadas: ["0-0", "0-1", "0-3", "0-4", "1-0", "1-5", "2-6", "3-1", "3-2", "3-3", "4-1", "4-4", "4-5", "5-0", "5-1", "5-6", "6-3", "7-5"],
+    pistasGerais: [
+      "Cada homem estava ao lado de uma mesa",
+      "Para cada homem ao lado de uma mesa, havia uma mulher ao lado da mesma mesa",
+    ],
+    regrasGlobais: [
+      { regraId: "cadaHomemAoLadoDeMesa" },
+      { regraId: "seHomemAoLadoDeMesaTemMulherNaMesmaMesa" },
+    ],
+    celulasBloqueadas: ["0-0", "0-1", "0-3", "0-4", "1-0", "1-5", "1-6", "2-6", "3-1", "3-2", "3-3", "4-1", "4-4", "4-5", "5-0", "5-6", "6-0", "6-1", "6-3", "7-5"],
 
     solucaoMock: {
       "2-5": "amelia",
@@ -616,10 +624,10 @@ const TABULEIROS = [
       ["vazio", "vazio", "vazio", "vazio", "tapeteRosaMeioCima", "flores", "vazio", "vazio", "vazio"],
       ["vazio", "vazio", "flores", "poltronaBranca", "tapeteRosaMeioCima", "poltronaBranca", "vazio", "vazio", "casamentoArvore"],
       ["vazio", "vazio", "poltronaBranca", "vazio", "tapeteRosaMeioCima", "vazio", "poltronaBranca", "vazio", "mesa"],
-      ["vazio", "vazio", "vazio", "vazio", "tapeteRosaMeioCima", "vazio", "vazio", "vazio", "vazio"],
-      ["flores", "vazio", "flores", "poltronaBranca", "tapeteRosaMeioBaixo", "poltronaBranca", "poltronaBranca", "flores", "casamentoArvore"],
-      ["vazio", "mesaEsquerda", "mesaDireita", "flores", "vazio", "vazio", "flores", "vazio", "vazio"],
-      ["casamentoArvore", "vazio", "mesa", "vazio", "vazio", "vazio", "vazio", "vazio", "vazio"],
+      ["flores", "vazio", "vazio", "vazio", "tapeteRosaMeioCima", "vazio", "vazio", "vazio", "vazio"],
+      ["vazio", "vazio", "flores", "poltronaBranca", "tapeteRosaMeioBaixo", "poltronaBranca", "poltronaBranca", "flores", "casamentoArvore"],
+      ["casamentoArvore", "mesaEsquerda", "mesaDireita", "flores", "vazio", "vazio", "flores", "vazio", "vazio"],
+      ["vazio", "vazio", "mesa", "vazio", "vazio", "vazio", "vazio", "vazio", "vazio"],
     ],
 
     icones: {
@@ -691,29 +699,35 @@ const TABULEIROS = [
     ],
 
     suspeitos: [
-      { id: "archer", nome: "Archer", dica: "Ele estava ao lado de uma mesa.", foto: "assets/suspeitos/man_avatar.png" },
-      { id: "brooke", nome: "Brooke", dica: "Ela estava ao lado de algumas flores.", foto: "assets/suspeitos/vinita.png" },
-      { id: "crystal", nome: "Crystal", dica: "Havia um homem na cama em sua área.", foto: "assets/suspeitos/dolores.png" },
-      { id: "daisy", nome: "Daisy", dica: "Ela estava no Alpendre.", foto: "assets/suspeitos/carissa.png" },
-      { id: "ernie", nome: "Ernie", dica: "Ele estava a nordeste de Crystal.", foto: "assets/suspeitos/jack.png" },
-      { id: "finn", nome: "Finn", dica: "Ele estava num canto da sua área.", foto: "assets/suspeitos/brent.png" },
-      { id: "giulia", nome: "Giulia", dica: "Ela estava com alguém que estava ao lado de uma árvore.", foto: "assets/suspeitos/vinita.png" },
-      { id: "harper", nome: "Harper", dica: "Ela estava sentada numa cadeira.", foto: "assets/suspeitos/eduardo.png" },
-      { id: "vikram", nome: "Vikram", dica: "A vítima. Ele estava sozinha com o assassino.", foto: "assets/suspeitos/craig.png", isVitima: true },
+      { id: "archer", nome: "Archer", genero: "homem", dica: "Ele estava ao lado de uma mesa.", foto: "assets/suspeitos/man_avatar.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "mesa" } },
+      { id: "brooke", nome: "Brooke", genero: "mulher", dica: "Ela estava ao lado de algumas flores.", foto: "assets/suspeitos/vinita.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "flores" } },
+      { id: "crystal", nome: "Crystal", genero: "mulher", dica: "Ela estava na 5 coluna.", foto: "assets/suspeitos/dolores.png", regraId: "estaNaQuintaColuna", regraParams: { genero: "homem", tipo: "poltronaBranca" } },
+      { id: "daisy", nome: "Daisy", genero: "mulher", dica: "Ela estava no Alpendre.", foto: "assets/suspeitos/carissa.png", regraId: "estaNoComodo", regraParams: { comodo: "ALPENDRE" } },
+      { id: "ernie", nome: "Ernie", genero: "homem", dica: "Ele estava a nordeste de Crystal.", foto: "assets/suspeitos/cameron.png", regraId: "estaAoNordesteDeSuspeito", regraParams: { suspeitoId: "crystal" } },
+      { id: "finn", nome: "Finn", genero: "homem", dica: "Ele estava num canto da sua área.", foto: "assets/suspeitos/brent.png", regraId: "estaNoCantoDaArea" },
+      { id: "giulia", nome: "Giulia", genero: "mulher", dica: "Ela estava com alguém que estava ao lado de uma árvore.", foto: "assets/suspeitos/vinita.png", regraId: "estaNaAreaComPessoaAoLadoDeTipo", regraParams: { tipo: "casamentoArvore" } },
+      { id: "harper", nome: "Harper", genero: "mulher", dica: "Ela estava sentada numa cadeira.", foto: "assets/suspeitos/eduardo.png", regraId: "estaSobreTipo", regraParams: { tipo: "poltronaBranca" } },
+      { id: "vikram", nome: "Vikram", genero: "homem", dica: "A vítima. Ele estava sozinha com o assassino.", foto: "assets/suspeitos/man_avatar.png", isVitima: true, regraId: "semRestricao" },
+    ],
+    pistasGerais: [
+      "Havia um homem e uma mulher no altar",
+    ],
+    regrasGlobais: [
+      { regraId: "homemEMulherNoComodo", params: { comodo: "ALTAR" } }
     ],
 
     celulasBloqueadas: ["0-1", "0-4", "0-8", "1-0", "2-5", "3-2", "3-8", "4-8", "6-0", "6-2", "6-7", "6-8", "7-1", "7-2", "7-3", "7-6", "8-0", "8-2"],
 
     solucaoMock: {
-      "0-3": "archer",
-      "6-0": "brooke",
-      "4-8": "crystal",
-      "8-4": "daisy",
-      "3-7": "ernie",
-      "8-8": "finn",
-      "7-7": "giulia",
+      "5-8": "archer",
+      "7-7": "brooke",
+      "1-4": "crystal",
+      "8-3": "daisy",
+      "0-5": "ernie",
+      "6-6": "finn",
+      "3-1": "giulia",
       "4-2": "harper",
-      "6-5": "vikram",
+      "2-0": "vikram",
     },
   },
   {
@@ -723,8 +737,8 @@ const TABULEIROS = [
     dificuldade: "dificil",
 
     gridInicial: [
-      ["estante", "planta", "estante", "vazio", "mesa", "vazio", "planta", "vazio", "visitanteCamaBase"],
-      ["visitanteCamaBase", "tapeteAzulCima", "vazio", "vazio", "vazio", "vazio", "visitanteTapeteQuartoPrincipalCima", "vazio", "visitanteCamaCoberta"],
+      ["estante", "planta", "estante", "vazio", "mesa", "vazio", "planta", "visitanteCamaBase", "vazio"],
+      ["visitanteCamaBase", "tapeteAzulCima", "vazio", "vazio", "vazio", "vazio", "visitanteTapeteQuartoPrincipalCima", "visitanteCamaCoberta", "vazio"],
       ["visitanteCamaCoberta", "tapeteAzulMeio", "estante", "vazio", "visitanteTv", "vazio", "visitanteTapeteQuartoPrincipalDobra", "visitanteTapeteQuartoPrincipalDireita", "poltronaBranca"],
       ["tapeteAzulLado", "tapeteAzulDobra", "estante", "tapeteRosaEsqCima", "tapeteRosaMeioCima", "tapeteRosaDirCima", "poltronaBranca", "vazio", "estante"],
       ["vazio", "planta", "poltronaBranca", "tapeteRosaEsqBaixo", "tapeteRosaMeioBaixo", "tapeteRosaDirBaixo", "poltronaBranca", "poltronaBranca", "vazio"],
@@ -825,17 +839,22 @@ const TABULEIROS = [
     ],
 
     suspeitos: [
-      { id: "angelo", nome: "Angelo", dica: "Ele estava ao lado da televisão.", foto: "assets/suspeitos/man_avatar.png" },
-      { id: "bruna", nome: "Bruna", dica: "Ela estava em uma cama.", foto: "assets/suspeitos/vinita.png" },
-      { id: "camila", nome: "Camila", dica: "Ela estava na última coluna.", foto: "assets/suspeitos/dolores.png" },
-      { id: "danielVisitante", nome: "Daniel", dica: "Ele estava ao lado de uma mesa.", foto: "assets/suspeitos/jack.png" },
-      { id: "ed", nome: "Ed", dica: "Ele era a única pessoa ao lado de uma planta.", foto: "assets/suspeitos/brent.png" },
-      { id: "fabio", nome: "Fabio", dica: "Ele estava ao lado de uma prateleira.", foto: "assets/suspeitos/man_avatar.png" },
-      { id: "gabi", nome: "Gabi", dica: "Ela estava ao lado de uma cama.", foto: "assets/suspeitos/carissa.png" },
-      { id: "hayden", nome: "Hayden", dica: "Ele estava sentado em uma cadeira.", foto: "assets/suspeitos/eduardo.png" },
-      { id: "virginia", nome: "Virginia", dica: "A vítima. Ele estava sozinha com o assassino.", foto: "assets/suspeitos/vinita.png", isVitima: true },
+      { id: "angelo", nome: "Angelo", dica: "Ele estava ao lado da televisão.", foto: "assets/suspeitos/man_avatar.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "visitanteTv" } },
+      { id: "bruna", nome: "Bruna", dica: "Ela estava em uma cama.", foto: "assets/suspeitos/vinita.png", regraId: "estaSobreTipo", regraParams: { tipo: "visitanteCama" } },
+      { id: "camila", nome: "Camila", dica: "Ela estava na última coluna.", foto: "assets/suspeitos/dolores.png", regraId: "estaNaUltimaColuna", regraParams: {} },
+      { id: "danielVisitante", nome: "Daniel", dica: "Ele estava ao lado de uma mesa.", foto: "assets/suspeitos/jack.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "mesa" } },
+      { id: "ed", nome: "Ed", dica: "Ele era a única pessoa ao lado de uma planta.", foto: "assets/suspeitos/brent.png", regraId: "euSouOUnicoAoLadoDeTipo", regraParams: { tipo: "planta" } },
+      { id: "fabio", nome: "Fabio", dica: "Ele estava ao lado de uma prateleira.", foto: "assets/suspeitos/man_avatar.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "estante" } },
+      { id: "gabi", nome: "Gabi", dica: "Ela estava ao lado de uma cama.", foto: "assets/suspeitos/carissa.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "visitanteCama" } },
+      { id: "hayden", nome: "Hayden", dica: "Ele estava sentado em uma cadeira.", foto: "assets/suspeitos/eduardo.png", regraId: "estaSobreTipo", regraParams: { tipo: "poltronaBranca" } },
+      { id: "virginia", nome: "Virginia", dica: "A vítima. Ele estava sozinha com o assassino.", foto: "assets/suspeitos/vinita.png", isVitima: true, regraId: "semRestricao", regraParams: {} },
     ],
-
+    pistasGerais: [
+      "Havia somente uma pessoa em um tapete",
+    ],
+    regrasGlobais: [
+      { regraId: "somenteUmaPessoaTapete" },
+    ],
     celulasBloqueadas: ["0-0", "0-1", "0-2", "0-4", "0-6", "2-2", "2-4", "3-2", "3-8", "4-1", "5-0", "5-6", "5-7", "6-5", "7-6", "7-7", "8-2"],
 
     solucaoMock: {
@@ -936,27 +955,27 @@ const TABULEIROS = [
     ],
 
     suspeitos: [
-      { id: "adonis", nome: "Adonis", dica: "Ele estava ao lado da mesa na Entrada.", foto: "assets/suspeitos/jack.png" },
-      { id: "bryson", nome: "Bryson", dica: "Ninguém na área dele tinha barba.", foto: "assets/suspeitos/brent.png" },
-      { id: "craig", nome: "Craig", dica: "Ele estava sentado em uma cadeira.", foto: "assets/suspeitos/craig.png" },
-      { id: "dylan", nome: "Dylan", dica: "Ele estava ao lado de uma televisão. Ele estava sozinho.", foto: "assets/suspeitos/eduardo.png" },
-      { id: "edisonBarbearia", nome: "Edison", dica: "Ele estava ao lado de uma caixa.", foto: "assets/suspeitos/man_avatar.png" },
-      { id: "floyd", nome: "Floyd", dica: "Ele estava em um tapete.", foto: "assets/suspeitos/floyd.png" },
-      { id: "grant", nome: "Grant", dica: "Ele estava ao lado da estante na Sala de espera.", foto: "assets/suspeitos/grant.png" },
-      { id: "vasiliy", nome: "Vasiliy", dica: "A vítima. Ele estava sozinho com o assassino.", foto: "assets/suspeitos/vasiliy.png", isVitima: true },
+      { id: "adonis", nome: "Adonis", dica: "Ele estava ao lado da mesa na Entrada.", foto: "assets/suspeitos/jack.png", regraId: "estaAoLadoDeTipoNoComodo", regraParams: { tipo: "mesa", comodo: "ENTRADA" } },
+      { id: "bryson", nome: "Bryson", dica: "Ninguém na área dele tinha barba.", foto: "assets/suspeitos/brent.png", regraId: "nenhumBarbadoNaArea", regraParams: { barbadosIds: ["adonis", "craig", "floyd", "grant", "vasiliy"] } },
+      { id: "craig", nome: "Craig", dica: "Ele estava sentado em uma cadeira.", foto: "assets/suspeitos/craig.png", regraId: "estaSobreTipo", regraParams: { tipo: "poltronaBranca" } },
+      { id: "dylan", nome: "Dylan", dica: "Ele estava ao lado de uma televisão. Ele estava sozinho.", foto: "assets/suspeitos/eduardo.png", regraId: "estaAoLadoDeTipoESozinho", regraParams: { tipo: "visitanteTv" } },
+      { id: "edisonBarbearia", nome: "Edison", dica: "Ele estava ao lado de uma caixa.", foto: "assets/suspeitos/man_avatar.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "caixa" } },
+      { id: "floyd", nome: "Floyd", dica: "Ele estava em um tapete.", foto: "assets/suspeitos/floyd.png", regraId: "estaSobreTipo", regraParams: { tipo: "barbeariaTapete" } },
+      { id: "grant", nome: "Grant", dica: "Ele estava ao lado da estante na Sala de espera.", foto: "assets/suspeitos/grant.png", regraId: "estaAoLadoDeTipoNoComodo", regraParams: { tipo: "estante", comodo: "SALA DE ESPERA" } },
+      { id: "vasiliy", nome: "Vasiliy", dica: "A vítima. Ele estava sozinho com o assassino.", foto: "assets/suspeitos/vasiliy.png", isVitima: true, regraId: "semRestricao" },
     ],
 
     celulasBloqueadas: ["0-0", "0-1", "0-2", "0-6", "1-3", "1-4", "2-1", "2-2", "2-3", "2-4", "4-0", "5-0", "5-3", "5-5", "7-0", "7-5"],
 
     solucaoMock: {
-      "3-6": "adonis",
-      "1-5": "bryson",
-      "4-1": "craig",
-      "5-4": "dylan",
-      "5-6": "edisonBarbearia",
-      "5-1": "floyd",
+      "5-6": "adonis",
+      "2-0": "bryson",
+      "3-4": "craig",
+      "1-5": "dylan",
+      "0-3": "edisonBarbearia",
+      "6-2": "floyd",
       "7-1": "grant",
-      "7-3": "vasiliy",
+      "4-7": "vasiliy",
     },
   },
   {
