@@ -496,10 +496,10 @@ const TABULEIROS = [
       { id: "daniel", nome: "Daniel", dica: "Não é o foragido. Ele estava ao lado de uma cadeira.", foto: "assets/suspeitos/brent.png" },
       { id: "edina", nome: "Edina", dica: "Ela estava no Banco.", foto: "assets/suspeitos/vinita.png" },
       { id: "frank", nome: "Frank", dica: "Ela estava montado em um cavalo.", foto: "assets/suspeitos/eduardo.png" },
-      { id: "garrett", nome: "Garrett", dica: "Ele estava ao lado de um cacto.", foto: "assets/suspeitos/brent.png" },
+      { id: "garrett", nome: "Garrett", dica: "Ele estava ao lado de um cacto.", foto: "assets/suspeitos/jack.png" },
       { id: "hazel", nome: "Hazel", dica: "Ela estava sentada numa cadeira. Ela estava com o foragido.", foto: "assets/suspeitos/dolores.png" },
       { id: "isa", nome: "Isa", dica: "Ela estava ao Sul de Hazel, em uma área diferente.", foto: "assets/suspeitos/carissa.png" },
-      { id: "vini", nome: "Vini", dica: "A vítima. Ele estava sozinho com o assassino.", foto: "assets/suspeitos/vinita.png", isVitima: true },
+      { id: "vini", nome: "Vini", dica: "A vítima. Ele estava sozinho com o assassino.", foto: "assets/suspeitos/floyd.png", isVitima: true },
     ],
 
     pistasGerais: [
