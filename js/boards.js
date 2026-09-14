@@ -695,11 +695,11 @@ const TABULEIROS = [
       { id: "brooke", nome: "Brooke", dica: "Ela estava ao lado de algumas flores.", foto: "assets/suspeitos/vinita.png" },
       { id: "crystal", nome: "Crystal", dica: "Havia um homem na cama em sua área.", foto: "assets/suspeitos/dolores.png" },
       { id: "daisy", nome: "Daisy", dica: "Ela estava no Alpendre.", foto: "assets/suspeitos/carissa.png" },
-      { id: "ernie", nome: "Ernie", dica: "Ele estava a nordeste de Crystal.", foto: "assets/suspeitos/cameron.png" },
+      { id: "ernie", nome: "Ernie", dica: "Ele estava a nordeste de Crystal.", foto: "assets/suspeitos/jack.png" },
       { id: "finn", nome: "Finn", dica: "Ele estava num canto da sua área.", foto: "assets/suspeitos/brent.png" },
       { id: "giulia", nome: "Giulia", dica: "Ela estava com alguém que estava ao lado de uma árvore.", foto: "assets/suspeitos/vinita.png" },
       { id: "harper", nome: "Harper", dica: "Ela estava sentada numa cadeira.", foto: "assets/suspeitos/eduardo.png" },
-      { id: "vikram", nome: "Vikram", dica: "A vítima. Ele estava sozinha com o assassino.", foto: "assets/suspeitos/man_avatar.png", isVitima: true },
+      { id: "vikram", nome: "Vikram", dica: "A vítima. Ele estava sozinha com o assassino.", foto: "assets/suspeitos/craig.png", isVitima: true },
     ],
 
     celulasBloqueadas: ["0-1", "0-4", "0-8", "1-0", "2-5", "3-2", "3-8", "4-8", "6-0", "6-2", "6-7", "6-8", "7-1", "7-2", "7-3", "7-6", "8-0", "8-2"],
