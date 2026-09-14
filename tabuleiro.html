@@ -149,6 +149,7 @@
     const resultadoMensagem = document.getElementById("resultado-mensagem");
 
     function formatarDuracao(ms) {
+      if (ms === null || ms === undefined || ms === "") return "tempo não registrado";
       const valor = Number(ms);
       if (!Number.isFinite(valor)) return "tempo não registrado";
       if (valor < 1000) return "menos de 1s";
@@ -207,6 +208,9 @@
       return {
         resolvidoPor,
         tempoResolucaoMs,
+        tempoPessoaMs: resolvidoPor === "bot" && tempoBotMs !== null
+          ? Math.max(0, tempoResolucaoMs - tempoBotMs)
+          : tempoResolucaoMs,
         tempoBotMs: resolvidoPor === "bot" ? tempoBotMs : null,
       };
     }
@@ -235,6 +239,8 @@
         resolvidoPor: resumoTempo.resolvidoPor,
         tempoResolucaoMs: resumoTempo.tempoResolucaoMs,
         tempoResolucao: formatarDuracao(resumoTempo.tempoResolucaoMs),
+        tempoPessoaMs: resumoTempo.tempoPessoaMs,
+        tempoPessoa: formatarDuracao(resumoTempo.tempoPessoaMs),
         tempoBotMs: resumoTempo.tempoBotMs,
         tempoBot: resumoTempo.tempoBotMs === null ? null : formatarDuracao(resumoTempo.tempoBotMs),
         jogadas,

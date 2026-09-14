@@ -12,7 +12,25 @@ function montarHistorico() {
   }
 
   function descreverJogada(jogada) {
+    if (jogada.acao === "bot-finalizou") {
+      return jogada.mensagem || "O bot terminou a resolução.";
+    }
+    if (jogada.acao === "desfazer") {
+      const jogadaDesfeita = jogada.desfeita;
+      if (!jogadaDesfeita) return "Jogada desfeita";
+      const celula = `linha ${Number(jogadaDesfeita.linha) + 1}, coluna ${Number(jogadaDesfeita.coluna) + 1}`;
+      if (jogadaDesfeita.acao === "suspeito") {
+        return `Desfez a marcação do suspeito ${jogadaDesfeita.suspeitoId ?? ""} na ${celula}`;
+      }
+      if (jogadaDesfeita.acao === "x") return `Desfez a marcação X na ${celula}`;
+      if (jogadaDesfeita.acao === "apagar") return `Desfez a exclusão na ${celula}`;
+      return `Desfez uma jogada na ${celula}`;
+    }
     const celula = `linha ${Number(jogada.linha) + 1}, coluna ${Number(jogada.coluna) + 1}`;
+    if (jogada.apagada && jogada.suspeitoId) {
+      return `Suspeito ${jogada.suspeitoId} apagado na ${celula}`;
+    }
+    if (jogada.apagada) return `Marcacao apagada na ${celula}`;
     if (jogada.acao === "apagar") return `Marcacao apagada na ${celula}`;
     if (jogada.acao === "x") return `Marcacao X adicionada na ${celula}`;
     if (jogada.acao === "suspeito") {
@@ -23,6 +41,7 @@ function montarHistorico() {
   }
 
   function formatarDuracao(ms) {
+    if (ms === null || ms === undefined || ms === "") return "tempo não registrado";
     const valor = Number(ms);
     if (!Number.isFinite(valor)) return "tempo não registrado";
     if (valor < 1000) return "menos de 1s";
@@ -45,6 +64,106 @@ function montarHistorico() {
     return (item.jogadas || []).some((jogada) => jogada.origem === "bot") ? "Bot" : "Pessoa";
   }
 
+  function numeroValido(valor) {
+    const numero = Number(valor);
+    return Number.isFinite(numero) ? numero : null;
+  }
+
+  function getResumoTempo(item) {
+    const origem = getOrigemResolucao(item);
+    const totalMs = numeroValido(item.tempoResolucaoMs);
+    const botMs = numeroValido(item.tempoBotMs);
+    const pessoaSalvaMs = numeroValido(item.tempoPessoaMs);
+    const pessoaMs = pessoaSalvaMs ?? (
+      origem === "Bot" && totalMs !== null && botMs !== null
+        ? Math.max(0, totalMs - botMs)
+        : totalMs
+    );
+
+    const chips = [
+      `${item.resolvido ? "Resolvido por" : "Tentativa de"}: ${origem}`,
+    ];
+
+    if (origem === "Bot") {
+      chips.push(`Tempo total: ${formatarDuracao(totalMs)}`);
+      if (pessoaMs !== null) chips.push(`Pessoa antes do bot: ${formatarDuracao(pessoaMs)}`);
+      if (botMs !== null) chips.push(`Bot resolvendo: ${formatarDuracao(botMs)}`);
+    } else {
+      chips.push(`Tempo da pessoa: ${formatarDuracao(totalMs)}`);
+    }
+
+    return { origem, totalMs, botMs, pessoaMs, chips };
+  }
+
+  function classificarDesempenho(percentual, resolvido) {
+    if (resolvido && percentual === 100) return "Excelente";
+    if (percentual >= 75) return "Bom";
+    if (percentual >= 50) return "Regular";
+    return "Precisa revisar";
+  }
+
+  function analisarPartida(item) {
+    const total = Number(item.total) || 0;
+    const acertos = Number(item.acertos) || 0;
+    const percentual = total > 0 ? Math.round((acertos / total) * 100) : 0;
+    const jogadas = item.jogadas || [];
+    const resumoTempo = getResumoTempo(item);
+    const jogadasBot = jogadas.filter((jogada) => jogada.origem === "bot").length;
+    const jogadasPessoa = Math.max(0, jogadas.length - jogadasBot);
+    const apagadas = jogadas.filter((jogada) => jogada.acao === "apagar").length;
+    const marcacoesX = jogadas.filter((jogada) => jogada.acao === "x").length;
+    const mediaPorJogadaMs = resumoTempo.totalMs !== null && jogadas.length > 0
+      ? resumoTempo.totalMs / jogadas.length
+      : null;
+    const classificacao = classificarDesempenho(percentual, item.resolvido);
+
+    let diagnostico = "Sem jogadas suficientes para analisar a partida.";
+    if (item.resolvido && resumoTempo.origem === "Bot") {
+      diagnostico = "O bot concluiu a partida. Use o tempo da pessoa antes do bot para separar sua tentativa da resolução automática.";
+    } else if (item.resolvido) {
+      diagnostico = "Partida concluída pela pessoa. O aproveitamento ficou completo no envio.";
+    } else if (percentual >= 75) {
+      diagnostico = "Você chegou perto da solução. Vale revisar poucas pistas e posições finais.";
+    } else if (percentual >= 50) {
+      diagnostico = "A tentativa ficou no meio do caminho. Revise cômodos, linhas e colunas antes de reenviar.";
+    } else if (total > 0) {
+      diagnostico = "A partida precisa de uma revisão maior nas pistas antes da próxima tentativa.";
+    }
+
+    return {
+      classificacao,
+      diagnostico,
+      metricas: [
+        { rotulo: "Aproveitamento", valor: `${acertos}/${total}`, detalhe: `${percentual}% de acerto` },
+        { rotulo: "Jogadas", valor: String(jogadas.length), detalhe: `Pessoa: ${jogadasPessoa} · Bot: ${jogadasBot}` },
+        { rotulo: "Correções", valor: String(apagadas), detalhe: `X marcados: ${marcacoesX}` },
+        { rotulo: "Média", valor: formatarDuracao(mediaPorJogadaMs), detalhe: "por jogada registrada" },
+      ],
+    };
+  }
+
+  function renderizarAnalise(item) {
+    const analise = analisarPartida(item);
+    const metricas = analise.metricas.map((metrica) => `
+      <div class="historico-item__metrica">
+        <span>${metrica.rotulo}</span>
+        <strong>${metrica.valor}</strong>
+        <small>${metrica.detalhe}</small>
+      </div>
+    `).join("");
+
+    return `
+      <section class="historico-item__analise" aria-label="Análise da partida">
+        <div class="historico-item__analise-cabecalho">
+          <span>Análise da partida</span>
+          <strong>${analise.classificacao}</strong>
+        </div>
+        <div class="historico-item__metricas">${metricas}</div>
+        <p>${analise.diagnostico}</p>
+      </section>
+    `;
+  }
+
   function renderizar() {
     listaEl.innerHTML = "";
     vazioEl.hidden = historico.length > 0;
@@ -56,18 +175,14 @@ function montarHistorico() {
 
       const cabecalho = document.createElement("div");
       cabecalho.className = "historico-item__cabecalho";
-      const origemResolucao = getOrigemResolucao(item);
-      const tempoBot = item.tempoBotMs === null || item.tempoBotMs === undefined
-        ? ""
-        : `<span>Tempo do bot: ${formatarDuracao(item.tempoBotMs)}</span>`;
+      const resumoTempo = getResumoTempo(item);
+      const tempoChips = resumoTempo.chips.map((chip) => `<span>${chip}</span>`).join("");
       cabecalho.innerHTML = `
           <div>
             <div class="historico-item__nome">${item.nome}</div>
             <div class="historico-item__data">${item.data}</div>
             <div class="historico-item__tempo">
-              <span>${item.resolvido ? "Resolvido por" : "Tentativa de"}: ${origemResolucao}</span>
-              <span>Tempo: ${formatarDuracao(item.tempoResolucaoMs)}</span>
-              ${tempoBot}
+              ${tempoChips}
             </div>
           </div>
           <span class="historico-item__resultado historico-item__resultado--${item.resolvido ? "sucesso" : "parcial"}">
@@ -75,6 +190,7 @@ function montarHistorico() {
           </span>
         `;
       linha.appendChild(cabecalho);
+      linha.insertAdjacentHTML("beforeend", renderizarAnalise(item));
 
       const jogadas = item.jogadas || [];
       const jogadasBloco = document.createElement("details");
