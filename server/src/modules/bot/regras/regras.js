@@ -298,6 +298,68 @@ const REGRAS = {
     return homemNoComodo && mulherNoComodo;
   },
 
+  estaAoLadoDeTipoNoComodo({ celula, tabuleiro, params }) {
+    const { tipo, comodo } = params;
+
+    if (celula.comodo !== comodo) return false;
+
+    const vizinhos = celulasVizinhas(tabuleiro, celula);
+
+    return vizinhos.some(
+      (vizinha) =>
+        vizinha.comodo === comodo &&
+        celulaTemTipoOuDecoracao(vizinha, tipo)
+    );
+  },
+
+  estaAoLadoDeTipoESozinho({
+    celula,
+    tabuleiro,
+    posicoes,
+    suspeito,
+    suspeitos,
+    params,
+  }) {
+    const { tipo } = params;
+
+    const estaAoLado = celulasVizinhas(tabuleiro, celula).some(
+      (vizinha) => celulaTemTipoOuDecoracao(vizinha, tipo)
+    );
+
+    if (!estaAoLado) return false;
+
+    return estaSozinhoNoComodo(
+      celula,
+      suspeito.id,
+      suspeitos,
+      posicoes
+    );
+  },
+
+  nenhumBarbadoNaArea({
+    celula,
+    suspeitos,
+    posicoes,
+    params,
+  }) {
+    const { barbadosIds = [] } = params;
+    const todosBarbadosPosicionados = barbadosIds.every(
+      (id) => Boolean(posicoes[id])
+    );
+
+    if (!todosBarbadosPosicionados) {
+      return true;
+    }
+
+    return !barbadosIds.some((suspeitoId) => {
+      const posicao = posicoes[suspeitoId];
+
+      if (!posicao) return false;
+
+      return mesmoComodo(celula, posicao);
+    });
+  },
+
   // --- Regras "de caso" (compostas, específicas de uma dica) --------------
   estaNoComodoSemFicarAoLadoDeTipo: ({ celula, tabuleiro, params }) =>
     celula.comodo === params?.comodo &&

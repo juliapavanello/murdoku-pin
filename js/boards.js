@@ -737,8 +737,8 @@ const TABULEIROS = [
     dificuldade: "dificil",
 
     gridInicial: [
-      ["estante", "planta", "estante", "vazio", "mesa", "vazio", "planta", "vazio", "visitanteCamaBase"],
-      ["visitanteCamaBase", "tapeteAzulCima", "vazio", "vazio", "vazio", "vazio", "visitanteTapeteQuartoPrincipalCima", "vazio", "visitanteCamaCoberta"],
+      ["estante", "planta", "estante", "vazio", "mesa", "vazio", "planta", "visitanteCamaBase", "vazio"],
+      ["visitanteCamaBase", "tapeteAzulCima", "vazio", "vazio", "vazio", "vazio", "visitanteTapeteQuartoPrincipalCima", "visitanteCamaCoberta", "vazio"],
       ["visitanteCamaCoberta", "tapeteAzulMeio", "estante", "vazio", "visitanteTv", "vazio", "visitanteTapeteQuartoPrincipalDobra", "visitanteTapeteQuartoPrincipalDireita", "poltronaBranca"],
       ["tapeteAzulLado", "tapeteAzulDobra", "estante", "tapeteRosaEsqCima", "tapeteRosaMeioCima", "tapeteRosaDirCima", "poltronaBranca", "vazio", "estante"],
       ["vazio", "planta", "poltronaBranca", "tapeteRosaEsqBaixo", "tapeteRosaMeioBaixo", "tapeteRosaDirBaixo", "poltronaBranca", "poltronaBranca", "vazio"],
@@ -839,17 +839,22 @@ const TABULEIROS = [
     ],
 
     suspeitos: [
-      { id: "angelo", nome: "Angelo", dica: "Ele estava ao lado da televisão.", foto: "assets/suspeitos/man_avatar.png" },
-      { id: "bruna", nome: "Bruna", dica: "Ela estava em uma cama.", foto: "assets/suspeitos/vinita.png" },
-      { id: "camila", nome: "Camila", dica: "Ela estava na última coluna.", foto: "assets/suspeitos/dolores.png" },
-      { id: "danielVisitante", nome: "Daniel", dica: "Ele estava ao lado de uma mesa.", foto: "assets/suspeitos/jack.png" },
-      { id: "ed", nome: "Ed", dica: "Ele era a única pessoa ao lado de uma planta.", foto: "assets/suspeitos/brent.png" },
-      { id: "fabio", nome: "Fabio", dica: "Ele estava ao lado de uma prateleira.", foto: "assets/suspeitos/man_avatar.png" },
-      { id: "gabi", nome: "Gabi", dica: "Ela estava ao lado de uma cama.", foto: "assets/suspeitos/carissa.png" },
-      { id: "hayden", nome: "Hayden", dica: "Ele estava sentado em uma cadeira.", foto: "assets/suspeitos/eduardo.png" },
-      { id: "virginia", nome: "Virginia", dica: "A vítima. Ele estava sozinha com o assassino.", foto: "assets/suspeitos/vinita.png", isVitima: true },
+      { id: "angelo", nome: "Angelo", dica: "Ele estava ao lado da televisão.", foto: "assets/suspeitos/man_avatar.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "visitanteTv" } },
+      { id: "bruna", nome: "Bruna", dica: "Ela estava em uma cama.", foto: "assets/suspeitos/vinita.png", regraId: "estaSobreTipo", regraParams: { tipo: "visitanteCama" } },
+      { id: "camila", nome: "Camila", dica: "Ela estava na última coluna.", foto: "assets/suspeitos/dolores.png", regraId: "estaNaUltimaColuna", regraParams: {} },
+      { id: "danielVisitante", nome: "Daniel", dica: "Ele estava ao lado de uma mesa.", foto: "assets/suspeitos/jack.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "mesa" } },
+      { id: "ed", nome: "Ed", dica: "Ele era a única pessoa ao lado de uma planta.", foto: "assets/suspeitos/brent.png", regraId: "euSouOUnicoAoLadoDeTipo", regraParams: { tipo: "planta" } },
+      { id: "fabio", nome: "Fabio", dica: "Ele estava ao lado de uma prateleira.", foto: "assets/suspeitos/man_avatar.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "estante" } },
+      { id: "gabi", nome: "Gabi", dica: "Ela estava ao lado de uma cama.", foto: "assets/suspeitos/carissa.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "visitanteCama" } },
+      { id: "hayden", nome: "Hayden", dica: "Ele estava sentado em uma cadeira.", foto: "assets/suspeitos/eduardo.png", regraId: "estaSobreTipo", regraParams: { tipo: "poltronaBranca" } },
+      { id: "virginia", nome: "Virginia", dica: "A vítima. Ele estava sozinha com o assassino.", foto: "assets/suspeitos/vinita.png", isVitima: true, regraId: "semRestricao", regraParams: {} },
     ],
-
+    pistasGerais: [
+      "Havia somente uma pessoa em um tapete",
+    ],
+    regrasGlobais: [
+      { regraId: "somenteUmaPessoaTapete" },
+    ],
     celulasBloqueadas: ["0-0", "0-1", "0-2", "0-4", "0-6", "2-2", "2-4", "3-2", "3-8", "4-1", "5-0", "5-6", "5-7", "6-5", "7-6", "7-7", "8-2"],
 
     solucaoMock: {
@@ -951,7 +956,7 @@ const TABULEIROS = [
 
     suspeitos: [
       { id: "adonis", nome: "Adonis", dica: "Ele estava ao lado da mesa na Entrada.", foto: "assets/suspeitos/jack.png", regraId: "estaAoLadoDeTipoNoComodo", regraParams: { tipo: "mesa", comodo: "ENTRADA" } },
-      { id: "bryson", nome: "Bryson", dica: "Ninguém na área dele tinha barba.", foto: "assets/suspeitos/brent.png", regraId: "nenhumBarbadoNaArea", regraParams: { barbadosIds: ["adonis", "craig", "dylan", "edisonBarbearia", "floyd", "grant"] } },
+      { id: "bryson", nome: "Bryson", dica: "Ninguém na área dele tinha barba.", foto: "assets/suspeitos/brent.png", regraId: "nenhumBarbadoNaArea", regraParams: { barbadosIds: ["adonis", "craig", "floyd", "grant", "vasiliy"] } },
       { id: "craig", nome: "Craig", dica: "Ele estava sentado em uma cadeira.", foto: "assets/suspeitos/craig.png", regraId: "estaSobreTipo", regraParams: { tipo: "poltronaBranca" } },
       { id: "dylan", nome: "Dylan", dica: "Ele estava ao lado de uma televisão. Ele estava sozinho.", foto: "assets/suspeitos/eduardo.png", regraId: "estaAoLadoDeTipoESozinho", regraParams: { tipo: "visitanteTv" } },
       { id: "edisonBarbearia", nome: "Edison", dica: "Ele estava ao lado de uma caixa.", foto: "assets/suspeitos/man_avatar.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "caixa" } },
@@ -963,14 +968,14 @@ const TABULEIROS = [
     celulasBloqueadas: ["0-0", "0-1", "0-2", "0-6", "1-3", "1-4", "2-1", "2-2", "2-3", "2-4", "4-0", "5-0", "5-3", "5-5", "7-0", "7-5"],
 
     solucaoMock: {
-      "3-6": "adonis",
-      "1-5": "bryson",
-      "4-1": "craig",
-      "5-4": "dylan",
-      "5-6": "edisonBarbearia",
-      "5-1": "floyd",
+      "5-6": "adonis",
+      "2-0": "bryson",
+      "3-4": "craig",
+      "1-5": "dylan",
+      "0-3": "edisonBarbearia",
+      "6-2": "floyd",
       "7-1": "grant",
-      "7-3": "vasiliy",
+      "4-7": "vasiliy",
     },
   },
   {
