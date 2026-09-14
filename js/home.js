@@ -52,10 +52,23 @@ function montarHubTabuleiros() {
   function renderizar() {
     grade.innerHTML = "";
 
-    const dificuldades =
-      filtroAtual === "todos" ? ORDEM_DIFICULDADES : [filtroAtual];
+    if (filtroAtual === "todos") {
+      const grupo = document.createElement("section");
+      grupo.className = "grupo-tabuleiros grupo-tabuleiros--todos";
+      grupo.setAttribute("aria-label", "Todos os tabuleiros");
 
-    dificuldades.forEach((dificuldade) => {
+      const lista = document.createElement("div");
+      lista.className = "grupo-tabuleiros__grade";
+      TABULEIROS.slice()
+        .sort(ordenarComoFigma)
+        .forEach((tabuleiro) => lista.appendChild(criarCardTabuleiro(tabuleiro)));
+
+      grupo.appendChild(lista);
+      grade.appendChild(grupo);
+      return;
+    }
+
+    [filtroAtual].forEach((dificuldade) => {
       const tabuleiros = TABULEIROS.filter(
         (tabuleiro) => dificuldadeDoTabuleiro(tabuleiro) === dificuldade
       ).sort(ordenarComoFigma);
