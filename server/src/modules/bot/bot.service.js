@@ -64,22 +64,20 @@ function criarServiceUsuario() {
     tabuleiro,
     posicoesFinais
   ) {
-    const regra = REGRAS[suspeito.regraId] || REGRAS.semRestricao;
-
     return tabuleiro.celulas.filter((celula) => {
       if (celula.bloqueada) return false;
 
       if (celulaOcupada(celula, posicoesFinais)) return false;
+
       if (conflitaLinhaOuColuna(celula, posicoesFinais)) return false;
 
-      return regra({
+      return validarRegrasDaCelula(
         celula,
         suspeito,
         suspeitos,
         tabuleiro,
-        posicoes: posicoesFinais,
-        params: suspeito.regraParams,
-      });
+        posicoesFinais
+      );
     });
   }
 
@@ -107,6 +105,14 @@ function criarServiceUsuario() {
     tabuleiro
   ) {
     if (suspeitosRestantes.length === 0) {
+      if (!validarPosicoesFinais(suspeitos, posicoesFinais, tabuleiro)) {
+        return false;
+      }
+
+      if (!validarRegrasGlobais(suspeitos, posicoesFinais, tabuleiro)) {
+        return false;
+      }
+
       enviarMensagem(RESPONSE.ENVIAR_SOLUCAO);
       return true;
     }
@@ -138,7 +144,7 @@ function criarServiceUsuario() {
           tabuleiro,
           posicoesFinais
         );
-        
+
         if (investigarSuspeitosRestantes(proximosSuspeitos, novosDominios, posicoesFinais, suspeitos, tabuleiro)) { return true; }
       }
 
@@ -162,26 +168,25 @@ function criarServiceUsuario() {
           a.linha === b.linha ||
           a.coluna === b.coluna
         ) {
-          console.log("Bot: Ops coloquei o suspeito em uma linha/coluna que já tinha dono!");          
           return false;
         }
       }
     }
 
     return idsPosicionados.every((suspeitoId) => {
-      const suspeito = suspeitos.find((s) => s.id === suspeitoId);
-      const regra = REGRAS[suspeito.regraId] || REGRAS.semRestricao;
+      const suspeito = suspeitos.find(
+        (s) => s.id === suspeitoId
+      );
 
-      const segueRegra = regra({
-        celula: posicoesFinais[suspeitoId],
+      const celula = posicoesFinais[suspeitoId];
+
+      return validarRegrasDaCelula(
+        celula,
         suspeito,
         suspeitos,
         tabuleiro,
-        posicoes: posicoesFinais,
-        params: suspeito.regraParams,
-      });
-      if(!segueRegra){console.log(`Regra (${suspeito.regraId}) do suspeito foi violada!`);}
-      return segueRegra;
+        posicoesFinais
+      );
     });
   }
 
@@ -201,7 +206,7 @@ function criarServiceUsuario() {
         posicoesFinais
       );
     }
-    
+
     return dominios;
   }
 
@@ -232,6 +237,57 @@ function criarServiceUsuario() {
       (suspeitoLista) =>
         suspeitoLista.id !== suspeito.id
     );
+  }
+
+  function validarRegrasGlobais(suspeitos, posicoes, tabuleiro) {
+    return (tabuleiro.regrasGlobais || []).every((regraGlobal) => {
+      const fnRegra = REGRAS[regraGlobal.regraId];
+
+      if (!fnRegra) return true;
+
+      return fnRegra({
+        celula: null,
+        suspeito: null,
+        suspeitos,
+        tabuleiro,
+        posicoes,
+        params: regraGlobal.params,
+      });
+    });
+  }
+
+  function validarPosicoesFinais(suspeitos, posicoesFinais, tabuleiro) {
+    return suspeitos.every((suspeito) => {
+      const celula = posicoesFinais[suspeito.id];
+
+      return validarRegrasDaCelula(
+        celula,
+        suspeito,
+        suspeitos,
+        tabuleiro,
+        posicoesFinais
+      );
+    });
+  }
+
+  function validarRegrasDaCelula(
+    celula,
+    suspeito,
+    suspeitos,
+    tabuleiro,
+    posicoes
+  ) {
+    const regraIndividual =
+      REGRAS[suspeito.regraId] || REGRAS.semRestricao;
+
+    return regraIndividual({
+      celula,
+      suspeito,
+      suspeitos,
+      tabuleiro,
+      posicoes,
+      params: suspeito.regraParams,
+    });
   }
 
   return { gameStart };
