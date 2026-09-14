@@ -405,14 +405,14 @@ const TABULEIROS = [
     celulasBloqueadas: ["0-0", "0-1", "0-3", "0-4", "1-0", "1-5", "1-6", "2-6", "3-1", "3-2", "3-3", "4-1", "4-4", "4-5", "5-0", "5-6", "6-0", "6-1", "6-3", "7-5"],
 
     solucaoMock: {
-      "2-5": "amelia",
-      "4-5": "beatriz",
-      "1-2": "claudio",
-      "0-4": "duarte",
-      "4-2": "elisa",
-      "2-6": "fatima",
-      "6-1": "gabriel",
-      "7-6": "vitoria",
+      "4-3": "amelia",
+      "3-4": "beatriz",
+      "2-2": "claudio",
+      "1-7": "duarte",
+      "5-1": "elisa",
+      "0-6": "fatima",
+      "7-0": "gabriel",
+      "6-5": "vitoria",
     },
   },
   {

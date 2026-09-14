@@ -1,4 +1,5 @@
 import {
+  encontrarCelulasDaMesa,
   buscarCelula,
   celulasVizinhas,
   celulaTemTipoOuDecoracao,
@@ -160,45 +161,91 @@ const REGRAS = {
     });
   },
 
-  cadaHomemAoLadoDeMesa: ({ celula, suspeito, tabuleiro }) => {
-    if (suspeito.genero !== "homem") return true;
-
-    return celulasVizinhas(tabuleiro, celula).some(
-      (vizinha) =>
-        celulaTemTipoOuDecoracao(vizinha, "mesa") &&
-        mesmoComodo(celula, vizinha)
+  cadaHomemAoLadoDeMesa({ suspeitos, posicoes, tabuleiro }) {
+    const homens = suspeitos.filter(
+      (suspeito) => suspeito.genero === "homem"
     );
+
+    return homens.every((homem) => {
+      const posicao = posicoes[homem.id];
+
+      if (!posicao) return false;
+
+      return REGRAS.estaAoLadoDeTipo({
+        celula: posicao,
+        tabuleiro,
+        params: { tipo: "cozinhaMesa" },
+      });
+    });
   },
 
-  seHomemAoLadoDeMesaTemMulherNaMesmaMesa: ({ celula, suspeito, suspeitos, tabuleiro, posicoes }) => {
-    if (suspeito.genero !== "homem") return true;
-
-    const mesasVizinhas = celulasVizinhas(tabuleiro, celula).filter(
-      (vizinha) =>
-        celulaTemTipoOuDecoracao(vizinha, "mesa") &&
-        mesmoComodo(celula, vizinha)
+  seHomemAoLadoDeMesaTemMulherNaMesmaMesa({
+    suspeitos,
+    posicoes,
+    tabuleiro,
+  }) {
+    const homens = suspeitos.filter(
+      (suspeito) => suspeito.genero === "homem"
     );
 
-    if (mesasVizinhas.length === 0) return true;
+    const mulheres = suspeitos.filter(
+      (suspeito) => suspeito.genero === "mulher"
+    );
 
-    const mulheres = suspeitos.filter((s) => s.genero === "mulher");
-    const todasMulheresPosicionadas = mulheres.every((m) => Boolean(posicoes[m.id]));
+    return homens.every((homem) => {
+      const posicaoHomem = posicoes[homem.id];
 
-    if (!todasMulheresPosicionadas) return true;
+      if (!posicaoHomem) return false;
 
-    return mesasVizinhas.some((mesa) =>
-      mulheres.some((mulher) => {
-        const posMulher = posicoes[mulher.id];
-        if (!posMulher) return false;
+      // Mesas que possuem alguma célula ao lado do homem
+      const celulasMesaAoLado = celulasVizinhas(
+        tabuleiro,
+        posicaoHomem
+      ).filter(
+        (vizinha) =>
+          mesmoComodo(posicaoHomem, vizinha) &&
+          celulaTemTipoOuDecoracao(vizinha, "cozinhaMesa")
+      );
 
-        return celulasVizinhas(tabuleiro, posMulher).some(
-          (v) =>
-            v.linha === mesa.linha &&
-            v.coluna === mesa.coluna &&
-            mesmoComodo(posMulher, v)
+      // Cada célula encontrada pode pertencer à mesma mesa física.
+      const mesas = new Map();
+
+      for (const celulaMesa of celulasMesaAoLado) {
+        const celulasDaMesa = encontrarCelulasDaMesa(
+          tabuleiro,
+          celulaMesa
         );
-      })
-    );
+
+        const chave = celulasDaMesa
+          .map((celula) => `${celula.linha}-${celula.coluna}`)
+          .sort()
+          .join("|");
+
+        mesas.set(chave, celulasDaMesa);
+      }
+
+      // O homem precisa ter uma mulher ao lado de uma das mesas
+      // que ele próprio está ao lado.
+      return [...mesas.values()].some((mesa) => {
+        return mulheres.some((mulher) => {
+          const posicaoMulher = posicoes[mulher.id];
+
+          if (!posicaoMulher) return false;
+
+          if (!mesmoComodo(posicaoHomem, posicaoMulher)) {
+            return false;
+          }
+
+          return mesa.some((celulaMesa) =>
+            celulasVizinhas(tabuleiro, celulaMesa).some(
+              (vizinha) =>
+                vizinha.linha === posicaoMulher.linha &&
+                vizinha.coluna === posicaoMulher.coluna
+            )
+          );
+        });
+      });
+    });
   },
 
   estaAoNordesteDeSuspeito: ({ celula, suspeitos, posicoes, params }) => {

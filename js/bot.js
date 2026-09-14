@@ -20,16 +20,16 @@ socket.onmessage = (event) => {
 
     console.log("Servidor: ");
     console.log(res);
-    jogadas.push(res)
+    window?.botResolver(res);
 };
 
-setInterval(() => {
-    if (jogadas.length == 0) return;
-    const jogada = jogadas.shift()
+// setInterval(() => {
+//     if (jogadas.length == 0) return;
+//     const jogada = jogadas.shift()
 
-    const resultado = window?.botResolver(jogada);
-    if (resultado) console.log("Resultado da jogada do bot:", resultado);
-}, 1500)
+//     const resultado = window?.botResolver(jogada);
+//     if (resultado) console.log("Resultado da jogada do bot:", resultado);
+// }, 1)
 
 socket.onerror = (error) => {
     console.error('❌ Erro:', error);

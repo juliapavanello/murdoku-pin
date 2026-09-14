@@ -72,7 +72,37 @@ function estaSozinhoNoComodo(celula, suspeitoAtualId, suspeitos, posicoes) {
   });
 }
 
+function encontrarCelulasDaMesa(tabuleiro, celulaMesa) {
+  const visitadas = new Set();
+  const fila = [celulaMesa];
+
+  while (fila.length > 0) {
+    const atual = fila.shift();
+    const chave = `${atual.linha}-${atual.coluna}`;
+
+    if (visitadas.has(chave)) continue;
+    visitadas.add(chave);
+
+    const vizinhas = celulasVizinhas(tabuleiro, atual);
+
+    for (const vizinha of vizinhas) {
+      if (
+        mesmoComodo(atual, vizinha) &&
+        celulaTemTipoOuDecoracao(vizinha, "cozinhaMesa")
+      ) {
+        fila.push(vizinha);
+      }
+    }
+  }
+
+  return [...visitadas].map((chave) => {
+    const [linha, coluna] = chave.split("-").map(Number);
+    return buscarCelula(tabuleiro, linha, coluna);
+  });
+}
+
 export {
+  encontrarCelulasDaMesa,
   buscarCelula,
   buscarPosicaoSuspeito,
   buscarSuspeitoPorId,
