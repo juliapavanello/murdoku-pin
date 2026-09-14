@@ -7,7 +7,7 @@ const RESPONSE = Object.freeze({
     },
     ERRO_DESCONHECIDO: {
         code: 0,
-        message: "Um erro inesperado ocorreu! Espero que não tenha acontecido na frente do professor",
+        message: "Não consegui achar uma solução.",
         status: 500
     },
     COLOCAR_SUSPEITO: {

@@ -847,7 +847,7 @@ const TABULEIROS = [
       { id: "fabio", nome: "Fabio", dica: "Ele estava ao lado de uma prateleira.", foto: "assets/suspeitos/man_avatar.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "estante" } },
       { id: "gabi", nome: "Gabi", dica: "Ela estava ao lado de uma cama.", foto: "assets/suspeitos/carissa.png", regraId: "estaAoLadoDeTipo", regraParams: { tipo: "visitanteCama" } },
       { id: "hayden", nome: "Hayden", dica: "Ele estava sentado em uma cadeira.", foto: "assets/suspeitos/eduardo.png", regraId: "estaSobreTipo", regraParams: { tipo: "poltronaBranca" } },
-      { id: "virginia", nome: "Virginia", dica: "A vítima. Ele estava sozinha com o assassino.", foto: "assets/suspeitos/vinita.png", isVitima: true, regraId: "semRestricao", regraParams: {} },
+      { id: "virginia", nome: "Virginia", dica: "A vítima. Ele estava sozinha com o assassino.", foto: "assets/suspeitos/vinita.png", isVitima: true, regraId: "semRestricao"},
     ],
     pistasGerais: [
       "Havia somente uma pessoa em um tapete",
@@ -858,15 +858,15 @@ const TABULEIROS = [
     celulasBloqueadas: ["0-0", "0-1", "0-2", "0-4", "0-6", "2-2", "2-4", "3-2", "3-8", "4-1", "5-0", "5-6", "5-7", "6-5", "7-6", "7-7", "8-2"],
 
     solucaoMock: {
-      "2-3": "angelo",
-      "1-8": "bruna",
-      "4-8": "camila",
+      "2-5": "angelo",
+      "1-7": "bruna",
+      "8-8": "camila",
       "5-1": "danielVisitante",
-      "5-5": "ed",
-      "3-7": "fabio",
-      "0-7": "gabi",
-      "4-6": "hayden",
-      "7-7": "virginia",
+      "6-6": "ed",
+      "0-3": "fabio",
+      "3-0": "gabi",
+      "4-2": "hayden",
+      "7-4": "virginia",
     },
   },
   {

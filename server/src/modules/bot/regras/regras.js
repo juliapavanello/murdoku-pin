@@ -360,6 +360,68 @@ const REGRAS = {
     });
   },
 
+  euSouOUnicoAoLadoDeTipo: ({
+    celula,
+    suspeito,
+    suspeitos,
+    tabuleiro,
+    posicoes,
+    params,
+  }) => {
+    const tipo = params?.tipo;
+
+    // O próprio suspeito precisa estar ao lado do tipo
+    const estaAoLado = celulasVizinhas(tabuleiro, celula).some(
+      (vizinha) =>
+        celulaTemTipoOuDecoracao(vizinha, tipo) &&
+        mesmoComodo(celula, vizinha)
+    );
+
+    if (!estaAoLado) return false;
+
+    // Enquanto ainda existem outros suspeitos não posicionados,
+    // não podemos afirmar que ele é o único.
+    const todosOutrosPosicionados = suspeitos
+      .filter((outro) => outro.id !== suspeito.id)
+      .every((outro) => Boolean(posicoes[outro.id]));
+
+    if (!todosOutrosPosicionados) return true;
+
+    // Agora verificamos se algum outro suspeito também está
+    // ao lado do mesmo tipo, dentro do mesmo cômodo.
+    const outroAoLado = suspeitos.some((outro) => {
+      if (outro.id === suspeito.id) return false;
+
+      const posicao = posicoes[outro.id];
+
+      if (!posicao) return false;
+
+      return celulasVizinhas(tabuleiro, posicao).some(
+        (vizinha) =>
+          celulaTemTipoOuDecoracao(vizinha, tipo) &&
+          mesmoComodo(posicao, vizinha)
+      );
+    });
+
+    return !outroAoLado;
+  },
+
+  somenteUmaPessoaTapete: ({
+    suspeitos,
+    posicoes,
+    tabuleiro,
+  }) => {
+    const pessoasNoTapete = suspeitos.filter((suspeito) => {
+      const posicao = posicoes[suspeito.id];
+
+      if (!posicao) return false;
+
+      return celulaTemTipoOuDecoracao(posicao, "tapete");
+    });
+
+    return pessoasNoTapete.length <= 1;
+  },
+
   // --- Regras "de caso" (compostas, específicas de uma dica) --------------
   estaNoComodoSemFicarAoLadoDeTipo: ({ celula, tabuleiro, params }) =>
     celula.comodo === params?.comodo &&
