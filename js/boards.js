@@ -1031,7 +1031,7 @@ const TABULEIROS = [
         rotulo: { left: 62, top: 54 },
         celulas: [
           ...celulasRetangulo(4, 3, 5, 6),
-          "6-4", "6-5", "6-6",
+          "6-4",
         ],
       },
       {
@@ -1077,7 +1077,7 @@ const TABULEIROS = [
           ],
           [
             ...celulasRetangulo(4, 3, 5, 6),
-            "6-4", "6-5", "6-6",
+            "6-4",
           ],
           [
             "6-0", "6-1", "6-2",
