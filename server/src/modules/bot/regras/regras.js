@@ -422,6 +422,83 @@ const REGRAS = {
     return pessoasNoTapete.length <= 1;
   },
 
+  estaNaAreaComTipoENaoAoLado({ celula, tabuleiro, params }) {
+    const { tipo } = params;
+
+    const temTipoNaArea = tabuleiro.celulas.some(
+      (outraCelula) =>
+        mesmoComodo(celula, outraCelula) &&
+        celulaTemTipoOuDecoracao(outraCelula, tipo)
+    );
+
+    if (!temTipoNaArea) return false;
+
+    const estaAoLado = REGRAS.estaAoLadoDeTipo({
+      celula,
+      tabuleiro,
+      params,
+    });
+
+    return !estaAoLado;
+  },
+
+  estaNaAreaComPessoaSobreTipo({
+    celula,
+    suspeitos,
+    posicoes,
+    tabuleiro,
+    params,
+  }) {
+    const { tipo } = params;
+
+    const pessoasPosicionadas = suspeitos.filter(
+      (suspeito) => posicoes[suspeito.id]
+    );
+
+    // Ainda não temos pessoas suficientes no tabuleiro para avaliar a regra.
+    if (pessoasPosicionadas.length < suspeitos.length) {
+      return true;
+    }
+
+    return pessoasPosicionadas.some((suspeito) => {
+      const posicao = posicoes[suspeito.id];
+
+      return (
+        mesmoComodo(celula, posicao) &&
+        celulaTemTipoOuDecoracao(posicao, tipo)
+      );
+    });
+  },
+
+  estaNaAreaComPessoaAoLadoDeTipo({
+    celula,
+    suspeitos,
+    posicoes,
+    tabuleiro,
+    params,
+  }) {
+    const pessoasPosicionadas = suspeitos.filter(
+      (suspeito) => posicoes[suspeito.id]
+    );
+
+    // Ainda não dá para saber quem estará na área.
+    if (pessoasPosicionadas.length < suspeitos.length) {
+      return true;
+    }
+
+    return pessoasPosicionadas.some((suspeito) => {
+      const posicao = posicoes[suspeito.id];
+
+      if (!mesmoComodo(celula, posicao)) return false;
+
+      return REGRAS.estaAoLadoDeTipo({
+        celula: posicao,
+        tabuleiro,
+        params,
+      });
+    });
+  },
+
   // --- Regras "de caso" (compostas, específicas de uma dica) --------------
   estaNoComodoSemFicarAoLadoDeTipo: ({ celula, tabuleiro, params }) =>
     celula.comodo === params?.comodo &&
