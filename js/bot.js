@@ -1,4 +1,7 @@
-const socket = new WebSocket('ws://localhost:7032/ws');
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const socket = new WebSocket(
+    isLocal ? 'ws://localhost:7032/ws' : 'wss://murdoku-pin.onrender.com/ws'
+);
 
 socket.onopen = () => {
     console.log('✅ Comunicação com o bot estabelecida!');
@@ -26,7 +29,7 @@ setInterval(() => {
 
     const resultado = window?.botResolver(jogada);
     if (resultado) console.log("Resultado da jogada do bot:", resultado);
-}, 5)
+}, 1500)
 
 socket.onerror = (error) => {
     console.error('❌ Erro:', error);

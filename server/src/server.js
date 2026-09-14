@@ -5,7 +5,7 @@ import http from 'node:http';
 import app from './app.js';
 import createWebSocketServer from './infrastructure/websocket/websocket.js';
 
-const PORT = process.env.PORT_BACK || 3000;
+const PORT = process.env.PORT || process.env.PORT_BACK || 3000;
 const server = http.createServer(app);
 
 createWebSocketServer(server)
