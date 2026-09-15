@@ -11,7 +11,10 @@ function montarHistorico() {
     historico = [];
   }
 
-  function descreverJogada(jogada) {
+  const LIMITE_JOGADAS_EXIBIDAS = 200;
+
+  function descreverJogada(jogada, item) {
+    const sufixoBot = ehEventoDoBot(jogada, item) ? " pelo bot" : "";
     if (jogada.acao === "bot-finalizou") {
       return jogada.mensagem || "O bot terminou a resolução.";
     }
@@ -20,22 +23,21 @@ function montarHistorico() {
       if (!jogadaDesfeita) return "Jogada desfeita";
       const celula = `linha ${Number(jogadaDesfeita.linha) + 1}, coluna ${Number(jogadaDesfeita.coluna) + 1}`;
       if (jogadaDesfeita.acao === "suspeito") {
-        return `Desfez a marcação do suspeito ${jogadaDesfeita.suspeitoId ?? ""} na ${celula}`;
+        return `Desfez a marcação do suspeito ${jogadaDesfeita.suspeitoId ?? ""} na ${celula}${sufixoBot}`;
       }
-      if (jogadaDesfeita.acao === "x") return `Desfez a marcação X na ${celula}`;
-      if (jogadaDesfeita.acao === "apagar") return `Desfez a exclusão na ${celula}`;
-      return `Desfez uma jogada na ${celula}`;
+      if (jogadaDesfeita.acao === "x") return `Desfez a marcação X na ${celula}${sufixoBot}`;
+      if (jogadaDesfeita.acao === "apagar") return `Desfez a exclusão na ${celula}${sufixoBot}`;
+      return `Desfez uma jogada na ${celula}${sufixoBot}`;
     }
     const celula = `linha ${Number(jogada.linha) + 1}, coluna ${Number(jogada.coluna) + 1}`;
     if (jogada.apagada && jogada.suspeitoId) {
-      return `Suspeito ${jogada.suspeitoId} apagado na ${celula}`;
+      return `Suspeito ${jogada.suspeitoId} apagado na ${celula}${sufixoBot}`;
     }
-    if (jogada.apagada) return `Marcacao apagada na ${celula}`;
-    if (jogada.acao === "apagar") return `Marcacao apagada na ${celula}`;
-    if (jogada.acao === "x") return `Marcacao X adicionada na ${celula}`;
+    if (jogada.apagada) return `Marcacao apagada na ${celula}${sufixoBot}`;
+    if (jogada.acao === "apagar") return `Marcacao apagada na ${celula}${sufixoBot}`;
+    if (jogada.acao === "x") return `Marcacao X adicionada na ${celula}${sufixoBot}`;
     if (jogada.acao === "suspeito") {
-      const origem = jogada.origem === "bot" ? " pelo bot" : "";
-      return `Suspeito ${jogada.suspeitoId ?? ""} marcado na ${celula}${origem}`;
+      return `Suspeito ${jogada.suspeitoId ?? ""} marcado na ${celula}${sufixoBot}`;
     }
     return `Acao registrada na ${celula}`;
   }
@@ -58,10 +60,64 @@ function montarHistorico() {
     return `${segundos}s`;
   }
 
+  function getJogadas(item) {
+    return Array.isArray(item?.jogadas) ? item.jogadas : [];
+  }
+
   function getOrigemResolucao(item) {
     if (item.resolvidoPor === "bot") return "Bot";
     if (item.resolvidoPor === "pessoa") return "Pessoa";
-    return (item.jogadas || []).some((jogada) => jogada.origem === "bot") ? "Bot" : "Pessoa";
+    return getJogadas(item).some((jogada) => jogada.origem === "bot") ? "Bot" : "Pessoa";
+  }
+
+  function ehEventoDoBot(jogada, item) {
+    if (!jogada) return false;
+    if (jogada.origem === "bot") return true;
+    return getOrigemResolucao(item) === "Bot" &&
+      jogada.acao === "desfazer" &&
+      jogada.desfeita?.origem === "bot";
+  }
+
+  function ehEventoContavel(jogada) {
+    return jogada?.acao !== "bot-finalizou";
+  }
+
+  function resumirJogadas(item) {
+    const jogadas = getJogadas(item);
+    const contaveis = jogadas.filter(ehEventoContavel);
+    const bot = contaveis.filter((jogada) => ehEventoDoBot(jogada, item)).length;
+    const pessoa = Math.max(0, contaveis.length - bot);
+    const desfeitas = contaveis.filter((jogada) => jogada.acao === "desfazer").length;
+    const desfeitasBot = contaveis.filter(
+      (jogada) => jogada.acao === "desfazer" && ehEventoDoBot(jogada, item)
+    ).length;
+    const apagadas = contaveis.filter((jogada) => jogada.acao === "apagar").length;
+    const marcacoesX = contaveis.filter((jogada) => jogada.acao === "x").length;
+
+    return {
+      total: contaveis.length,
+      bot,
+      pessoa,
+      desfeitas,
+      desfeitasBot,
+      correcoes: desfeitas + apagadas,
+      marcacoesX,
+    };
+  }
+
+  function formatarDetalheOrigem(resumoJogadas) {
+    const partes = [];
+    if (resumoJogadas.pessoa > 0 || resumoJogadas.bot === 0) {
+      partes.push(`Pessoa: ${resumoJogadas.pessoa}`);
+    }
+    if (resumoJogadas.bot > 0) partes.push(`Bot: ${resumoJogadas.bot}`);
+    return partes.join(" · ");
+  }
+
+  function formatarTentativasDesfeitas(quantidade) {
+    return quantidade === 1
+      ? "1 tentativa desfeita"
+      : `${quantidade} tentativas desfeitas`;
   }
 
   function numeroValido(valor) {
@@ -71,6 +127,7 @@ function montarHistorico() {
 
   function getResumoTempo(item) {
     const origem = getOrigemResolucao(item);
+    const resumoJogadas = resumirJogadas(item);
     const totalMs = numeroValido(item.tempoResolucaoMs);
     const botMs = numeroValido(item.tempoBotMs);
     const pessoaSalvaMs = numeroValido(item.tempoPessoaMs);
@@ -86,7 +143,10 @@ function montarHistorico() {
 
     if (origem === "Bot") {
       chips.push(`Tempo total: ${formatarDuracao(totalMs)}`);
-      if (pessoaMs !== null) chips.push(`Pessoa antes do bot: ${formatarDuracao(pessoaMs)}`);
+      if (pessoaMs !== null) {
+        const rotuloPessoa = resumoJogadas.pessoa > 0 ? "Pessoa antes do bot" : "Antes do bot";
+        chips.push(`${rotuloPessoa}: ${formatarDuracao(pessoaMs)}`);
+      }
       if (botMs !== null) chips.push(`Bot resolvendo: ${formatarDuracao(botMs)}`);
     } else {
       chips.push(`Tempo da pessoa: ${formatarDuracao(totalMs)}`);
@@ -106,20 +166,21 @@ function montarHistorico() {
     const total = Number(item.total) || 0;
     const acertos = Number(item.acertos) || 0;
     const percentual = total > 0 ? Math.round((acertos / total) * 100) : 0;
-    const jogadas = item.jogadas || [];
+    const resumoJogadas = resumirJogadas(item);
     const resumoTempo = getResumoTempo(item);
-    const jogadasBot = jogadas.filter((jogada) => jogada.origem === "bot").length;
-    const jogadasPessoa = Math.max(0, jogadas.length - jogadasBot);
-    const apagadas = jogadas.filter((jogada) => jogada.acao === "apagar").length;
-    const marcacoesX = jogadas.filter((jogada) => jogada.acao === "x").length;
-    const mediaPorJogadaMs = resumoTempo.totalMs !== null && jogadas.length > 0
-      ? resumoTempo.totalMs / jogadas.length
+    const mediaPorJogadaMs = resumoTempo.totalMs !== null && resumoJogadas.total > 0
+      ? resumoTempo.totalMs / resumoJogadas.total
       : null;
     const classificacao = classificarDesempenho(percentual, item.resolvido);
 
     let diagnostico = "Sem jogadas suficientes para analisar a partida.";
     if (item.resolvido && resumoTempo.origem === "Bot") {
-      diagnostico = "O bot concluiu a partida. Use o tempo da pessoa antes do bot para separar sua tentativa da resolução automática.";
+      diagnostico = resumoJogadas.pessoa > 0
+        ? "O bot concluiu a partida. Use o tempo da pessoa antes do bot para separar sua tentativa da resolução automática."
+        : "O bot concluiu sozinho. As jogadas registradas são tentativas internas da resolução automática.";
+      if (resumoJogadas.desfeitasBot > 0) {
+        diagnostico += ` O histórico inclui ${formatarTentativasDesfeitas(resumoJogadas.desfeitasBot)} pelo próprio bot.`;
+      }
     } else if (item.resolvido) {
       diagnostico = "Partida concluída pela pessoa. O aproveitamento ficou completo no envio.";
     } else if (percentual >= 75) {
@@ -135,8 +196,8 @@ function montarHistorico() {
       diagnostico,
       metricas: [
         { rotulo: "Aproveitamento", valor: `${acertos}/${total}`, detalhe: `${percentual}% de acerto` },
-        { rotulo: "Jogadas", valor: String(jogadas.length), detalhe: `Pessoa: ${jogadasPessoa} · Bot: ${jogadasBot}` },
-        { rotulo: "Correções", valor: String(apagadas), detalhe: `X marcados: ${marcacoesX}` },
+        { rotulo: "Jogadas", valor: String(resumoJogadas.total), detalhe: formatarDetalheOrigem(resumoJogadas) },
+        { rotulo: "Correções", valor: String(resumoJogadas.correcoes), detalhe: `Desfeitas: ${resumoJogadas.desfeitas} · X marcados: ${resumoJogadas.marcacoesX}` },
         { rotulo: "Média", valor: formatarDuracao(mediaPorJogadaMs), detalhe: "por jogada registrada" },
       ],
     };
@@ -192,7 +253,7 @@ function montarHistorico() {
       linha.appendChild(cabecalho);
       linha.insertAdjacentHTML("beforeend", renderizarAnalise(item));
 
-      const jogadas = item.jogadas || [];
+      const jogadas = getJogadas(item);
       const jogadasBloco = document.createElement("details");
       jogadasBloco.className = "historico-item__jogadas";
       const jogadasTitulo = document.createElement("summary");
@@ -205,12 +266,20 @@ function montarHistorico() {
         jogadasBloco.appendChild(vazioJogadas);
       } else {
         const listaJogadas = document.createElement("ol");
-        jogadas.forEach((jogada) => {
+        jogadas.slice(0, LIMITE_JOGADAS_EXIBIDAS).forEach((jogada) => {
           const jogadaEl = document.createElement("li");
-          jogadaEl.textContent = descreverJogada(jogada);
+          jogadaEl.textContent = descreverJogada(jogada, item);
           listaJogadas.appendChild(jogadaEl);
         });
         jogadasBloco.appendChild(listaJogadas);
+
+        if (jogadas.length > LIMITE_JOGADAS_EXIBIDAS) {
+          const avisoLimite = document.createElement("p");
+          avisoLimite.textContent =
+            `Mostrando as primeiras ${LIMITE_JOGADAS_EXIBIDAS} jogadas de ${jogadas.length}. ` +
+            "O restante são passos internos registrados durante a resolução.";
+          jogadasBloco.appendChild(avisoLimite);
+        }
       }
 
       linha.appendChild(jogadasBloco);

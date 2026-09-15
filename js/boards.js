@@ -99,7 +99,7 @@ const TABULEIROS = [
       ["porco", "lama", "lama", "vazio", "lama"],
       ["vazio", "vazio", "vazio", "vazio", "vazio"],
       ["porco", "vazio", "porco", "vazio", "porco"],
-      ["vazio", "vazio", "vazio", "vazio", "mesa"],
+      ["vazio", "vazio", "vazio", "vazio", "cozinhaMesa"],
     ],
 
     celulasBloqueadas: ["1-0", "3-0", "3-2", "3-4", "4-4"],
@@ -107,6 +107,7 @@ const TABULEIROS = [
     icones: {
       lama: "assets/icones/Lama.png",
       porco: "assets/icones/noto-v1_pig.png",
+      cozinhaMesa: ICONES_FIGMA.cozinhaMesa,
     },
 
     comodos: [
@@ -131,7 +132,6 @@ const TABULEIROS = [
         nome: "CHIQUEIRO",
         cor: "#e8b4a8",
         rotulo: { left: 82, top: 94 },
-        corPorCelula: { "4-4": "#8a5a2e" },
         celulas: ["2-3", "2-4", "3-3", "3-4", "4-3", "4-4"],
       },
     ],

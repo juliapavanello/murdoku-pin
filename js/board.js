@@ -56,7 +56,7 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     boardEl.querySelector(`.celula[data-linha="${linha}"][data-coluna="${coluna}"]`)?.focus();
   }
 
-  function desfazer(linha, coluna) {
+  function desfazer(linha, coluna, origem = "jogador") {
     const jogadaDesfeita = jogadas[jogadas.length - 1];
     const anterior = historico.pop();
     if (!anterior) return;
@@ -65,7 +65,7 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     if (jogadaDesfeita) {
       registroJogadas.push({
         acao: "desfazer",
-        origem: "jogador",
+        origem,
         linha: jogadaDesfeita.linha,
         coluna: jogadaDesfeita.coluna,
         desfeita: JSON.parse(JSON.stringify(jogadaDesfeita)),
@@ -387,7 +387,10 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     const suspeitoRecebido = payload?.suspeito ?? payload?.supeito;
     const posicao = payload?.posicao;
 
-    if (res?.code == 2) { jogo?.desfazer(); return; }
+    if (res?.code == 2) {
+      desfazer(undefined, undefined, "bot");
+      return;
+    }
     if (res?.code == 3) {
       registrarJogada({
         acao: "bot-finalizou",
