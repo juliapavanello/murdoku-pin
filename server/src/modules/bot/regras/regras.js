@@ -84,6 +84,28 @@ const REGRAS = {
   estaSozinhoNoComodo: ({ celula, suspeito, suspeitos, posicoes }) =>
     estaSozinhoNoComodo(celula, suspeito.id, suspeitos, posicoes),
 
+  estaSozinhoNoComodo2: ({ celula, suspeito, suspeitos, posicoes, params }) => {
+    const { comodo } = params;
+
+    if (celula.comodo !== comodo) {
+      return false;
+    }
+
+    return suspeitos.every((outro) => {
+      if (outro.id === suspeito.id) {
+        return true;
+      }
+
+      const posicao = posicoes[outro.id];
+
+      if (!posicao) {
+        return true;
+      }
+
+      return posicao.comodo !== comodo;
+    });
+  },
+
   euSouOUnicoSobreTipo: ({ celula, suspeito, suspeitos, posicoes, params }) => {
     if (!celulaTemTipoOuDecoracao(celula, params?.tipo)) return false;
     return !suspeitos.some((outro) => {
@@ -631,6 +653,91 @@ const REGRAS = {
   exatamenteDuasPessoasNaCadeira: ({ suspeitos, posicoes }) =>
     suspeitos.filter((s) => celulaTemTipoOuDecoracao(posicoes[s.id], "cadeira")).length === 2,
 
+  exatamenteUmaPessoaAoLadoDeTipo: ({ suspeitos, posicoes, tabuleiro, params }) => {
+    const { tipo } = params;
+
+    return (
+      suspeitos.filter((suspeito) => {
+        const posicao = posicoes[suspeito.id];
+
+        return celulasVizinhas(tabuleiro, posicao).some((vizinha) =>
+          celulaTemTipoOuDecoracao(vizinha, tipo)
+        );
+      }).length === 1
+    );
+  },
+
+  naoEstaNoCantoDaArea: ({ celula, tabuleiro }) => {
+    const vizinhos = {
+      norte: buscarCelula(tabuleiro, celula.linha - 1, celula.coluna),
+      leste: buscarCelula(tabuleiro, celula.linha, celula.coluna + 1),
+      sul: buscarCelula(tabuleiro, celula.linha + 1, celula.coluna),
+      oeste: buscarCelula(tabuleiro, celula.linha, celula.coluna - 1),
+    };
+
+    const estaForaDaArea = (vizinha) =>
+      !vizinha || vizinha.comodo !== celula.comodo;
+
+    const canto =
+      (estaForaDaArea(vizinhos.norte) && estaForaDaArea(vizinhos.leste)) ||
+      (estaForaDaArea(vizinhos.leste) && estaForaDaArea(vizinhos.sul)) ||
+      (estaForaDaArea(vizinhos.sul) && estaForaDaArea(vizinhos.oeste)) ||
+      (estaForaDaArea(vizinhos.oeste) && estaForaDaArea(vizinhos.norte));
+
+    return !canto;
+  },
+
+  estaUmaLinhaAoSulDeTipo: ({ celula, tabuleiro, params }) => {
+    const { tipo } = params;
+
+    const celulaAoNorte = buscarCelula(
+      tabuleiro,
+      celula.linha - 1,
+      celula.coluna
+    );
+
+    if (!celulaAoNorte) {
+      return false;
+    }
+
+    return celulaTemTipoOuDecoracao(celulaAoNorte, tipo);
+  },
+
+  estaNoComodoComUmaPessoaESozinhaNoComodo: ({
+    celula,
+    suspeitos,
+    posicoes,
+    tabuleiro,
+    params,
+  }) => {
+    const { comodo } = params;
+
+    const area = tabuleiro.comodos.find((c) =>
+      c.nome === comodo && c.celulas.includes(`${celula.linha}-${celula.coluna}`)
+    );
+
+    if (!area) {
+      return false;
+    }
+
+    const todosPosicionados = suspeitos.every(
+      (suspeito) => Boolean(posicoes[suspeito.id])
+    );
+
+    if (!todosPosicionados) {
+      return true;
+    }
+
+    const quantidadeNaArea = suspeitos.filter((suspeito) => {
+      const posicao = posicoes[suspeito.id];
+
+      return area.celulas.includes(
+        `${posicao.linha}-${posicao.coluna}`
+      );
+    }).length;
+
+    return quantidadeNaArea === 2;
+  },
   // --- Regras "de caso" (compostas, específicas de uma dica) --------------
   estaNoComodoSemFicarAoLadoDeTipo: ({ celula, tabuleiro, params }) =>
     celula.comodo === params?.comodo &&
