@@ -147,10 +147,54 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     if (ferramentaAtiva || suspeitoSelecionadoId) marcarCelula(linha, coluna);
   }
 
+  function moverParaCelula(linha, coluna, linhaIncremento, colunaIncremento) {
+    let proximaLinha = linha + linhaIncremento;
+    let proximaColuna = coluna + colunaIncremento;
+
+    while (
+      proximaLinha >= 0 &&
+      proximaLinha < tamanho &&
+      proximaColuna >= 0 &&
+      proximaColuna < tamanho
+    ) {
+      const chave = `${proximaLinha}-${proximaColuna}`;
+      if (!celulasBloqueadas.includes(chave)) {
+        const proximaCelula = boardEl.querySelector(
+          `.celula[data-linha="${proximaLinha}"][data-coluna="${proximaColuna}"]`
+        );
+        if (!proximaCelula) return;
+
+        celulaSelecionada = chave;
+        boardEl.querySelectorAll(".celula--selecionada").forEach((celula) => {
+          celula.classList.remove("celula--selecionada");
+        });
+        proximaCelula.classList.add("celula--selecionada");
+        proximaCelula.focus();
+        return;
+      }
+
+      proximaLinha += linhaIncremento;
+      proximaColuna += colunaIncremento;
+    }
+  }
+
   function onCelulaDigitada(evento) {
     const tecla = evento.key.toLowerCase();
     const linha = Number(evento.currentTarget.dataset.linha);
     const coluna = Number(evento.currentTarget.dataset.coluna);
+
+    const movimentos = {
+      arrowup: [-1, 0],
+      arrowdown: [1, 0],
+      arrowleft: [0, -1],
+      arrowright: [0, 1],
+    };
+    const movimento = movimentos[tecla];
+    if (movimento) {
+      evento.preventDefault();
+      moverParaCelula(linha, coluna, movimento[0], movimento[1]);
+      return;
+    }
 
     if ((evento.ctrlKey || evento.metaKey) && tecla === "z") {
       evento.preventDefault();
