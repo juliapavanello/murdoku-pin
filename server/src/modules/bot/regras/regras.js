@@ -651,7 +651,7 @@ const REGRAS = {
     ),
 
   exatamenteDuasPessoasNaCadeira: ({ suspeitos, posicoes }) =>
-    suspeitos.filter((s) => celulaTemTipoOuDecoracao(posicoes[s.id], "cadeira")).length === 2,
+    suspeitos.filter((s) => celulaTemTipoOuDecoracao(posicoes[s.id], "poltrona")).length === 2,
 
   exatamenteUmaPessoaAoLadoDeTipo: ({ suspeitos, posicoes, tabuleiro, params }) => {
     const { tipo } = params;
