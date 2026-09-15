@@ -660,9 +660,11 @@ const REGRAS = {
       suspeitos.filter((suspeito) => {
         const posicao = posicoes[suspeito.id];
 
-        return celulasVizinhas(tabuleiro, posicao).some((vizinha) =>
-          celulaTemTipoOuDecoracao(vizinha, tipo)
-        );
+        return REGRAS.estaAoLadoDeTipo({
+          celula: posicao,
+          tabuleiro,
+          params: { tipo },
+        });
       }).length === 1
     );
   },
@@ -685,6 +687,30 @@ const REGRAS = {
       (estaForaDaArea(vizinhos.oeste) && estaForaDaArea(vizinhos.norte));
 
     return !canto;
+  },
+
+  // Uma fileira abaixo de outra pessoa sobre o tipo, em qualquer coluna.
+  estaUmaLinhaAoSulDePessoaSobreTipo: ({
+    celula, suspeito, suspeitos, posicoes, tabuleiro, params,
+  }) => {
+    const referencias = tabuleiro.celulas.filter((outra) =>
+      !outra.bloqueada &&
+      outra.linha === celula.linha - 1 &&
+      celulaTemTipoOuDecoracao(outra, params?.tipo)
+    );
+    if (referencias.length === 0) return false;
+
+    const outros = suspeitos.filter((outro) => outro.id !== suspeito.id);
+    if (outros.some((outro) => {
+      const posicao = posicoes[outro.id];
+      return posicao && referencias.some((referencia) =>
+        referencia.linha === posicao.linha &&
+        referencia.coluna === posicao.coluna
+      );
+    })) return true;
+
+    // Uma pessoa ainda não posicionada pode satisfazer a referência.
+    return outros.some((outro) => !posicoes[outro.id]);
   },
 
   estaUmaLinhaAoSulDeTipo: ({ celula, tabuleiro, params }) => {
@@ -710,7 +736,8 @@ const REGRAS = {
     tabuleiro,
     params,
   }) => {
-    const { comodo } = params;
+    // Sem cômodo explícito, conta as pessoas na área da própria célula.
+    const comodo = params?.comodo ?? celula.comodo;
 
     const area = tabuleiro.comodos.find((c) =>
       c.nome === comodo && c.celulas.includes(`${celula.linha}-${celula.coluna}`)
