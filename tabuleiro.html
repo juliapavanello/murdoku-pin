@@ -242,7 +242,7 @@
         tempoBot: resumoTempo.tempoBotMs === null ? null : formatarDuracao(resumoTempo.tempoBotMs),
         jogadas,
       });
-      localStorage.setItem("murdoku.historico", JSON.stringify(historico.slice(0, 20)));
+      localStorage.setItem("murdoku.historico", JSON.stringify(historico.slice(-50)));
       mostrarResultado(resultado, resumoTempo);
       return resultado;
     }
