@@ -603,15 +603,11 @@ const REGRAS = {
 
     const posicao = posicoes[suspeitoId];
 
-    // Enquanto o suspeito de referência não estiver posicionado,
-    // não elimina a possibilidade.
     if (!posicao) {
       return true;
     }
 
-    const estaAoLeste =
-      celula.linha === posicao.linha &&
-      celula.coluna === posicao.coluna + 1;
+    const estaAoLeste = celula.coluna > posicao.coluna;
 
     if (!estaAoLeste) {
       return false;
@@ -623,6 +619,17 @@ const REGRAS = {
       params: { tipo },
     });
   },
+
+  exatamenteUmaPessoaNaCama: ({ suspeitos, posicoes }) =>
+    suspeitos.filter((s) => celulaTemTipoOuDecoracao(posicoes[s.id], "cama")).length === 1,
+
+  nenhumComodoVazio: ({ suspeitos, posicoes, tabuleiro }) =>
+    tabuleiro.comodos.every((comodo) =>
+      suspeitos.some((s) => encontrarComodo(tabuleiro, posicoes[s.id])?.nome === comodo.nome)
+    ),
+
+  exatamenteDuasPessoasNaCadeira: ({ suspeitos, posicoes }) =>
+    suspeitos.filter((s) => celulaTemTipoOuDecoracao(posicoes[s.id], "cadeira")).length === 2,
 
   // --- Regras "de caso" (compostas, específicas de uma dica) --------------
   estaNoComodoSemFicarAoLadoDeTipo: ({ celula, tabuleiro, params }) =>
