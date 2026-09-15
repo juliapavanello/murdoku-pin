@@ -765,6 +765,26 @@ const REGRAS = {
 
     return quantidadeNaArea === 2;
   },
+
+  estaAoSulEEmAreaDiferenteDeSuspeito: (dados) =>
+    REGRAS.estaAoSulDeSuspeito(dados) &&
+    REGRAS.estaEmAreaDiferenteDeSuspeito(dados),
+
+  existeForagidoCompativel: ({ suspeitos, posicoes, tabuleiro, params }) => {
+    const { companhiaId, excluidosIds = [], tipo = "mesa" } = params;
+    const companhia = posicoes[companhiaId];
+
+    return suspeitos.some((candidato) => {
+      if (candidato.id === companhiaId || excluidosIds.includes(candidato.id)) {
+        return false;
+      }
+
+      const celula = posicoes[candidato.id];
+      return celula.comodo === companhia.comodo &&
+        REGRAS.estaAoLadoDeTipo({ celula, tabuleiro, params: { tipo } });
+    });
+  },
+
   // --- Regras "de caso" (compostas, específicas de uma dica) --------------
   estaNoComodoSemFicarAoLadoDeTipo: ({ celula, tabuleiro, params }) =>
     celula.comodo === params?.comodo &&

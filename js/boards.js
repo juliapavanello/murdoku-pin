@@ -428,9 +428,9 @@ const TABULEIROS = [
       ["vazio", "vazio", "cadeira", "vazio", "cadeira", "vazio", "vazio", "cadeira", "vilaCavalo", "vazio"],
       ["vilaCactus", "vazio", "vazio", "vazio", "cadeira", "vazio", "vazio", "cadeira", "vazio", "vazio"],
       ["vazio", "vazio", "vazio", "vazio", "vazio", "vazio", "vazio", "vazio", "vazio", "vazio"],
-      ["estante", "vazio", "vazio", "vazio", "vilaCactus", "vazio", "vazio", "vazio", "vazio", "vazio"],
-      ["vilaSacoDinheiro", "vazio", "estante", "vilaCaixaRegistradora", "vilaCavalo", "vilaSacoDinheiro", "vazio", "vilaFimMesa", "estante", "cadeira"],
-      ["vazio", "cadeira", "vazio", "vazio", "vazio", "vazio", "vazio", "vilaMesaLadoBaixo", "vazio", "vilaMesa"],
+      ["estante", "vazio", "vazio", "vazio", "vilaCactus", "vazio", "vazio", "vazio", "estante", "cadeira"],
+      ["vilaSacoDinheiro", "vazio", "estante", "vilaCaixaRegistradora", "vilaCavalo", "vilaSacoDinheiro", "vazio", "vilaMesaLado", "vazio", "vilaMesa"],
+      ["vazio", "cadeira", "vazio", "vazio", "vazio", "vazio", "vilaFimMesa", "vilaMesaLadoBaixo", "vazio", "vazio"],
       ["estante", "vazio", "estante", "vilaMesa", "vazio", "cadeira", "vilaCofre", "vazio", "vazio", "vilaCaixaRegistradora"],
     ],
 
@@ -447,6 +447,7 @@ const TABULEIROS = [
       vilaMesa: ICONES_FIGMA.vilaMesa,
       vilaMesaDireita: ICONES_FIGMA.vilaMesaDireita,
       vilaMesaEsquerda: ICONES_FIGMA.vilaMesaEsquerda,
+      vilaMesaLado: ICONES_FIGMA.vilaMesaLado,
       vilaMesaLadoBaixo: ICONES_FIGMA.vilaMesaLadoBaixo,
       vilaSacoDinheiro: ICONES_FIGMA.vilaSacoDinheiro,
     },
@@ -454,80 +455,199 @@ const TABULEIROS = [
     comodos: [
       {
         nome: "CASA DO PASTOR",
-        cor: "#efd5b7",
-        rotulo: { left: 20, top: 6 },
-        celulas: celulasRetangulo(0, 0, 2, 2),
+        cor: "#d8c894",
+        rotulo: { left: 13, top: 28 },
+        celulas: [
+          ...celulasRetangulo(0, 0, 1, 2),
+          ...celulasRetangulo(2, 0, 2, 1),
+        ],
       },
       {
         nome: "CAPELA",
-        cor: "#efc9b6",
-        rotulo: { left: 61, top: 48 },
-        celulas: celulasRetangulo(1, 4, 4, 7),
+        cor: "#f4d2ac",
+        rotulo: { left: 61, top: 49 },
+        celulas: celulasRetangulo(0, 4, 4, 7),
       },
       {
         nome: "ARMAZÉM GERAL",
-        cor: "#efc9b6",
-        rotulo: { left: 21, top: 50 },
-        celulas: celulasRetangulo(5, 0, 9, 2),
+        cor: "#ddbea0",
+        rotulo: { left: 21, top: 98 },
+        celulas: [
+          ...celulasRetangulo(5, 0, 6, 2),
+          ...celulasRetangulo(7, 0, 9, 3),
+        ],
       },
       {
         nome: "VARANDA",
-        cor: "#d6b083",
-        rotulo: { left: 51, top: 96 },
-        celulas: celulasRetangulo(7, 4, 9, 6),
+        cor: "#dfbf95",
+        rotulo: { left: 50, top: 98 },
+        celulas: [
+          "6-6",
+          ...celulasRetangulo(7, 4, 7, 6),
+          ...celulasRetangulo(8, 4, 9, 5),
+        ],
       },
       {
         nome: "BANCO",
-        cor: "#d6b083",
-        rotulo: { left: 77, top: 96 },
-        celulas: celulasRetangulo(7, 7, 9, 9),
+        cor: "#b89a7b",
+        rotulo: { left: 81, top: 98 },
+        celulas: [
+          ...celulasRetangulo(6, 7, 7, 9),
+          ...celulasRetangulo(8, 6, 9, 9),
+        ],
       },
       {
         nome: "EXTERIOR",
-        cor: "#f1d678",
-        rotulo: { left: 80, top: 66 },
+        cor: "#eed184",
+        rotulo: { left: 48, top: 66 },
         celulas: celulasExceto(
           10,
-          celulasRetangulo(0, 0, 2, 2),
-          celulasRetangulo(1, 4, 4, 7),
-          celulasRetangulo(5, 0, 9, 2),
-          celulasRetangulo(7, 4, 9, 6),
-          celulasRetangulo(7, 7, 9, 9)
+          celulasRetangulo(0, 0, 1, 2),
+          celulasRetangulo(2, 0, 2, 1),
+          celulasRetangulo(0, 4, 4, 7),
+          celulasRetangulo(5, 0, 6, 2),
+          celulasRetangulo(7, 0, 9, 3),
+          ["6-6"],
+          celulasRetangulo(7, 4, 7, 6),
+          celulasRetangulo(8, 4, 9, 5),
+          celulasRetangulo(6, 7, 7, 9),
+          celulasRetangulo(8, 6, 9, 9)
         ),
       },
     ],
 
     suspeitos: [
-      { id: "abigail", nome: "Abigail", dica: "Ela estava ao lado de uma caixa registradora.", foto: "assets/suspeitos/carissa.png" },
-      { id: "bruna", nome: "Bruna", dica: "Ela estava em um canto de sua área.", foto: "assets/suspeitos/dolores.png" },
-      { id: "carlos", nome: "Carlos", dica: "Ele estava sentado em uma cadeira.", foto: "assets/suspeitos/man_avatar.png" },
-      { id: "daniel", nome: "Daniel", dica: "Não é o foragido. Ele estava ao lado de uma cadeira.", foto: "assets/suspeitos/brent.png" },
-      { id: "edina", nome: "Edina", dica: "Ela estava no Banco.", foto: "assets/suspeitos/vinita.png" },
-      { id: "frank", nome: "Frank", dica: "Ela estava montado em um cavalo.", foto: "assets/suspeitos/eduardo.png" },
-      { id: "garrett", nome: "Garrett", dica: "Ele estava ao lado de um cacto.", foto: "assets/suspeitos/jack.png" },
-      { id: "hazel", nome: "Hazel", dica: "Ela estava sentada numa cadeira. Ela estava com o foragido.", foto: "assets/suspeitos/dolores.png" },
-      { id: "isa", nome: "Isa", dica: "Ela estava ao Sul de Hazel, em uma área diferente.", foto: "assets/suspeitos/carissa.png" },
-      { id: "vini", nome: "Vini", dica: "A vítima. Ele estava sozinho com o assassino.", foto: "assets/suspeitos/floyd.png", isVitima: true },
+      {
+        "id": "abigail",
+        "nome": "Abigail",
+        "dica": "Ela estava ao lado de uma caixa registradora.",
+        "foto": "assets/suspeitos/carissa.png",
+        "regraId": "estaAoLadoDeTipo",
+        "regraParams": {
+          "tipo": "caixaRegistradora"
+        }
+      },
+      {
+        "id": "bruna",
+        "nome": "Bruna",
+        "dica": "Ela estava em um canto de sua área.",
+        "foto": "assets/suspeitos/dolores.png",
+        "regraId": "estaNoCantoDaArea",
+        "regraParams": {}
+      },
+      {
+        "id": "carlos",
+        "nome": "Carlos",
+        "dica": "Ele estava sentado em uma cadeira.",
+        "foto": "assets/suspeitos/man_avatar.png",
+        "regraId": "estaSobreTipo",
+        "regraParams": {
+          "tipo": "cadeira"
+        }
+      },
+      {
+        "id": "daniel",
+        "nome": "Daniel",
+        "dica": "Não é o foragido. Ele estava ao lado de uma cadeira.",
+        "foto": "assets/suspeitos/brent.png",
+        "regraId": "estaAoLadoDeTipo",
+        "regraParams": {
+          "tipo": "cadeira"
+        }
+      },
+      {
+        "id": "edina",
+        "nome": "Edina",
+        "dica": "Ela estava no Banco.",
+        "foto": "assets/suspeitos/vinita.png",
+        "regraId": "estaNoComodo",
+        "regraParams": {
+          "comodo": "BANCO"
+        }
+      },
+      {
+        "id": "frank",
+        "nome": "Frank",
+        "dica": "Ela estava montado em um cavalo.",
+        "foto": "assets/suspeitos/eduardo.png",
+        "regraId": "estaSobreTipo",
+        "regraParams": {
+          "tipo": "vilaCavalo"
+        }
+      },
+      {
+        "id": "garrett",
+        "nome": "Garrett",
+        "dica": "Ele estava ao lado de um cacto.",
+        "foto": "assets/suspeitos/jack.png",
+        "regraId": "estaAoLadoDeTipo",
+        "regraParams": {
+          "tipo": "vilaCactus"
+        }
+      },
+      {
+        "id": "hazel",
+        "nome": "Hazel",
+        "dica": "Ela estava sentada numa cadeira. Ela estava com o foragido.",
+        "foto": "assets/suspeitos/dolores.png",
+        "regraId": "estaSobreTipo",
+        "regraParams": {
+          "tipo": "cadeira"
+        }
+      },
+      {
+        "id": "isa",
+        "nome": "Isa",
+        "dica": "Ela estava ao Sul de Hazel, em uma área diferente.",
+        "foto": "assets/suspeitos/carissa.png",
+        "regraId": "estaAoSulEEmAreaDiferenteDeSuspeito",
+        "regraParams": {
+          "suspeitoId": "hazel"
+        }
+      },
+      {
+        "id": "vini",
+        "nome": "Vini",
+        "dica": "A vítima. Ele estava sozinho com o assassino.",
+        "foto": "assets/suspeitos/floyd.png",
+        "isVitima": true,
+        "regraId": "estaNoComodoComUmaPessoaESozinhaNoComodo",
+        "regraParams": {}
+      }
     ],
 
     pistasGerais: [
       "Há exatamente um foragido escondido entre os suspeitos. O foragido pode ser ou não o assassino.",
-      "O foragido estava ao lado de uma mesa.",
+      "O foragido estava ao lado de uma mesa."
     ],
 
-    celulasBloqueadas: ["0-1", "0-2", "0-8", "1-5", "1-6", "2-1", "2-2", "2-4", "2-9", "4-0", "6-0", "6-4", "7-0", "7-2", "7-3", "7-5", "7-7", "7-8", "8-7", "8-9", "9-0", "9-2", "9-3", "9-6", "9-9"],
+    regrasGlobais: [
+      {
+        "regraId": "existeForagidoCompativel",
+        "params": {
+          "companhiaId": "hazel",
+          "excluidosIds": [
+            "daniel",
+            "vini"
+          ],
+          "tipo": "mesa"
+        }
+      }
+    ],
+
+    celulasBloqueadas: ["0-1", "0-2", "0-8", "1-5", "1-6", "2-1", "2-2", "2-4", "2-9", "4-0", "6-0", "6-4", "6-8", "7-0", "7-2", "7-3", "7-5", "7-7", "7-9", "8-6", "8-7", "9-0", "9-2", "9-3", "9-6", "9-9"],
 
     solucaoMock: {
-      "7-2": "abigail",
-      "0-0": "bruna",
-      "3-7": "carlos",
-      "4-6": "daniel",
-      "9-8": "edina",
-      "1-3": "frank",
-      "1-8": "garrett",
-      "8-1": "hazel",
-      "9-1": "isa",
-      "7-5": "vini",
+      "8-3": "abigail",
+      "3-8": "frank",
+      "9-7": "edina",
+      "1-0": "carlos",
+      "6-9": "hazel",
+      "4-1": "garrett",
+      "2-6": "daniel",
+      "7-4": "isa",
+      "5-2": "bruna",
+      "0-5": "vini"
     },
   },
   {
