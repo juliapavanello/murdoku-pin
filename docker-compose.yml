@@ -8,8 +8,10 @@ services:
       - "7032:7032"
     environment:
       PORT_BACK: 7032
+      FRONTEND_ROOT: /usr/src/frontend
     volumes:
       - ./server:/usr/src/app
+      - .:/usr/src/frontend:ro
       - /usr/src/app/node_modules
     command: npm start
 

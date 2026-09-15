@@ -134,7 +134,11 @@
     document.getElementById("btn-auto").addEventListener("click", () => {
       inicioBotMs = performance.now();
       tempoBotMs = null;
-      const apiBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      const usaApiLocal =
+        window.location.protocol === 'file:' ||
+        window.location.hostname === 'localhost' ||
+        window.location.hostname === '127.0.0.1';
+      const apiBase = usaApiLocal
         ? 'http://localhost:7032'
         : 'https://murdoku-pin.onrender.com';
       fetch(`${apiBase}/api/v1/bot/start/`, {

@@ -311,6 +311,7 @@ const REGRAS = {
 
   estaNaAreaComPessoaAoLadoDeTipo: ({
     celula,
+    suspeito,
     suspeitos,
     tabuleiro,
     posicoes,
@@ -324,10 +325,12 @@ const REGRAS = {
       (suspeito) => posicoes[suspeito.id]
     );
 
-    const alguemAoLado = suspeitos.some((suspeito) => {
-      const posicao = posicoes[suspeito.id];
+    const alguemAoLado = suspeitos.some((outraPessoa) => {
+      if (outraPessoa.id === suspeito?.id) return false;
 
-      if (!posicao || posicao === celula) return false;
+      const posicao = posicoes[outraPessoa.id];
+
+      if (!posicao) return false;
 
       const mesmaArea =
         encontrarComodo(tabuleiro, posicao)?.nome === area.nome;
@@ -537,35 +540,6 @@ const REGRAS = {
         mesmoComodo(celula, posicao) &&
         celulaTemTipoOuDecoracao(posicao, tipo)
       );
-    });
-  },
-
-  estaNaAreaComPessoaAoLadoDeTipo({
-    celula,
-    suspeitos,
-    posicoes,
-    tabuleiro,
-    params,
-  }) {
-    const pessoasPosicionadas = suspeitos.filter(
-      (suspeito) => posicoes[suspeito.id]
-    );
-
-    // Ainda não dá para saber quem estará na área.
-    if (pessoasPosicionadas.length < suspeitos.length) {
-      return true;
-    }
-
-    return pessoasPosicionadas.some((suspeito) => {
-      const posicao = posicoes[suspeito.id];
-
-      if (!mesmoComodo(celula, posicao)) return false;
-
-      return REGRAS.estaAoLadoDeTipo({
-        celula: posicao,
-        tabuleiro,
-        params,
-      });
     });
   },
 

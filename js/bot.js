@@ -1,4 +1,7 @@
-const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const isLocal =
+    window.location.protocol === 'file:' ||
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1';
 const socket = new WebSocket(
     isLocal ? 'ws://localhost:7032/ws' : 'wss://murdoku-pin.onrender.com/ws'
 );
