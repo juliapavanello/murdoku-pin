@@ -62,15 +62,6 @@ function criarJogoMurdoku(tabuleiro, { boardEl, suspeitosEl }) {
     if (!anterior) return;
     marcacoes = anterior.marcacoes;
     jogadas = anterior.jogadas;
-    if (jogadaDesfeita) {
-      registroJogadas.push({
-        acao: "desfazer",
-        origem,
-        linha: jogadaDesfeita.linha,
-        coluna: jogadaDesfeita.coluna,
-        desfeita: JSON.parse(JSON.stringify(jogadaDesfeita)),
-      });
-    }
     renderizarGrid();
     focarCelula(linha, coluna);
   }
