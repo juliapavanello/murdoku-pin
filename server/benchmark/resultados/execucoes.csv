@@ -1,0 +1,361 @@
+﻿id;nome;dificuldade;repeticao;tempo_ms;resolvido
+1;O Chiqueiro;facil;1;0,1498;sim
+1;O Chiqueiro;facil;2;0,1768;sim
+1;O Chiqueiro;facil;3;0,4666;sim
+1;O Chiqueiro;facil;4;0,1670;sim
+1;O Chiqueiro;facil;5;0,1797;sim
+1;O Chiqueiro;facil;6;0,1949;sim
+1;O Chiqueiro;facil;7;0,1455;sim
+1;O Chiqueiro;facil;8;0,1591;sim
+1;O Chiqueiro;facil;9;0,2520;sim
+1;O Chiqueiro;facil;10;0,1611;sim
+1;O Chiqueiro;facil;11;0,1247;sim
+1;O Chiqueiro;facil;12;0,1337;sim
+1;O Chiqueiro;facil;13;0,1303;sim
+1;O Chiqueiro;facil;14;0,1306;sim
+1;O Chiqueiro;facil;15;0,1151;sim
+1;O Chiqueiro;facil;16;0,3639;sim
+1;O Chiqueiro;facil;17;0,1029;sim
+1;O Chiqueiro;facil;18;0,2124;sim
+1;O Chiqueiro;facil;19;0,0918;sim
+1;O Chiqueiro;facil;20;0,0902;sim
+1;O Chiqueiro;facil;21;0,0893;sim
+1;O Chiqueiro;facil;22;0,0895;sim
+1;O Chiqueiro;facil;23;0,1447;sim
+1;O Chiqueiro;facil;24;0,0976;sim
+1;O Chiqueiro;facil;25;0,1093;sim
+1;O Chiqueiro;facil;26;0,1302;sim
+1;O Chiqueiro;facil;27;0,1110;sim
+1;O Chiqueiro;facil;28;0,1024;sim
+1;O Chiqueiro;facil;29;0,1473;sim
+1;O Chiqueiro;facil;30;0,1892;sim
+2;O Clube Do Livro;facil;1;0,5487;sim
+2;O Clube Do Livro;facil;2;0,5903;sim
+2;O Clube Do Livro;facil;3;0,5669;sim
+2;O Clube Do Livro;facil;4;0,4074;sim
+2;O Clube Do Livro;facil;5;0,4322;sim
+2;O Clube Do Livro;facil;6;0,5014;sim
+2;O Clube Do Livro;facil;7;0,5097;sim
+2;O Clube Do Livro;facil;8;0,5132;sim
+2;O Clube Do Livro;facil;9;0,3496;sim
+2;O Clube Do Livro;facil;10;0,3296;sim
+2;O Clube Do Livro;facil;11;0,3298;sim
+2;O Clube Do Livro;facil;12;0,3286;sim
+2;O Clube Do Livro;facil;13;0,3325;sim
+2;O Clube Do Livro;facil;14;0,5155;sim
+2;O Clube Do Livro;facil;15;0,3557;sim
+2;O Clube Do Livro;facil;16;0,3447;sim
+2;O Clube Do Livro;facil;17;0,3293;sim
+2;O Clube Do Livro;facil;18;0,3357;sim
+2;O Clube Do Livro;facil;19;0,3296;sim
+2;O Clube Do Livro;facil;20;0,5764;sim
+2;O Clube Do Livro;facil;21;0,3360;sim
+2;O Clube Do Livro;facil;22;0,3298;sim
+2;O Clube Do Livro;facil;23;0,3306;sim
+2;O Clube Do Livro;facil;24;0,3279;sim
+2;O Clube Do Livro;facil;25;0,3274;sim
+2;O Clube Do Livro;facil;26;0,4871;sim
+2;O Clube Do Livro;facil;27;0,3403;sim
+2;O Clube Do Livro;facil;28;0,3561;sim
+2;O Clube Do Livro;facil;29;0,3275;sim
+2;O Clube Do Livro;facil;30;0,3319;sim
+3;A Floricultura;facil;1;1,6189;sim
+3;A Floricultura;facil;2;0,9939;sim
+3;A Floricultura;facil;3;1,1232;sim
+3;A Floricultura;facil;4;0,9792;sim
+3;A Floricultura;facil;5;1,0772;sim
+3;A Floricultura;facil;6;1,0249;sim
+3;A Floricultura;facil;7;1,1136;sim
+3;A Floricultura;facil;8;0,9928;sim
+3;A Floricultura;facil;9;1,0061;sim
+3;A Floricultura;facil;10;1,1528;sim
+3;A Floricultura;facil;11;1,1664;sim
+3;A Floricultura;facil;12;1,2732;sim
+3;A Floricultura;facil;13;0,9587;sim
+3;A Floricultura;facil;14;1,4647;sim
+3;A Floricultura;facil;15;1,1118;sim
+3;A Floricultura;facil;16;1,1064;sim
+3;A Floricultura;facil;17;0,9458;sim
+3;A Floricultura;facil;18;1,1228;sim
+3;A Floricultura;facil;19;0,9492;sim
+3;A Floricultura;facil;20;0,9364;sim
+3;A Floricultura;facil;21;1,0715;sim
+3;A Floricultura;facil;22;0,9583;sim
+3;A Floricultura;facil;23;1,0426;sim
+3;A Floricultura;facil;24;0,9492;sim
+3;A Floricultura;facil;25;1,0585;sim
+3;A Floricultura;facil;26;0,9364;sim
+3;A Floricultura;facil;27;1,0840;sim
+3;A Floricultura;facil;28;1,0212;sim
+3;A Floricultura;facil;29;1,0521;sim
+3;A Floricultura;facil;30;0,9245;sim
+4;Cozinha do Inferno;medio;1;1367,4814;sim
+4;Cozinha do Inferno;medio;2;1317,9059;sim
+4;Cozinha do Inferno;medio;3;1289,8787;sim
+4;Cozinha do Inferno;medio;4;1251,6196;sim
+4;Cozinha do Inferno;medio;5;1425,0460;sim
+4;Cozinha do Inferno;medio;6;1568,1051;sim
+4;Cozinha do Inferno;medio;7;1437,7780;sim
+4;Cozinha do Inferno;medio;8;1340,8155;sim
+4;Cozinha do Inferno;medio;9;1326,0193;sim
+4;Cozinha do Inferno;medio;10;1289,1520;sim
+4;Cozinha do Inferno;medio;11;1308,0910;sim
+4;Cozinha do Inferno;medio;12;1303,8305;sim
+4;Cozinha do Inferno;medio;13;1380,8467;sim
+4;Cozinha do Inferno;medio;14;1356,6493;sim
+4;Cozinha do Inferno;medio;15;1437,3137;sim
+4;Cozinha do Inferno;medio;16;1265,7930;sim
+4;Cozinha do Inferno;medio;17;1305,1832;sim
+4;Cozinha do Inferno;medio;18;1214,0767;sim
+4;Cozinha do Inferno;medio;19;1210,6143;sim
+4;Cozinha do Inferno;medio;20;1205,7113;sim
+4;Cozinha do Inferno;medio;21;1219,5456;sim
+4;Cozinha do Inferno;medio;22;1232,5340;sim
+4;Cozinha do Inferno;medio;23;1231,2479;sim
+4;Cozinha do Inferno;medio;24;1214,7906;sim
+4;Cozinha do Inferno;medio;25;1224,8471;sim
+4;Cozinha do Inferno;medio;26;1233,7500;sim
+4;Cozinha do Inferno;medio;27;1237,4960;sim
+4;Cozinha do Inferno;medio;28;1239,5579;sim
+4;Cozinha do Inferno;medio;29;1267,0764;sim
+4;Cozinha do Inferno;medio;30;1203,1969;sim
+5;A Vila da Fronteira;dificil;1;1630,3790;sim
+5;A Vila da Fronteira;dificil;2;1652,7022;sim
+5;A Vila da Fronteira;dificil;3;1650,1403;sim
+5;A Vila da Fronteira;dificil;4;1650,7564;sim
+5;A Vila da Fronteira;dificil;5;1659,4555;sim
+5;A Vila da Fronteira;dificil;6;1632,2131;sim
+5;A Vila da Fronteira;dificil;7;1649,2674;sim
+5;A Vila da Fronteira;dificil;8;1630,7091;sim
+5;A Vila da Fronteira;dificil;9;1673,3383;sim
+5;A Vila da Fronteira;dificil;10;1679,7856;sim
+5;A Vila da Fronteira;dificil;11;1689,4720;sim
+5;A Vila da Fronteira;dificil;12;1689,8014;sim
+5;A Vila da Fronteira;dificil;13;1717,6172;sim
+5;A Vila da Fronteira;dificil;14;1720,0654;sim
+5;A Vila da Fronteira;dificil;15;1645,7392;sim
+5;A Vila da Fronteira;dificil;16;1670,9832;sim
+5;A Vila da Fronteira;dificil;17;1639,5858;sim
+5;A Vila da Fronteira;dificil;18;1645,4987;sim
+5;A Vila da Fronteira;dificil;19;1634,7424;sim
+5;A Vila da Fronteira;dificil;20;1635,2222;sim
+5;A Vila da Fronteira;dificil;21;1674,6836;sim
+5;A Vila da Fronteira;dificil;22;1678,4641;sim
+5;A Vila da Fronteira;dificil;23;1630,3492;sim
+5;A Vila da Fronteira;dificil;24;1669,0528;sim
+5;A Vila da Fronteira;dificil;25;1721,5328;sim
+5;A Vila da Fronteira;dificil;26;1689,6193;sim
+5;A Vila da Fronteira;dificil;27;1682,2308;sim
+5;A Vila da Fronteira;dificil;28;1637,6562;sim
+5;A Vila da Fronteira;dificil;29;1648,8724;sim
+5;A Vila da Fronteira;dificil;30;1663,2717;sim
+6;Pintura ao Ar Livre;facil;1;0,8047;sim
+6;Pintura ao Ar Livre;facil;2;0,5802;sim
+6;Pintura ao Ar Livre;facil;3;0,5692;sim
+6;Pintura ao Ar Livre;facil;4;0,5672;sim
+6;Pintura ao Ar Livre;facil;5;0,5741;sim
+6;Pintura ao Ar Livre;facil;6;0,5676;sim
+6;Pintura ao Ar Livre;facil;7;0,5671;sim
+6;Pintura ao Ar Livre;facil;8;0,5661;sim
+6;Pintura ao Ar Livre;facil;9;0,5736;sim
+6;Pintura ao Ar Livre;facil;10;0,5670;sim
+6;Pintura ao Ar Livre;facil;11;0,6895;sim
+6;Pintura ao Ar Livre;facil;12;0,6093;sim
+6;Pintura ao Ar Livre;facil;13;0,5737;sim
+6;Pintura ao Ar Livre;facil;14;0,5955;sim
+6;Pintura ao Ar Livre;facil;15;0,5791;sim
+6;Pintura ao Ar Livre;facil;16;0,5681;sim
+6;Pintura ao Ar Livre;facil;17;0,5674;sim
+6;Pintura ao Ar Livre;facil;18;0,5715;sim
+6;Pintura ao Ar Livre;facil;19;0,6390;sim
+6;Pintura ao Ar Livre;facil;20;0,5654;sim
+6;Pintura ao Ar Livre;facil;21;0,5727;sim
+6;Pintura ao Ar Livre;facil;22;0,5719;sim
+6;Pintura ao Ar Livre;facil;23;0,5654;sim
+6;Pintura ao Ar Livre;facil;24;0,5729;sim
+6;Pintura ao Ar Livre;facil;25;0,5655;sim
+6;Pintura ao Ar Livre;facil;26;0,5667;sim
+6;Pintura ao Ar Livre;facil;27;0,8352;sim
+6;Pintura ao Ar Livre;facil;28;0,5705;sim
+6;Pintura ao Ar Livre;facil;29;0,5665;sim
+6;Pintura ao Ar Livre;facil;30;0,5734;sim
+7;Casamento Branco;medio;1;3621,8812;sim
+7;Casamento Branco;medio;2;3594,2157;sim
+7;Casamento Branco;medio;3;3593,6076;sim
+7;Casamento Branco;medio;4;3575,3786;sim
+7;Casamento Branco;medio;5;3610,9091;sim
+7;Casamento Branco;medio;6;3576,4199;sim
+7;Casamento Branco;medio;7;3589,7843;sim
+7;Casamento Branco;medio;8;3588,0869;sim
+7;Casamento Branco;medio;9;3571,3913;sim
+7;Casamento Branco;medio;10;3577,3998;sim
+7;Casamento Branco;medio;11;3593,5146;sim
+7;Casamento Branco;medio;12;3585,4095;sim
+7;Casamento Branco;medio;13;3573,2781;sim
+7;Casamento Branco;medio;14;3574,9283;sim
+7;Casamento Branco;medio;15;3606,6095;sim
+7;Casamento Branco;medio;16;3604,9200;sim
+7;Casamento Branco;medio;17;3569,8485;sim
+7;Casamento Branco;medio;18;3556,3527;sim
+7;Casamento Branco;medio;19;3579,1263;sim
+7;Casamento Branco;medio;20;3568,1836;sim
+7;Casamento Branco;medio;21;3570,6370;sim
+7;Casamento Branco;medio;22;3572,0604;sim
+7;Casamento Branco;medio;23;3579,3014;sim
+7;Casamento Branco;medio;24;3579,3211;sim
+7;Casamento Branco;medio;25;3586,9683;sim
+7;Casamento Branco;medio;26;3566,5803;sim
+7;Casamento Branco;medio;27;3579,2021;sim
+7;Casamento Branco;medio;28;3598,6507;sim
+7;Casamento Branco;medio;29;3586,6886;sim
+7;Casamento Branco;medio;30;3587,4713;sim
+8;Visitantes Inesperados;dificil;1;163,9070;sim
+8;Visitantes Inesperados;dificil;2;160,6508;sim
+8;Visitantes Inesperados;dificil;3;162,3867;sim
+8;Visitantes Inesperados;dificil;4;161,2008;sim
+8;Visitantes Inesperados;dificil;5;160,3206;sim
+8;Visitantes Inesperados;dificil;6;160,7218;sim
+8;Visitantes Inesperados;dificil;7;162,4537;sim
+8;Visitantes Inesperados;dificil;8;163,3099;sim
+8;Visitantes Inesperados;dificil;9;159,8651;sim
+8;Visitantes Inesperados;dificil;10;160,4365;sim
+8;Visitantes Inesperados;dificil;11;161,6869;sim
+8;Visitantes Inesperados;dificil;12;159,6906;sim
+8;Visitantes Inesperados;dificil;13;159,3753;sim
+8;Visitantes Inesperados;dificil;14;162,0954;sim
+8;Visitantes Inesperados;dificil;15;160,5040;sim
+8;Visitantes Inesperados;dificil;16;161,3610;sim
+8;Visitantes Inesperados;dificil;17;161,2041;sim
+8;Visitantes Inesperados;dificil;18;162,7279;sim
+8;Visitantes Inesperados;dificil;19;162,1851;sim
+8;Visitantes Inesperados;dificil;20;163,1618;sim
+8;Visitantes Inesperados;dificil;21;160,8020;sim
+8;Visitantes Inesperados;dificil;22;159,8393;sim
+8;Visitantes Inesperados;dificil;23;159,5303;sim
+8;Visitantes Inesperados;dificil;24;161,3144;sim
+8;Visitantes Inesperados;dificil;25;169,0249;sim
+8;Visitantes Inesperados;dificil;26;162,9859;sim
+8;Visitantes Inesperados;dificil;27;162,2451;sim
+8;Visitantes Inesperados;dificil;28;162,5394;sim
+8;Visitantes Inesperados;dificil;29;159,1508;sim
+8;Visitantes Inesperados;dificil;30;161,1408;sim
+9;A Barbearia;medio;1;32,1555;sim
+9;A Barbearia;medio;2;34,5305;sim
+9;A Barbearia;medio;3;33,2398;sim
+9;A Barbearia;medio;4;33,3059;sim
+9;A Barbearia;medio;5;32,0203;sim
+9;A Barbearia;medio;6;32,2602;sim
+9;A Barbearia;medio;7;32,2084;sim
+9;A Barbearia;medio;8;32,1302;sim
+9;A Barbearia;medio;9;32,2263;sim
+9;A Barbearia;medio;10;32,0485;sim
+9;A Barbearia;medio;11;31,9140;sim
+9;A Barbearia;medio;12;32,0448;sim
+9;A Barbearia;medio;13;32,0669;sim
+9;A Barbearia;medio;14;32,1892;sim
+9;A Barbearia;medio;15;31,5591;sim
+9;A Barbearia;medio;16;31,5632;sim
+9;A Barbearia;medio;17;31,5427;sim
+9;A Barbearia;medio;18;31,4938;sim
+9;A Barbearia;medio;19;32,1727;sim
+9;A Barbearia;medio;20;31,6592;sim
+9;A Barbearia;medio;21;31,7974;sim
+9;A Barbearia;medio;22;31,4510;sim
+9;A Barbearia;medio;23;31,7224;sim
+9;A Barbearia;medio;24;31,5377;sim
+9;A Barbearia;medio;25;32,5226;sim
+9;A Barbearia;medio;26;32,4989;sim
+9;A Barbearia;medio;27;32,3765;sim
+9;A Barbearia;medio;28;32,1872;sim
+9;A Barbearia;medio;29;32,0940;sim
+9;A Barbearia;medio;30;31,8999;sim
+10;Preparadores;medio;1;997,2938;sim
+10;Preparadores;medio;2;992,0559;sim
+10;Preparadores;medio;3;988,0125;sim
+10;Preparadores;medio;4;990,0175;sim
+10;Preparadores;medio;5;992,5794;sim
+10;Preparadores;medio;6;987,7937;sim
+10;Preparadores;medio;7;995,0149;sim
+10;Preparadores;medio;8;988,4149;sim
+10;Preparadores;medio;9;992,8492;sim
+10;Preparadores;medio;10;992,2227;sim
+10;Preparadores;medio;11;990,1816;sim
+10;Preparadores;medio;12;989,8181;sim
+10;Preparadores;medio;13;988,6840;sim
+10;Preparadores;medio;14;986,6012;sim
+10;Preparadores;medio;15;993,6020;sim
+10;Preparadores;medio;16;989,0109;sim
+10;Preparadores;medio;17;995,1256;sim
+10;Preparadores;medio;18;1004,4243;sim
+10;Preparadores;medio;19;1000,7599;sim
+10;Preparadores;medio;20;1003,0946;sim
+10;Preparadores;medio;21;1029,2505;sim
+10;Preparadores;medio;22;1017,2710;sim
+10;Preparadores;medio;23;1009,5908;sim
+10;Preparadores;medio;24;1032,6483;sim
+10;Preparadores;medio;25;1021,1575;sim
+10;Preparadores;medio;26;1015,9328;sim
+10;Preparadores;medio;27;1088,9038;sim
+10;Preparadores;medio;28;996,3880;sim
+10;Preparadores;medio;29;996,8520;sim
+10;Preparadores;medio;30;992,5847;sim
+11;A Adega;dificil;1;985,5686;sim
+11;A Adega;dificil;2;978,7928;sim
+11;A Adega;dificil;3;976,9083;sim
+11;A Adega;dificil;4;980,5609;sim
+11;A Adega;dificil;5;980,1899;sim
+11;A Adega;dificil;6;1006,9363;sim
+11;A Adega;dificil;7;1018,8536;sim
+11;A Adega;dificil;8;1018,2656;sim
+11;A Adega;dificil;9;1015,8154;sim
+11;A Adega;dificil;10;1022,5548;sim
+11;A Adega;dificil;11;1015,7233;sim
+11;A Adega;dificil;12;1013,9607;sim
+11;A Adega;dificil;13;1013,7701;sim
+11;A Adega;dificil;14;1019,0551;sim
+11;A Adega;dificil;15;1022,0113;sim
+11;A Adega;dificil;16;1016,6735;sim
+11;A Adega;dificil;17;1008,8207;sim
+11;A Adega;dificil;18;1009,5142;sim
+11;A Adega;dificil;19;1020,9803;sim
+11;A Adega;dificil;20;1019,5787;sim
+11;A Adega;dificil;21;998,5835;sim
+11;A Adega;dificil;22;1001,7343;sim
+11;A Adega;dificil;23;1006,4823;sim
+11;A Adega;dificil;24;1015,3112;sim
+11;A Adega;dificil;25;1010,0788;sim
+11;A Adega;dificil;26;1015,6543;sim
+11;A Adega;dificil;27;1037,5026;sim
+11;A Adega;dificil;28;997,2682;sim
+11;A Adega;dificil;29;990,9189;sim
+11;A Adega;dificil;30;978,5711;sim
+12;O Minigolfe;dificil;1;336,7952;sim
+12;O Minigolfe;dificil;2;335,1351;sim
+12;O Minigolfe;dificil;3;337,3552;sim
+12;O Minigolfe;dificil;4;334,5846;sim
+12;O Minigolfe;dificil;5;334,2054;sim
+12;O Minigolfe;dificil;6;336,9229;sim
+12;O Minigolfe;dificil;7;335,2166;sim
+12;O Minigolfe;dificil;8;334,1757;sim
+12;O Minigolfe;dificil;9;338,2699;sim
+12;O Minigolfe;dificil;10;334,7333;sim
+12;O Minigolfe;dificil;11;333,5541;sim
+12;O Minigolfe;dificil;12;336,5456;sim
+12;O Minigolfe;dificil;13;340,1498;sim
+12;O Minigolfe;dificil;14;350,8238;sim
+12;O Minigolfe;dificil;15;351,3574;sim
+12;O Minigolfe;dificil;16;338,0053;sim
+12;O Minigolfe;dificil;17;334,3601;sim
+12;O Minigolfe;dificil;18;338,5014;sim
+12;O Minigolfe;dificil;19;337,6752;sim
+12;O Minigolfe;dificil;20;342,2536;sim
+12;O Minigolfe;dificil;21;354,5273;sim
+12;O Minigolfe;dificil;22;358,2252;sim
+12;O Minigolfe;dificil;23;354,9200;sim
+12;O Minigolfe;dificil;24;353,7660;sim
+12;O Minigolfe;dificil;25;353,3515;sim
+12;O Minigolfe;dificil;26;339,7531;sim
+12;O Minigolfe;dificil;27;335,7694;sim
+12;O Minigolfe;dificil;28;337,5891;sim
+12;O Minigolfe;dificil;29;357,1354;sim
+12;O Minigolfe;dificil;30;342,3273;sim

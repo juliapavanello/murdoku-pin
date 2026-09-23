@@ -1,0 +1,13 @@
+﻿id;nome;dificuldade;tamanho;celulas_total;celulas_livres;suspeitos;comodos;regras_individuais;regras_globais;dominio_inicial_soma;dominio_inicial_media;dominio_inicial_min;dominio_inicial_max;log10_espaco_busca
+1;O Chiqueiro;facil;5x5;25;20;5;3;4;0;46;9,2000;1;20;3,8062
+2;O Clube Do Livro;facil;6x6;36;25;6;3;5;0;65;10,8333;1;25;4,7782
+3;A Floricultura;facil;7x7;49;35;7;3;6;0;73;10,4286;2;35;5,4062
+4;Cozinha do Inferno;medio;8x8;64;44;8;4;7;2;150;18,7500;4;44;8,8722
+5;A Vila da Fronteira;dificil;10x10;100;74;10;6;10;1;237;23,7000;3;74;11,3669
+6;Pintura ao Ar Livre;facil;6x6;36;30;6;3;5;0;73;12,1667;2;30;4,9085
+7;Casamento Branco;medio;9x9;81;63;9;5;8;1;248;27,5556;5;63;11,1248
+8;Visitantes Inesperados;dificil;9x9;81;64;9;6;8;1;132;14,6667;3;64;8,9047
+9;A Barbearia;medio;8x8;64;48;8;5;7;0;133;16,6250;2;48;7,4373
+10;Preparadores;medio;9x9;81;55;9;8;8;0;207;23;3;55;9,6971
+11;A Adega;dificil;9x9;81;52;9;7;8;3;192;21,3333;3;52;10,2118
+12;O Minigolfe;dificil;10x10;100;86;10;5;10;2;307;30,7000;3;86;12,0820

@@ -1,0 +1,13 @@
+﻿id;nome;dificuldade;tamanho;suspeitos;repeticoes;tempo_media_ms;tempo_desvio_ms;tempo_mediana_ms;tempo_min_ms;tempo_max_ms;resolvido;confere_gabarito;jogadas;backtracks;profundidade_maxima;checagens_regras;erro
+1;O Chiqueiro;facil;5x5;5;30;0,1586;0,0813;0,1392;0,0893;0,4666;sim;sim;5;0;5;193;
+2;O Clube Do Livro;facil;6x6;6;30;0,4007;0,0938;0,3425;0,3274;0,5903;sim;sim;7;1;6;349;
+3;A Floricultura;facil;7x7;7;30;1,0739;0,1532;1,0474;0,9245;1,6189;sim;sim;9;2;7;844;
+4;Cozinha do Inferno;medio;8x8;8;30;1296,8651;87,3335;1278,1142;1203,1969;1568,1051;sim;sim;14450;14442;8;191024;
+5;A Vila da Fronteira;dificil;10x10;10;30;1663,1069;27,1237;1656,0788;1630,3492;1721,5328;sim;sim;8989;8979;10;142251;
+6;Pintura ao Ar Livre;facil;6x6;6;30;0,5952;0,0664;0,5717;0,5654;0,8352;sim;sim;10;4;6;507;
+7;Casamento Branco;medio;9x9;9;30;3583,9376;14,5644;3579,3112;3556,3527;3621,8812;sim;sim;27144;27135;9;341094;
+8;Visitantes Inesperados;dificil;9x9;9;30;161,5939;1,8974;161,2593;159,1508;169,0249;sim;sim;717;708;9;23108;
+9;A Barbearia;medio;8x8;8;30;32,1473;0,6324;32,0804;31,4510;34,5305;sim;sim;335;327;8;6099;
+10;Preparadores;medio;9x9;9;30;1001,9379;20,6730;994,3085;986,6012;1088,9038;sim;sim;8533;8524;9;84925;
+11;A Adega;dificil;9x9;9;30;1006,5546;16,0833;1011,9244;976,9083;1037,5026;sim;sim;7792;7783;9;116193;
+12;O Minigolfe;dificil;10x10;10;30;341,5995;8,1550;337,8403;333,5541;358,2252;sim;sim;1189;1179;10;29269;

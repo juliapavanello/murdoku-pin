@@ -1,0 +1,8 @@
+data: 2026-09-23T00:12:22.065Z
+cpu: Intel(R) Core(TM) i7-9700 CPU @ 3.00GHz (8 núcleos lógicos)
+memoria_total_gb: 11.8
+so: Windows_NT 10.0.26100 (x64)
+node: v22.14.0
+repeticoes: 30
+aquecimento: 5
+tempo medido com performance.now() em volta de gameStart, sem WebSocket e sem interface
